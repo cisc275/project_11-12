@@ -142,6 +142,27 @@ public class View extends JFrame{
 					e.printStackTrace();
 				}
 				g.drawImage(g1_backimage,0,0,Color.gray,this);
+				
+				//draws rectangle for bird
+				g.setColor(Color.BLACK);
+				g.fillRect(10, 10, 20, 20);
+				
+				//draws ex first level fish				
+				for(int x=20; x<frameWidth; x+=200)
+				{
+					int[] xPoints = {x, x, x+20};
+					int[] yPoints = {300, 350, 325};
+					g.setColor(Color.YELLOW);
+					g.fillPolygon(xPoints, yPoints, 3);
+				}
+				
+				for(int x2=40; x2<frameWidth; x2+=200)
+				{
+					g.setColor(Color.YELLOW);
+					g.fillOval(x2, 310, 50, 30);
+				}
+				
+				Osprey o = new Osprey()
 			}
 			//update the view of the game here
 		}
