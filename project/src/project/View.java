@@ -138,7 +138,6 @@ public class View extends JFrame{
 				g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
 				//draws rectangle for bird
-				g.drawRect(10, 10, 20, 20);
 				g.setColor(Color.BLACK);
 				g.fillRect(10, 10, 20, 20);
 				
@@ -147,14 +146,12 @@ public class View extends JFrame{
 				{
 					int[] xPoints = {x, x, x+20};
 					int[] yPoints = {300, 350, 325};
-					g.drawPolygon(xPoints, yPoints, 3);
 					g.setColor(Color.YELLOW);
 					g.fillPolygon(xPoints, yPoints, 3);
 				}
 				
 				for(int x2=40; x2<frameWidth; x2+=200)
 				{
-					g.drawOval(x2, 310, 50, 30);
 					g.setColor(Color.YELLOW);
 					g.fillOval(x2, 310, 50, 30);
 				}
