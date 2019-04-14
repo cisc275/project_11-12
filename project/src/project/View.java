@@ -136,6 +136,23 @@ public class View extends JFrame{
 					e.printStackTrace();
 				}
 				g.drawImage(g1_backimage,0,0,Color.gray,this);
+				
+				//draws rectangle for bird
+				g.drawRect(10, 10, 20, 20);
+				g.setColor(Color.BLACK);
+				g.fillRect(10, 10, 20, 20);
+				
+				//draws a fish
+				int[] xPoints = {20, 20, 40};
+				int[] yPoints = {300, 350, 325};
+				g.drawPolygon(xPoints, yPoints, 3);
+				g.setColor(Color.cyan);
+				g.fillPolygon(xPoints, yPoints, 3);
+				g.drawOval(40, 310, 50, 30);
+				g.setColor(Color.cyan);
+				g.fillOval(40, 310, 50, 30);
+				
+				
 			}
 			//update the view of the game here
 		}
