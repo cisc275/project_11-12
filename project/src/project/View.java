@@ -3,8 +3,10 @@ package project;
 import java.util.*;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,7 +18,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class View extends JFrame{
-	DrawPanel menuPanel;
+	
+	static DrawPanel menuPanel, game1panel, game2panel;
+	static String currentpanel;
+	
 	int frameCount;
 	int picNum;
 	final static int frameWidth = 800;
@@ -25,6 +30,12 @@ public class View extends JFrame{
 	int imageWidth;
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu, replay, instruct;
+	
+	int drawDelay = 30;
+	Action drawAction;
+	
+	Image g2_backimage;
+	Image g1_backimage;
 	
 	public View() {
 		//add a drawpanel
@@ -48,43 +59,75 @@ public class View extends JFrame{
 		menuPanel.add(instruct);
 		
 		add(menuPanel);
+		currentpanel = "m";
 		menuPanel.setFocusable(true); //allows for button presses
 		menuPanel.requestFocus();
 		setVisible(true);
 		
 	}
 	public void game1Panel() {
+		
 		this.getContentPane().remove(menuPanel); //remove current panel
 		DrawPanel game1panel = new DrawPanel();
 		game1panel.setLayout(null);
 		game1panel.setBackground(Color.blue);
 		this.getContentPane().add(game1panel);
+		currentpanel = "g1";
 		setVisible(true);
+		
+		
 	}
 	public void game2Panel() {
+		
 		this.getContentPane().remove(menuPanel); //remove current panel
 		DrawPanel game2panel = new DrawPanel();
 		game2panel.setLayout(null);
 		game2panel.setBackground(Color.green);
 		this.getContentPane().add(game2panel);
+		currentpanel = "g2";
 		setVisible(true);
+		
 	}
 	public void instructPanel() {
+		
 		this.getContentPane().remove(menuPanel); //remove current panel
 		DrawPanel infopanel = new DrawPanel();
 		infopanel.setLayout(null);
 		infopanel.setBackground(Color.gray);
 		this.getContentPane().add(infopanel);
+		currentpanel = "info";
 		setVisible(true);
+		
 	}
 	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
 	}
-	
+	public static String getContent() {
+		return currentpanel;
+	}
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			if (View.getContent() == "g2") {
+				try {
+					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(g2_backimage, 0,0,Color.gray,this);
+				g.drawRect(50, 50, 10, 10);
+				g.setColor(Color.ORANGE);
+				g.fillRect(50, 50, 10, 10);
+			}
+			if (View.getContent() == "g1") {
+				try {
+					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(g1_backimage,0,0,Color.gray,this);
+			}
 			//update the view of the game here
 		}
 	}

@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,9 +15,9 @@ public class Controller implements ActionListener, KeyListener {
 	Timer t;
 	
 	Controller(){
-		model = new Model();
 		view = new View();
 		view.addControllertoButton(this);
+		model = new Model();
 	}
 	
 	@Override
@@ -33,9 +34,20 @@ public class Controller implements ActionListener, KeyListener {
 			System.out.println("instructions button pressed");
 			view.instructPanel();
 		}
-		//System.out.println("action performed");
-		
 	}
+	
+	
+	public void start(){
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				Timer t = new Timer(view.drawDelay, view.drawAction); //call drawAction every (drawDelay) msecs
+				t.start();
+				}
+		});
+			
+	}
+	
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		System.out.println("key pressed");

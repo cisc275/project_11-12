@@ -2,7 +2,7 @@ package project;
 
 import java.awt.image.BufferedImage;
 
-public class ClapperRail {
+public class ClapperRail implements Player{
 	
 	int xloc;
 	int yloc;
