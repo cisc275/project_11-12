@@ -29,19 +29,16 @@ public class View extends JFrame{
 	final static int frameHeight = 600;
 	int imageHeight;
 	int imageWidth;
-	int x = 0;
-	int y = 0;
-	int velx = 0;
-	int vely = 0;
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu, replay, instruct;
-	
 	
 	int drawDelay = 30;
 	Action drawAction;
 	
 	Image g2_backimage;
 	Image g1_backimage;
+	
+	
 	
 	public View() {
 		//add a drawpanel
@@ -70,6 +67,17 @@ public class View extends JFrame{
 		menuPanel.requestFocus();
 		setVisible(true);
 		
+		drawAction = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				if(View.getContent() == "g2") {
+					repaint();
+					//System.out.println("action");
+					Model.updateGame();
+			}
+		}};
+		
+		
+	
 	}
 	public void game1Panel() {
 		
@@ -77,6 +85,8 @@ public class View extends JFrame{
 		DrawPanel game1panel = new DrawPanel();
 		game1panel.setLayout(null);
 		game1panel.setBackground(Color.blue);
+		game1panel.setFocusable(true); //allows for button presses
+		game1panel.requestFocus();
 		this.getContentPane().add(game1panel);
 		currentpanel = "g1";
 		setVisible(true);
@@ -121,20 +131,26 @@ public class View extends JFrame{
 		return currentpanel;
 	}
 	private class DrawPanel extends JPanel{
-	
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (View.getContent() == "g2") {
-//				try {
-//					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-//				} catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.setColor(Color.ORANGE);
-				g.fillRect(x, y, 50, 30);
+				try {
+					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+				//add background
+				g.drawImage(g2_backimage, 0,0,Color.gray,this);
+				//black square for clapper rail
+				g.setColor(Color.BLACK);
+				g.fillRect(Model.cr.xloc, Model.cr.yloc, 50, 50);
+				//g.fillRect(400, 400, 50, 50);
+				
+				
 			}
+			
+			
+			
 			if (View.getContent() == "g1") {
 				try {
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
@@ -144,6 +160,7 @@ public class View extends JFrame{
 				g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
 				//draws rectangle for bird
+				g.drawRect(10, 10, 20, 20);
 				g.setColor(Color.BLACK);
 				g.fillRect(10, 10, 20, 20);
 				
@@ -152,15 +169,19 @@ public class View extends JFrame{
 				{
 					int[] xPoints = {x, x, x+20};
 					int[] yPoints = {300, 350, 325};
+					g.drawPolygon(xPoints, yPoints, 3);
 					g.setColor(Color.YELLOW);
 					g.fillPolygon(xPoints, yPoints, 3);
 				}
 				
 				for(int x2=40; x2<frameWidth; x2+=200)
 				{
+					g.drawOval(x2, 310, 50, 30);
 					g.setColor(Color.YELLOW);
 					g.fillOval(x2, 310, 50, 30);
 				}
+				
+				
 			}
 			//update the view of the game here
 		}
@@ -181,5 +202,7 @@ public class View extends JFrame{
 		//menu.addActionListener(c);
 		//replay.addActionListener(c);
 	}
+	
+	
 	
 }

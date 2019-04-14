@@ -3,6 +3,9 @@ import java.util.*;
 public class Scoring {
 	int totalScore;
 	ArrayList<ScoringObject> ScoringTable = new ArrayList<>();
+	
+	
+	
 	/**
 	 * Adds the given ScoringObject to the ScoringTable and returns true if it was added and false if it wasn't
 	 * 
