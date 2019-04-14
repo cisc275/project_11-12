@@ -15,6 +15,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class View extends JFrame{
@@ -96,6 +97,14 @@ public class View extends JFrame{
 		infopanel.setBackground(Color.gray);
 		this.getContentPane().add(infopanel);
 		currentpanel = "info";
+		JLabel label1 = new JLabel("Osprey Game: For this game you have to eat fish to build up your energy to migrate.");
+		JLabel label2 = new JLabel("Clapper Rail Game: For this game you have to feed on insects and avoid garbage and the fox");
+		JFrame window = new JFrame("Instructions");
+		window.setVisible(true);
+		window.setSize(800,600);
+		label1.setBounds(0, 0, 500, 50);
+		window.add(label1);
+		window.add(label2);
 		setVisible(true);
 		
 	}
