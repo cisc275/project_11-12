@@ -53,8 +53,30 @@ public class View extends JFrame{
 		setVisible(true);
 		
 	}
-	
-	
+	public void game1Panel() {
+		this.getContentPane().remove(menuPanel); //remove current panel
+		DrawPanel game1panel = new DrawPanel();
+		game1panel.setLayout(null);
+		game1panel.setBackground(Color.blue);
+		this.getContentPane().add(game1panel);
+		setVisible(true);
+	}
+	public void game2Panel() {
+		this.getContentPane().remove(menuPanel); //remove current panel
+		DrawPanel game2panel = new DrawPanel();
+		game2panel.setLayout(null);
+		game2panel.setBackground(Color.green);
+		this.getContentPane().add(game2panel);
+		setVisible(true);
+	}
+	public void instructPanel() {
+		this.getContentPane().remove(menuPanel); //remove current panel
+		DrawPanel infopanel = new DrawPanel();
+		infopanel.setLayout(null);
+		infopanel.setBackground(Color.gray);
+		this.getContentPane().add(infopanel);
+		setVisible(true);
+	}
 	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
@@ -74,13 +96,13 @@ public class View extends JFrame{
 	 * @author Brendan Azueta
 	 */
 	public void addControllertoButton(Controller c) {
-		exit.addActionListener(c);
+		instruct.addActionListener(c);
 		game1.addActionListener(c);
 		game2.addActionListener(c);
-		ans1.addActionListener(c);
-		ans2.addActionListener(c);
-		menu.addActionListener(c);
-		replay.addActionListener(c);
+		//ans1.addActionListener(c);
+		//ans2.addActionListener(c);
+		//menu.addActionListener(c);
+		//replay.addActionListener(c);
 	}
 	
 }
