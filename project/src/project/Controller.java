@@ -17,7 +17,9 @@ public class Controller implements ActionListener, KeyListener {
 	Controller(){
 		view = new View();
 		view.addControllertoButton(this);
-		view.addControllerToKeys(this);
+		view.addKeyListener(this);
+		view.setFocusable(true);
+		view.setFocusTraversalKeysEnabled(false);
 		model = new Model();
 	}
 	
@@ -43,9 +45,9 @@ public class Controller implements ActionListener, KeyListener {
 			public void run() {
 				Timer t = new Timer(view.drawDelay, view.drawAction); //call drawAction every (drawDelay) msecs
 				t.start();
-				}
-		});
-			
+				
+				} 
+		});	
 	}
 	
 	
@@ -58,7 +60,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		System.out.println("up");
 	        		break;
 	        	case KeyEvent.VK_DOWN:
-	        		Model.cr.yIncr = -100;
+	        		Model.cr.yIncr = 100;
 	        		System.out.println("down");
 	        		break;
 	        	case KeyEvent.VK_LEFT:
@@ -73,19 +75,19 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		System.out.println("key released");
+		//System.out.println("key released");
 		
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		System.out.println("key typed");
+		//System.out.println("key typed");
 		
 	}
 	
 	
 	public static void main(String[] args) {
 		Controller c = new Controller();
-		
+		c.start();
 		System.out.println("main called.");
 	}
 }

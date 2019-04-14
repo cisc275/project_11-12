@@ -69,14 +69,16 @@ public class View extends JFrame{
 		
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				menuPanel.repaint();
-				Model.updateGame();
+				if(View.getContent() == "g2") {
+					repaint();
+					//System.out.println("action");
+					Model.updateGame();
 			}
-		};
+		}};
 		
 		
-	}
 	
+	}
 	public void game1Panel() {
 		
 		this.getContentPane().remove(menuPanel); //remove current panel
@@ -201,13 +203,6 @@ public class View extends JFrame{
 		//replay.addActionListener(c);
 	}
 	
-	public void addControllerToKeys(Controller c) {
-		if (this.getContent() == "g2") {
-			game2panel.addKeyListener(c);
-		}
-		//menuPanel.addKeyListener(c);
-		//game1panel.addKeyListener(c);
-		
-	}
+	
 	
 }

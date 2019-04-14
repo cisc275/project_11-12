@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class Model {
 	static ClapperRail cr;
-	Osprey o;
+	static Osprey o;
 	ScoringObject[] s;
 	Scoring score;
 	
