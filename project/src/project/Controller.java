@@ -17,6 +17,7 @@ public class Controller implements ActionListener, KeyListener {
 	Controller(){
 		view = new View();
 		view.addControllertoButton(this);
+		view.addControllerToKeys(this);
 		model = new Model();
 	}
 	
@@ -49,8 +50,25 @@ public class Controller implements ActionListener, KeyListener {
 	
 	
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		System.out.println("key pressed");
+	public void keyPressed(KeyEvent e) {
+		
+			int k = e.getKeyCode();
+			switch( k ) { 
+	        	case KeyEvent.VK_UP:
+	        		System.out.println("up");
+	        		break;
+	        	case KeyEvent.VK_DOWN:
+	        		Model.cr.yIncr = -100;
+	        		System.out.println("down");
+	        		break;
+	        	case KeyEvent.VK_LEFT:
+	        		System.out.println("left");
+	        		break;
+	        	case KeyEvent.VK_RIGHT :
+	        		System.out.println("right");
+	        		break;
+	     
+		}
 		
 	}
 	@Override

@@ -34,7 +34,9 @@ public class ClapperRail implements Player{
 	public void move() {
 		//System.out.println("clapper rail move method called.");
 	
-		this.xloc += this.xIncr;
-		this.yloc += this.yIncr;
+		xloc += xIncr;
+		xIncr = 0;
+		yloc += yIncr;
+		yIncr = 0;
 	}
 }

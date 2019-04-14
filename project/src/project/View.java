@@ -38,6 +38,8 @@ public class View extends JFrame{
 	Image g2_backimage;
 	Image g1_backimage;
 	
+	
+	
 	public View() {
 		//add a drawpanel
 		menuPanel = new DrawPanel();
@@ -65,13 +67,24 @@ public class View extends JFrame{
 		menuPanel.requestFocus();
 		setVisible(true);
 		
+		drawAction = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				menuPanel.repaint();
+				Model.updateGame();
+			}
+		};
+		
+		
 	}
+	
 	public void game1Panel() {
 		
 		this.getContentPane().remove(menuPanel); //remove current panel
 		DrawPanel game1panel = new DrawPanel();
 		game1panel.setLayout(null);
 		game1panel.setBackground(Color.blue);
+		game1panel.setFocusable(true); //allows for button presses
+		game1panel.requestFocus();
 		this.getContentPane().add(game1panel);
 		currentpanel = "g1";
 		setVisible(true);
@@ -124,11 +137,18 @@ public class View extends JFrame{
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
+				//add background
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawRect(50, 50, 10, 10);
-				g.setColor(Color.ORANGE);
-				g.fillRect(50, 50, 10, 10);
+				//black square for clapper rail
+				g.setColor(Color.BLACK);
+				g.fillRect(Model.cr.xloc, Model.cr.yloc, 50, 50);
+				//g.fillRect(400, 400, 50, 50);
+				
+				
 			}
+			
+			
+			
 			if (View.getContent() == "g1") {
 				try {
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
@@ -179,6 +199,15 @@ public class View extends JFrame{
 		//ans2.addActionListener(c);
 		//menu.addActionListener(c);
 		//replay.addActionListener(c);
+	}
+	
+	public void addControllerToKeys(Controller c) {
+		if (this.getContent() == "g2") {
+			game2panel.addKeyListener(c);
+		}
+		//menuPanel.addKeyListener(c);
+		//game1panel.addKeyListener(c);
+		
 	}
 	
 }
