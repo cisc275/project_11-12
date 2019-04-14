@@ -161,8 +161,6 @@ public class View extends JFrame{
 					g.setColor(Color.YELLOW);
 					g.fillOval(x2, 310, 50, 30);
 				}
-				
-				Osprey o = new Osprey()
 			}
 			//update the view of the game here
 		}
