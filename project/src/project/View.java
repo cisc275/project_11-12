@@ -29,8 +29,13 @@ public class View extends JFrame{
 	final static int frameHeight = 600;
 	int imageHeight;
 	int imageWidth;
+	int x = 0;
+	int y = 0;
+	int velx = 0;
+	int vely = 0;
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu, replay, instruct;
+	
 	
 	int drawDelay = 30;
 	Action drawAction;
@@ -116,18 +121,19 @@ public class View extends JFrame{
 		return currentpanel;
 	}
 	private class DrawPanel extends JPanel{
+	
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (View.getContent() == "g2") {
-				try {
-					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawRect(50, 50, 10, 10);
+//				try {
+//					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+//				} catch(IOException e) {
+//					e.printStackTrace();
+//				}
+//				
+//				g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				g.setColor(Color.ORANGE);
-				g.fillRect(50, 50, 10, 10);
+				g.fillRect(x, y, 50, 30);
 			}
 			if (View.getContent() == "g1") {
 				try {
@@ -136,27 +142,6 @@ public class View extends JFrame{
 					e.printStackTrace();
 				}
 				g.drawImage(g1_backimage,0,0,Color.gray,this);
-				
-				//draws rectangle for bird
-				g.setColor(Color.BLACK);
-				g.fillRect(10, 10, 20, 20);
-				
-				//draws ex first level fish				
-				for(int x=20; x<frameWidth; x+=200)
-				{
-					int[] xPoints = {x, x, x+20};
-					int[] yPoints = {300, 350, 325};
-					g.setColor(Color.YELLOW);
-					g.fillPolygon(xPoints, yPoints, 3);
-				}
-				
-				for(int x2=40; x2<frameWidth; x2+=200)
-				{
-					g.setColor(Color.YELLOW);
-					g.fillOval(x2, 310, 50, 30);
-				}
-				
-				
 			}
 			//update the view of the game here
 		}

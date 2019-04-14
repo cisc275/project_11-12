@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Event;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +15,15 @@ public class Controller implements ActionListener, KeyListener {
 	View view;
 	Timer t;
 	
+	
 	Controller(){
 		view = new View();
 		view.addControllertoButton(this);
 		model = new Model();
+		view.addKeyListener(this);
+		view.setFocusable(true);
+		view.setFocusTraversalKeysEnabled(false);
+		
 	}
 	
 	@Override
@@ -29,6 +35,8 @@ public class Controller implements ActionListener, KeyListener {
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
 			view.game2Panel();
+			view.x = view.x + view.velx;
+			view.y = view.y + view.vely;
 		}
 		else if (e.getSource() == view.instruct) {
 			System.out.println("instructions button pressed");
@@ -42,7 +50,8 @@ public class Controller implements ActionListener, KeyListener {
 			public void run() {
 				Timer t = new Timer(view.drawDelay, view.drawAction); //call drawAction every (drawDelay) msecs
 				t.start();
-				}
+				
+				} 
 		});
 			
 	}
@@ -50,7 +59,35 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		System.out.println("key pressed");
+		int c = arg0.getKeyCode();
+		
+			  if (c==KeyEvent.VK_UP)
+			    {
+				 System.out.println("UP");
+				  view.velx = 0;
+			        view.vely = -1;
+			        
+			    }
+			    if (c==KeyEvent.VK_DOWN)
+			    {
+			    	System.out.println("DOWN");
+			    	view.velx = 0;
+			        view.vely = 1;
+			    }
+			    if (c==KeyEvent.VK_LEFT)
+			    {
+			    	System.out.println("LEFT");
+			        view.velx = -1;
+			        view.vely = 0;
+			    }
+			    if (c==KeyEvent.VK_RIGHT)
+			    {
+			    	System.out.println("RIGHT");
+			    	view.velx = 1;
+			        view.vely = 0;
+          }
+			    view.repaint();
+			    
 		
 	}
 	@Override
