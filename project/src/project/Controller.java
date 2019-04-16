@@ -37,6 +37,7 @@ public class Controller implements ActionListener, KeyListener {
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
 			view.game2Panel();
+			model.runGameTwo();
 		}
 		else if (e.getSource() == view.instruct) {
 			System.out.println("instructions button pressed");
@@ -64,7 +65,7 @@ public class Controller implements ActionListener, KeyListener {
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
 	        		if (upflag) {
-	        			Model.cr.yIncr = -120;
+	        			model.p.setyIncr(-120);
 	        		}
 	        		upflag = false;
 	        		downflag = true;
@@ -73,7 +74,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (downflag) {
-	        			Model.cr.yIncr = 120;
+	        			model.p.setyIncr(120);
 	        		}
 	        		downflag = false;
 	        		upflag = true;
@@ -82,14 +83,14 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(Model.cr.xloc - 200 < 0)){
-	        			Model.cr.xIncr = -150;
+	        		if (!(model.p.getxLoc() - 200 < 0)){
+	        			model.p.setxIncr(-150);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(Model.cr.xloc + 300 > View.frameWidth)) {
-	        			Model.cr.xIncr = 150;
+	        		if (!(model.p.getxLoc() + 300 > View.frameWidth)) {
+	        			model.p.setxIncr(150);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:

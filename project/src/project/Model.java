@@ -8,28 +8,13 @@ import java.util.Random;
 public class Model {
 	
 	Player p;
-	static ClapperRail cr;
-	static Osprey o;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
-	static int count;
-	public static Point[] g2locations = new Point[8];
-	public static boolean[] g2occupancy = new boolean[8];
+	int count;
+	Point[] g2locations = new Point[8];
+	boolean[] g2occupancy = new boolean[8];
 	
 	public Model() {
-		cr = new ClapperRail(140,250,0,0,50,50);
-		
-		
-		
-		for (int i = 1; i < 9; i++) {
-			g2occupancy[i-1] = false;
-			if (i < 5) {
-				g2locations[i-1] = new Point(140*i + 10, 300);
-			}
-			else {
-				g2locations[i-1] = new Point(140*(i-4) + 10, 450);
-			}
-		}
 		
 	}
 	
@@ -43,23 +28,19 @@ public class Model {
 			this.updateGameOne();
 		}
 		if (View.getContent() == "g2") {
-			count ++;
-			cr.move();
-			if (count >65) {
-				View.randflag = true;
-				count = 0;
+			this.updateGameTwo();
+			}
 		}
-		}
-	}
 	
-	/*public void updateGameTwo() {
+	
+	public void updateGameTwo() {
 		count ++;
 		p.move();
-		if (count >65) {
+		if (count > 65) {
 			View.randflag = true;
 			count = 0;
 		}
-	}*/
+	}
 	public void updateGameOne() {
 		if(scoringObjects.isEmpty()) {
 			this.createGameOneFish(1);
@@ -97,12 +78,23 @@ public class Model {
 		p = new Osprey((View.frameWidth / 2) - 100,100,0,0,100,35);
 		
 	}
-	/*
+	
 	public void runGameTwo() {
 		System.out.println("create clapper rail");
 		p = new ClapperRail(140,250,0,0,50,50);
+		for (int i = 1; i < 9; i++) {
+			g2occupancy[i-1] = false;
+			if (i < 5) {
+				g2locations[i-1] = new Point(140*i + 10, 300);
+			}
+			else {
+				g2locations[i-1] = new Point(140*(i-4) + 10, 450);
+			}
+		}
+		
 	}
-	*/
+	
+	
 	public void createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class View extends JFrame{
 	Model model;
-	static DrawPanel menuPanel, game1panel, game2panel;
+	DrawPanel menuPanel, game1panel, game2panel;
 	static String currentpanel;
 	
 	int frameCount;
@@ -37,7 +37,8 @@ public class View extends JFrame{
 	Image g2_backimage;
 	Image g1_backimage;
 	
-	static int rand;
+	Random r = new Random();
+	int rand;
 	static boolean randflag = true;
 	
 	
@@ -70,7 +71,7 @@ public class View extends JFrame{
 		
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				if(View.getContent() == "g2" || View.getContent() == "g1") {
+				if(getContent() == "g2" || getContent() == "g1") {
 					repaint();
 					//System.out.println("action");
 					model.updateGame();
@@ -136,7 +137,7 @@ public class View extends JFrame{
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if (View.getContent() == "g2") {
+			if (getContent() == "g2") {
 				try {
 					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 				} catch(IOException e) {
@@ -146,20 +147,19 @@ public class View extends JFrame{
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				//black square for clapper rail
 				g.setColor(Color.BLACK);
-				g.fillRect(model.cr.xloc,model.cr.yloc, 50,50);
+				g.fillRect(model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight());
 				
-				Random r = new Random();
 				g.setColor(Color.RED);
 				if (randflag) {
 					rand = r.nextInt(8);
 					randflag = false;
 				}
-				if (Model.count <33) {
-					g.fillRect(Model.g2locations[rand].x, Model.g2locations[rand].y, 30, 30);
+				if (model.count < 33) {
+					g.fillRect(model.g2locations[rand].x, model.g2locations[rand].y, 30, 30);
 				}	
 			}
 			
-			if (View.getContent() == "g1") {
+			if (getContent() == "g1") {
 					try {
 						g1_backimage = ImageIO.read(new File("images/g1_background.png"));
 					} catch(IOException e) {
@@ -176,9 +176,6 @@ public class View extends JFrame{
 					}
 					
 				}
-				
-			
-			//update the view of the game here
 		}
 	}
 	
