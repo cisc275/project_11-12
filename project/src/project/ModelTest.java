@@ -91,8 +91,6 @@ public class ModelTest {
 
 		assertEquals(realx, so.getXloc());
 		assertEquals(realy, so.getYloc());
-		System.out.println(realxIncr);
-		System.out.println(so.getxIncr());
 		assertEquals(realxIncr, so.getxIncr());
 		assertEquals(realyIncr, so.getyIncr());
 		assertEquals(realpointValue, so.getPointValue());
