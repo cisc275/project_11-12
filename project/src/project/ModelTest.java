@@ -5,6 +5,9 @@ package project;
 
 import static org.junit.Assert.*;
 
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
 import org.junit.Test;
 
 /**
@@ -37,8 +40,6 @@ public class ModelTest {
 		
 		assertEquals(actualx, cr.xloc);
 		assertEquals(actualy, cr.yloc);
-		System.out.println(actualxIncr);
-		System.out.println(cr.xIncr);
 		assertEquals(actualxIncr, cr.xIncr);
 		assertEquals(actualyIncr, cr.yIncr);
 		assertEquals(actualimagewid, cr.imageWidth);
@@ -49,16 +50,98 @@ public class ModelTest {
 	@Test
 	public void modelTest() {
 		Model m = new Model();
-		View v = new View();
 		
 		
 		assertNotNull(m.scoringObjects);
 		assertNotNull(m.g2locations);
 		assertNotNull(m.g2occupancy);
 		
+		m.runGameOne();
+		assertNotNull(m.p);
+		
 		m.updateGame();
+		m.updateGameOne();
+		m.updateGameOne();
+		
+		m.runGameTwo();
+		assertNotNull(m.p);
+		
 	
 		
+	}
+	
+	@Test
+	public void ospreyTest() {
+		Osprey o = new Osprey(0,0,2,2,100,100);
+		assertNotNull(o);
+		
+		//test "setters"
+		o.setxLoc(10);
+		o.setyLoc(900);
+		o.setxIncr(5);
+		o.setyIncr(-5);
+		
+		//test move()
+		o.move();
+		
+		//test "getters"
+		int actualx = o.getxLoc();
+		int actualy = o.getyLoc();
+		int actualxIncr = o.getxIncr();
+		int actualyIncr = o.getyIncr();
+		int actualimagewid = o.getimageWidth();
+		int actualimagehgt = o.getimageHeight();
+		
+		assertEquals(actualx, o.xloc);
+		assertEquals(actualy, o.yloc);
+		assertEquals(actualxIncr, o.xIncr);
+		assertEquals(actualyIncr, o.yIncr);
+		assertEquals(actualimagewid, o.imageWidth);
+		assertEquals(actualimagehgt, o.imageHeight);
+	}
+	
+	@Test
+	public void questionTest() {
+		Question q = new Question();
+		assertNotNull(q);
+	}
+	
+	@Test
+	public void controllerTest() {
+		Controller c = new Controller();
+		assertNotNull(c);
+		assertEquals(c.upflag, false);
+		assertEquals(c.downflag, true);
+		
+		c.main(null);
+		c.keyReleased(null);
+		c.keyTyped(null);
+			
+	}
+	
+	@Test
+	public void scoringTest() {
+		Scoring s = new Scoring();
+		assertNotNull(s);
+		assertNotNull(s.ScoringTable);
+		
+		ScoringObject sc = new ScoringObject(0, 0, 10, 10, 1, "egg", 100, 100);
+		s.updateScore(sc);
+		
+		int actual = s.amountContained("egg");
+		assertEquals(1,actual);
+		
+	}
+	
+	@Test
+	public void viewTest() {
+		View v = new View();
+		BufferedImage bi = v.createBufferedImage();
+		assertNotNull(bi);
+		
+		v.game1Panel();
+		v.game2Panel();
+		v.instructPanel();
 	}
 	
 	@Test
@@ -91,16 +174,14 @@ public class ModelTest {
 
 		assertEquals(realx, so.getXloc());
 		assertEquals(realy, so.getYloc());
+		System.out.println(realxIncr);
+		System.out.println(so.getxIncr());
 		assertEquals(realxIncr, so.getxIncr());
 		assertEquals(realyIncr, so.getyIncr());
 		assertEquals(realpointValue, so.getPointValue());
 		assertEquals(realID, so.getID());
 		assertEquals(realimageW, so.getImageWidth());
 		assertEquals(realimageH, so.getImageHeight());
-
-		
-		
-	
 	}
 
 }
