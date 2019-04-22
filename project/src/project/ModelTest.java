@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import org.junit.Test;
 
+
 public class ModelTest {
 
 	@Test
@@ -46,6 +47,8 @@ public class ModelTest {
 	@Test
 	public void modelTest() {
 		Model m = new Model();
+		//need view for switching games to test
+		View v = new View();
 		
 		
 		assertNotNull(m.scoringObjects);
@@ -55,15 +58,23 @@ public class ModelTest {
 		m.runGameOne();
 		assertNotNull(m.p);
 		
-		m.updateGame();
-		m.updateGameOne();
-		m.updateGameOne();
+		//update game1 enough times to test fish objects
+		for (int i = 0; i < 400; i++) {
+			m.updateGameOne();
+		}
+		
 		
 		m.runGameTwo();
 		assertNotNull(m.p);
-		
-	
-		
+		//update game2 enough times to test trash/food objects
+		for (int i = 0; i < 100; i++) {
+			m.updateGameTwo();
+		}
+		//testing updateGame() for each game
+		v.game1Panel();
+		m.updateGame();
+		v.game2Panel();
+		m.updateGame();	
 	}
 	
 	@Test
@@ -168,14 +179,16 @@ public class ModelTest {
 		int realimageW = so.getImageWidth();
 		int realimageH = so.getImageHeight();
 
-		assertEquals(realx, so.xloc);
-		assertEquals(realy, so.yloc);
-		assertEquals(realxIncr, so.xIncr);
-		assertEquals(realyIncr, so.yIncr);
-		assertEquals(realpointValue, so.pointValue);
-		assertEquals(realID, so.ID);
-		assertEquals(realimageW, so.imageWidth);
-		assertEquals(realimageH, so.imageHeight);
+		assertEquals(realx, so.getXloc());
+		assertEquals(realy, so.getYloc());
+		System.out.println(realxIncr);
+		System.out.println(so.getxIncr());
+		assertEquals(realxIncr, so.getxIncr());
+		assertEquals(realyIncr, so.getyIncr());
+		assertEquals(realpointValue, so.getPointValue());
+		assertEquals(realID, so.getID());
+		assertEquals(realimageW, so.getImageWidth());
+		assertEquals(realimageH, so.getImageHeight());
 	}
 	
 	@Test
