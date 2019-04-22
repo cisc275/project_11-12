@@ -116,6 +116,6 @@ public class Controller implements ActionListener, KeyListener {
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();
-		System.out.println("main called.");
+		//System.out.println("main called.");
 	}
 }

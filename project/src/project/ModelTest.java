@@ -10,7 +10,10 @@ import java.awt.image.BufferedImage;
 
 import org.junit.Test;
 
-
+/**
+ * @author Anna Bortle
+ *
+ */
 public class ModelTest {
 
 	@Test

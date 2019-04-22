@@ -20,13 +20,6 @@ public class ClapperRail implements Player{
 		this.imageHeight = iH;
 	}
 	
-	public int getxloc(){
-		return this.xloc;
-	}
-	
-	public int getyloc(){
-		return this.yloc;
-	}
 	
 	/**
 	 * updates x location and y location for clapper rail object
@@ -58,7 +51,7 @@ public class ClapperRail implements Player{
 	@Override
 	public int getxIncr() {
 		// TODO Auto-generated method stub
-		return this.yIncr;
+		return this.xIncr;
 	}
 
 	@Override

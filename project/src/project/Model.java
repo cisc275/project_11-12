@@ -14,9 +14,6 @@ public class Model {
 	Point[] g2locations = new Point[8];
 	boolean[] g2occupancy = new boolean[8];
 	
-	public Model() {
-		
-	}
 	
 	/**
 	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' move() methods
@@ -74,13 +71,13 @@ public class Model {
 		}
 	}
 	public void runGameOne() {
-		System.out.println("created osprey");
+		//System.out.println("created osprey");
 		p = new Osprey((View.frameWidth / 2) - 100,100,0,0,100,35);
 		
 	}
 	
 	public void runGameTwo() {
-		System.out.println("create clapper rail");
+		//System.out.println("create clapper rail");
 		p = new ClapperRail(140,250,0,0,50,50);
 		for (int i = 1; i < 9; i++) {
 			g2occupancy[i-1] = false;
@@ -90,26 +87,18 @@ public class Model {
 			else {
 				g2locations[i-1] = new Point(140*(i-4) + 10, 450);
 			}
-		}
-		
+		}		
 	}
-	
 	
 	public void createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 275, -5, 0, 1, "Fish1", 50, 50));
-
-			
-		
 		} if(fishLevel == 2) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 375, -4, 0, 2, "Fish2", 50, 50));
 		} if(fishLevel == 3) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 475, -3, 0, 3, "Fish3", 50, 50));
 		}
-	}
-
-
-	
-
+	}	
 }
+
