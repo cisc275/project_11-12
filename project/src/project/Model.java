@@ -54,6 +54,7 @@ public class Model {
 			}
 		}
 	
+
 	
 	public void updateGameTwo() {
 		count ++;
@@ -75,7 +76,8 @@ public class Model {
 				if(this.checkIfFishIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
 					scoringObjects.remove(i);
 					this.createGameOneFish(1);
-				} else if(this.checkIfFishIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
+				} 
+				else if(this.checkIfFishIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
 					scoringObjects.remove(i);
 					this.createGameOneFish(2);
 				}
@@ -115,15 +117,16 @@ public class Model {
 			}
 		}		
 	}
+
 	
 	public void createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel1, f1speed, 0, 1, "Fish1", 50, 50));
 		} if(fishLevel == 2) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel2, f2speed, 0, 2, "Fish2", 120, 70));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel2, f2speed, 0, 2, "Fish2", 75, 50));
 		} if(fishLevel == 3) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel3, f3speed, 0, 3, "Fish3", 50, 50));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel3, f3speed, 0, 3, "Fish3", 100, 50));
 		}
 	}	
 }

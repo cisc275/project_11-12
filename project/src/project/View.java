@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -54,40 +55,45 @@ public class View extends JFrame{
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-	
-		//add a drawpanel
-		menuPanel = new DrawPanel();
-		menuPanel.setLayout(null);
-		menuPanel.setBackground(Color.darkGray);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(frameWidth, frameHeight);
+		menuPanel();
 		
-		//add buttons
-		game1 = new Button("Game 1: Osprey");
-		game1.setBounds(200,50,400,100);
-		menuPanel.add(game1);
-		
-		game2 = new Button("Game 2: Clapper Rail");
-		game2.setBounds(200,200,400,100);
-		menuPanel.add(game2);
-		
-		
-		add(menuPanel);
-		currentpanel = "m";
-		menuPanel.setFocusable(true); //allows for button presses
-		menuPanel.requestFocus();
-		setVisible(true);
-		
-		drawAction = new AbstractAction() {
-			public void actionPerformed(ActionEvent e) {
-				if(getContent() == "g2" || getContent() == "g1") {
-					repaint();
-					//System.out.println("action");
-					model.updateGame();
-				
-				}
-		}};
 	}
+	
+	public void menuPanel() {
+		//add a drawpanel
+				menuPanel = new DrawPanel();
+				menuPanel.setLayout(null);
+				menuPanel.setBackground(Color.darkGray);
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				setSize(frameWidth, frameHeight);
+				
+				//add buttons
+				game1 = new Button("Game 1: Osprey");
+				game1.setBounds(200,50,400,100);
+				menuPanel.add(game1);
+				
+				game2 = new Button("Game 2: Clapper Rail");
+				game2.setBounds(200,200,400,100);
+				menuPanel.add(game2);
+				
+				
+				add(menuPanel);
+				currentpanel = "m";
+				menuPanel.setFocusable(true); //allows for button presses
+				menuPanel.requestFocus();
+				setVisible(true);
+				
+				drawAction = new AbstractAction() {
+					public void actionPerformed(ActionEvent e) {
+						if(getContent() == "g2" || getContent() == "g1") {
+							repaint();
+							//System.out.println("action");
+							model.updateGame();
+						}
+						
+				}};
+	}
+	
 	public void addModelToView(Model m) {
 		this.model = m;
 	}
@@ -99,7 +105,11 @@ public class View extends JFrame{
 		
 		menu1 = new Button("main menu");
 		menu1.setBounds(frameWidth-150,10, 100, 30);
+		//menu1.addActionListener(this);
+		
+		
 		game1panel.add(menu1);
+		
 		
 		this.getContentPane().add(game1panel);
 		currentpanel = "g1";
@@ -159,18 +169,19 @@ public class View extends JFrame{
 					g.fillRect(model.p.getxLoc(), model.p.getyLoc(), model.p.getimageWidth(), model.p.getimageHeight());
 					
 					for(ScoringObject so : model.scoringObjects) {
-						if (so.getID()=="Fish2") {
+			/*			if (so.getID()== "Fish2") {
 							g.drawImage(t_image, so.xloc,so.yloc,so.imageWidth, so.imageHeight,this);
 						}
-						else {
-							g.setColor(Color.YELLOW);
-							g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+						else {*/
+							//g.setColor(Color.YELLOW);
+							//g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
 					}
 					
 				}
 		}
-	}
+	
 	
 	/**
 	 * adds the Controller class as the listener to buttons in View

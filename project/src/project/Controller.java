@@ -45,7 +45,8 @@ public class Controller implements ActionListener, KeyListener {
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
-			//view.menuPanel();
+			view.menuPanel();
+			
 		}
 	}
 	
@@ -100,7 +101,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		model.p.setyIncr(o_y);
+	        			model.p.setyIncr(o_y);
 	        		System.out.println("space");
 	        		break;
 	     
@@ -110,7 +111,10 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		//System.out.println("key released");
-		
+		int key = arg0.getKeyCode();
+		if(key == KeyEvent.VK_SPACE) {
+			model.p.setyIncr(-o_y);
+		}
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {

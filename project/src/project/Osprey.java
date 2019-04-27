@@ -28,7 +28,7 @@ public class Osprey implements Player{
 	 * @author Anna Bortle
 	 */
 	public void move() {
-		System.out.println("osprey move method called.");
+		//System.out.println("osprey move method called.");
 		xloc += xIncr;
 		yloc += yIncr;
 		if(this.yloc + this.imageHeight >= View.frameHeight) {
