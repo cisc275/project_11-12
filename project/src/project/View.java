@@ -37,6 +37,7 @@ public class View extends JFrame{
 	Image g2_backimage;
 	Image g1_backimage;
 	Image cr_image;
+	Image t_image;
 	
 	Random r = new Random();
 	int rand;
@@ -129,11 +130,12 @@ public class View extends JFrame{
 				try {
 					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 					cr_image = ImageIO.read(new File("images/cr_temp.png"));
+	
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
 				
-				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
+				g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
 				
 				
@@ -150,6 +152,7 @@ public class View extends JFrame{
 			if (getContent() == "g1") {
 					try {
 						g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+						t_image = ImageIO.read(new File("images/trout_temp.png"));
 					} catch(IOException e) {
 						e.printStackTrace();
 					}
@@ -159,8 +162,13 @@ public class View extends JFrame{
 					g.fillRect(model.p.getxLoc(), model.p.getyLoc(), model.p.getimageWidth(), model.p.getimageHeight());
 					
 					for(ScoringObject so : model.scoringObjects) {
-						g.setColor(Color.YELLOW);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+						if (so.getID()=="Fish2") {
+							g.drawImage(t_image, so.xloc,so.yloc,so.imageWidth, so.imageHeight,this);
+						}
+						else {
+							g.setColor(Color.YELLOW);
+							g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+						}
 					}
 					
 				}

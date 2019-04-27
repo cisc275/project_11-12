@@ -121,7 +121,7 @@ public class Model {
 		if(fishLevel == 1) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel1, f1speed, 0, 1, "Fish1", 50, 50));
 		} if(fishLevel == 2) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel2, f2speed, 0, 2, "Fish2", 50, 50));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel2, f2speed, 0, 2, "Fish2", 120, 70));
 		} if(fishLevel == 3) {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel3, f3speed, 0, 3, "Fish3", 50, 50));
 		}
