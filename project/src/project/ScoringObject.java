@@ -8,6 +8,8 @@ public class ScoringObject {
 	String ID;
 	int pointValue;
 	BufferedImage[][] imageArray;
+	final static int g2_lifetime = 65;
+	
 	ScoringObject(int x, int y, int xInc, int yInc, int pV, String ID, int iW, int iH){
 		this.xloc = x;
 		this.yloc = y;

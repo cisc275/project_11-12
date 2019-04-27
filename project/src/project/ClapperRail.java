@@ -11,6 +11,8 @@ public class ClapperRail implements Player{
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	
+	
+	
 	ClapperRail(int xloc, int yloc, int xIncr, int yIncr, int iW, int iH){
 		this.xloc = xloc;
 		this.yloc = yloc;
@@ -29,7 +31,6 @@ public class ClapperRail implements Player{
 	 */
 	public void move() {
 		//System.out.println("clapper rail move method called.");
-	
 		xloc += xIncr;
 		xIncr = 0;
 		yloc += yIncr;

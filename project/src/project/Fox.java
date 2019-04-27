@@ -27,7 +27,7 @@ public class Fox{
 		questions.add(new Question("Clapper Rails lay...", "1 large egg", "3-7 small eggs", 2));
 		questions.add(new Question("Clapper Rails have beaks that are...", "short and fat", "long and slender", 2));
 		questions.add(new Question("The size of a Clapper Rail is similar to the size of a...", "chicken", "cardinal", 1));
-		questions.add(new Question("Clapper Rails live in...", "marshes", "trees", 1));
+		questions.add(new Question("Clapper Rails live in...", "marshes", "forests", 1));
 		
 	}
 	

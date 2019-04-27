@@ -36,6 +36,7 @@ public class View extends JFrame{
 	
 	Image g2_backimage;
 	Image g1_backimage;
+	Image cr_image;
 	
 	Random r = new Random();
 	int rand;
@@ -140,6 +141,7 @@ public class View extends JFrame{
 			if (getContent() == "g2") {
 				try {
 					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+					cr_image = ImageIO.read(new File("images/cr_temp.png"));
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
@@ -147,14 +149,15 @@ public class View extends JFrame{
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				//black square for clapper rail
 				g.setColor(Color.BLACK);
-				g.fillRect(model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight());
+				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
+				//g.fillRect(model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight());
 				
 				g.setColor(Color.RED);
 				if (randflag) {
 					rand = r.nextInt(8);
 					randflag = false;
 				}
-				if (model.count < 33) {
+				if (model.count < (ScoringObject.g2_lifetime)/2) {
 					g.fillRect(model.g2locations[rand].x, model.g2locations[rand].y, 30, 30);
 				}	
 			}

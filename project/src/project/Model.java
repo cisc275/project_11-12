@@ -12,8 +12,33 @@ public class Model {
 	Scoring score;
 	int count;
 	Point[] g2locations = new Point[8];
+	int g2y = 300;
+	int g2y2 = 450;
+	int g2x = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
 	
+	//initial values/positions for cr
+	int crx_i = 140;
+	int cry_i = 250;
+	int crxIncr_i = 0;
+	int cryIncr_i = 0;
+	int cr_imh = 50;
+	int cr_imw = 50;
+	
+	//initial values/positions for o
+	int ox_i = (View.frameWidth / 2) - 100;
+	int oy_i = 100;
+	int oxIncr_i = 0;
+	int oyIncr_i = 0;
+	int o_imh = 35;
+	int o_imw = 100;
+	
+	int flevel1 = 275;
+	int flevel2 = 375;
+	int flevel3 = 475;
+	int f1speed = -5;
+	int f2speed = -4;
+	int f3speed = -3;
 	
 	/**
 	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' move() methods
@@ -33,7 +58,7 @@ public class Model {
 	public void updateGameTwo() {
 		count ++;
 		p.move();
-		if (count > 65) {
+		if (count > ScoringObject.g2_lifetime) {
 			View.randflag = true;
 			count = 0;
 		}
@@ -72,20 +97,21 @@ public class Model {
 	}
 	public void runGameOne() {
 		//System.out.println("created osprey");
-		p = new Osprey((View.frameWidth / 2) - 100,100,0,0,100,35);
+		p = new Osprey(ox_i, oy_i, oxIncr_i, oyIncr_i, o_imw, o_imh);
 		
 	}
 	
 	public void runGameTwo() {
 		//System.out.println("create clapper rail");
-		p = new ClapperRail(140,250,0,0,50,50);
-		for (int i = 1; i < 9; i++) {
-			g2occupancy[i-1] = false;
-			if (i < 5) {
-				g2locations[i-1] = new Point(140*i + 10, 300);
+		p = new ClapperRail(crx_i, cry_i, crxIncr_i, cryIncr_i, cr_imw, cr_imh);
+		
+		for (int i = 0; i < 8; i++) {
+			g2occupancy[i] = false;
+			if (i < 4) {
+				g2locations[i] = new Point((View.frameWidth/3)-50 + g2x*i, g2y);
 			}
 			else {
-				g2locations[i-1] = new Point(140*(i-4) + 10, 450);
+				g2locations[i] = new Point((View.frameWidth/3) + g2x*(i-3), g2y2);
 			}
 		}		
 	}
@@ -93,11 +119,11 @@ public class Model {
 	public void createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 275, -5, 0, 1, "Fish1", 50, 50));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel1, f1speed, 0, 1, "Fish1", 50, 50));
 		} if(fishLevel == 2) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 375, -4, 0, 2, "Fish2", 50, 50));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel2, f2speed, 0, 2, "Fish2", 50, 50));
 		} if(fishLevel == 3) {
-			scoringObjects.add(new ScoringObject((View.frameWidth - 100), 475, -3, 0, 3, "Fish3", 50, 50));
+			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel3, f3speed, 0, 3, "Fish3", 50, 50));
 		}
 	}	
 }

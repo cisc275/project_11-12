@@ -112,7 +112,7 @@ public class ModelTest {
 	
 	@Test
 	public void questionTest() {
-		Question q = new Question();
+		Question q = new Question("question", "ans1", "ans2", 1);
 		assertNotNull(q);
 	}
 	
