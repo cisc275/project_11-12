@@ -45,6 +45,16 @@ public class View extends JFrame{
 	
 	
 	public View() {
+		//load images
+		try {
+			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+			t_image = ImageIO.read(new File("images/trout_temp.png"));
+			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+			cr_image = ImageIO.read(new File("images/cr_temp.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	
 		//add a drawpanel
 		menuPanel = new DrawPanel();
 		menuPanel.setLayout(null);
@@ -83,9 +93,7 @@ public class View extends JFrame{
 	}
 	
 	public void game1Panel() {
-		System.out.println("error 1");
 		this.getContentPane().remove(menuPanel); //remove current panel
-		System.out.println("error 2");
 		DrawPanel game1panel = new DrawPanel();
 		game1panel.setLayout(null);
 		
@@ -127,13 +135,7 @@ public class View extends JFrame{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (getContent() == "g2") {
-				try {
-					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-					cr_image = ImageIO.read(new File("images/cr_temp.png"));
-	
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
+				
 				
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
@@ -150,12 +152,7 @@ public class View extends JFrame{
 			}
 			
 			if (getContent() == "g1") {
-					try {
-						g1_backimage = ImageIO.read(new File("images/g1_background.png"));
-						t_image = ImageIO.read(new File("images/trout_temp.png"));
-					} catch(IOException e) {
-						e.printStackTrace();
-					}
+					
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 					
 					//draws rectangle for bird
