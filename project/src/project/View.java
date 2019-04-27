@@ -29,7 +29,7 @@ public class View extends JFrame{
 	int imageHeight;
 	int imageWidth;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, ans1, ans2, menu, replay;
+	Button exit, game1, game2, ans1, ans2, menu1, menu2, replay;
 	
 	int drawDelay = 30;
 	Action drawAction;
@@ -82,13 +82,16 @@ public class View extends JFrame{
 	}
 	
 	public void game1Panel() {
-		
+		System.out.println("error 1");
 		this.getContentPane().remove(menuPanel); //remove current panel
+		System.out.println("error 2");
 		DrawPanel game1panel = new DrawPanel();
 		game1panel.setLayout(null);
-		game1panel.setBackground(Color.blue);
-		game1panel.setFocusable(true); //allows for button presses
-		game1panel.requestFocus();
+		
+		menu1 = new Button("main menu");
+		menu1.setBounds(frameWidth-150,10, 100, 30);
+		game1panel.add(menu1);
+		
 		this.getContentPane().add(game1panel);
 		currentpanel = "g1";
 		setVisible(true);
@@ -100,10 +103,15 @@ public class View extends JFrame{
 		this.getContentPane().remove(menuPanel); //remove current panel
 		DrawPanel game2panel = new DrawPanel();
 		game2panel.setLayout(null);
-		game2panel.setBackground(Color.green);
+		
+		menu2 = new Button("main menu");
+		menu2.setBounds(frameWidth-150,10, 100, 30);
+		game2panel.add(menu2);
+		
 		this.getContentPane().add(game2panel);
 		currentpanel = "g2";
 		setVisible(true);
+		
 		
 	}
 
@@ -125,7 +133,7 @@ public class View extends JFrame{
 					e.printStackTrace();
 				}
 				
-				g.drawImage(g2_backimage, 0,0,Color.gray,this);
+				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
 				
 				
@@ -171,7 +179,8 @@ public class View extends JFrame{
 		game2.addActionListener(c);
 		//ans1.addActionListener(c);
 		//ans2.addActionListener(c);
-		//menu.addActionListener(c);
+		//menu1.addActionListener(c);
+		//menu2.addActionListener(c);
 		//replay.addActionListener(c);
 	}
 	

@@ -43,6 +43,10 @@ public class Controller implements ActionListener, KeyListener {
 			view.game2Panel();
 			model.runGameTwo();
 		}
+		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
+			System.out.println("menu button pressed");
+			//view.menuPanel();
+		}
 	}
 	
 	
