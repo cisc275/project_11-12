@@ -151,7 +151,6 @@ public class ModelTest {
 		
 		v.game1Panel();
 		v.game2Panel();
-		v.instructPanel();
 	}
 	
 	@Test

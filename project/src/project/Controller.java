@@ -43,10 +43,6 @@ public class Controller implements ActionListener, KeyListener {
 			view.game2Panel();
 			model.runGameTwo();
 		}
-		else if (e.getSource() == view.instruct) {
-			System.out.println("instructions button pressed");
-			view.instructPanel();
-		}
 	}
 	
 	

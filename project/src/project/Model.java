@@ -108,10 +108,10 @@ public class Model {
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
 			if (i < 4) {
-				g2locations[i] = new Point((View.frameWidth/3)-50 + g2x*i, g2y);
+				g2locations[i] = new Point(g2x*(i+1), g2y);
 			}
 			else {
-				g2locations[i] = new Point((View.frameWidth/3) + g2x*(i-3), g2y2);
+				g2locations[i] = new Point(g2x*(i-3), g2y2);
 			}
 		}		
 	}

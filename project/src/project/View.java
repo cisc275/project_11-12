@@ -29,7 +29,7 @@ public class View extends JFrame{
 	int imageHeight;
 	int imageWidth;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, ans1, ans2, menu, replay, instruct;
+	Button exit, game1, game2, ans1, ans2, menu, replay;
 	
 	int drawDelay = 30;
 	Action drawAction;
@@ -60,9 +60,6 @@ public class View extends JFrame{
 		game2.setBounds(200,200,400,100);
 		menuPanel.add(game2);
 		
-		instruct = new Button("Instructions");
-		instruct.setBounds(200,350,400,100);
-		menuPanel.add(instruct);
 		
 		add(menuPanel);
 		currentpanel = "m";
@@ -109,25 +106,7 @@ public class View extends JFrame{
 		setVisible(true);
 		
 	}
-	public void instructPanel() {
-		
-		this.getContentPane().remove(menuPanel); //remove current panel
-		DrawPanel infopanel = new DrawPanel();
-		infopanel.setLayout(null);
-		infopanel.setBackground(Color.gray);
-		this.getContentPane().add(infopanel);
-		currentpanel = "info";
-		JLabel label1 = new JLabel("Osprey Game: For this game you have to eat fish to build up your energy to migrate.");
-		JLabel label2 = new JLabel("Clapper Rail Game: For this game you have to feed on insects and avoid garbage and the fox");
-		JFrame window = new JFrame("Instructions");
-		window.setVisible(true);
-		window.setSize(800,600);
-		label1.setBounds(0, 0, 500, 50);
-		window.add(label1);
-		window.add(label2);
-		setVisible(true);
-		
-	}
+
 	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
@@ -145,12 +124,10 @@ public class View extends JFrame{
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
-				//add background
+				
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				//black square for clapper rail
-				g.setColor(Color.BLACK);
 				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
-				//g.fillRect(model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight());
+				
 				
 				g.setColor(Color.RED);
 				if (randflag) {
@@ -190,7 +167,6 @@ public class View extends JFrame{
 	 */
 	
 	public void addControllertoButton(Controller c) {
-		instruct.addActionListener(c);
 		game1.addActionListener(c);
 		game2.addActionListener(c);
 		//ans1.addActionListener(c);
