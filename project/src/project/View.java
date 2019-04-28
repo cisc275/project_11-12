@@ -150,10 +150,17 @@ public class View extends JFrame{
 				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
 				
 				
-				g.setColor(Color.RED);
+				g.setColor(Color.GREEN);
 				
 				for(ScoringObject so : model.scoringObjects){
-					g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+					if (so.pointValue == 1) {
+						g.setColor(Color.GREEN);
+						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+					} else {
+						g.setColor(Color.RED);
+						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+					}
+					
 				}	
 			}
 			

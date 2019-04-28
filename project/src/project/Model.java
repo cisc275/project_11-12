@@ -60,16 +60,16 @@ public class Model {
 	
 	public void updateGameTwo() {
 		
-			
-		
 		if (count % 60 == 0) {
-			int rand = r.nextInt(8);
-			while (g2occupancy[rand] == true) {
-				rand = r.nextInt(8);
+			for (int i=0; i < 3; i++) {
+				int rand = r.nextInt(8);
+				while (g2occupancy[rand] == true) {
+					rand = r.nextInt(8);
+				}
+				String ID = Integer.toString(rand);
+				scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
+				g2occupancy[rand] = true;
 			}
-			String ID = Integer.toString(rand);
-			scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y,0,0,1, ID, 30, 30));
-			g2occupancy[rand] = true;
 		}
 		
 		count ++;
@@ -82,7 +82,9 @@ public class Model {
 				it.remove();
 				g2occupancy[Integer.parseInt(o.ID)] = false;
 			}
-			o.lifetime++;
+			else {
+				o.lifetime++;
+			}
 		}
 	}
 	public void updateGameOne() {
@@ -151,4 +153,13 @@ public class Model {
 		}
 	}	
 	
+	public int foodOrTrash() {
+		int i = r.nextInt();
+		if (i%2 == 0) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
+	}
 }
