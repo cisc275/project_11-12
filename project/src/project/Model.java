@@ -3,6 +3,7 @@ package project;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Model {
@@ -16,6 +17,7 @@ public class Model {
 	int g2y2 = 450;
 	int g2x = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
+	Random r = new Random();
 	
 	//initial values/positions for cr
 	int crx_i = 140;
@@ -57,11 +59,30 @@ public class Model {
 
 	
 	public void updateGameTwo() {
+		
+			
+		
+		if (count % 60 == 0) {
+			int rand = r.nextInt(8);
+			while (g2occupancy[rand] == true) {
+				rand = r.nextInt(8);
+			}
+			String ID = Integer.toString(rand);
+			scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y,0,0,1, ID, 30, 30));
+			g2occupancy[rand] = true;
+		}
+		
 		count ++;
 		p.move();
-		if (count > ScoringObject.g2_lifetime) {
-			View.randflag = true;
-			count = 0;
+		
+		Iterator<ScoringObject> it = scoringObjects.iterator();
+		while (it.hasNext()) {
+			ScoringObject o = it.next();
+			if (o.lifetime>o.g2_lifetime) {
+				it.remove();
+				g2occupancy[Integer.parseInt(o.ID)] = false;
+			}
+			o.lifetime++;
 		}
 	}
 	public void updateGameOne() {
@@ -129,5 +150,5 @@ public class Model {
 			scoringObjects.add(new ScoringObject((View.frameWidth - 100), flevel3, f3speed, 0, 3, "Fish3", 100, 50));
 		}
 	}	
+	
 }
-

@@ -101,7 +101,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        			model.p.setyIncr(o_y);
+	        		model.p.setyIncr(o_y);
 	        		System.out.println("space");
 	        		break;
 	     

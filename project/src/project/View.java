@@ -40,7 +40,6 @@ public class View extends JFrame{
 	Image cr_image;
 	Image t_image;
 	
-	Random r = new Random();
 	int rand;
 	static boolean randflag = true;
 	
@@ -152,12 +151,9 @@ public class View extends JFrame{
 				
 				
 				g.setColor(Color.RED);
-				if (randflag) {
-					rand = r.nextInt(8);
-					randflag = false;
-				}
-				if (model.count < (ScoringObject.g2_lifetime)/2) {
-					g.fillRect(model.g2locations[rand].x, model.g2locations[rand].y, 30, 30);
+				
+				for(ScoringObject so : model.scoringObjects){
+					g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
 				}	
 			}
 			
@@ -203,4 +199,3 @@ public class View extends JFrame{
 	
 	
 }
-	
