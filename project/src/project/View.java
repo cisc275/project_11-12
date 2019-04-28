@@ -39,6 +39,7 @@ public class View extends JFrame{
 	Image g1_backimage;
 	Image cr_image;
 	Image t_image;
+	Image o_image;
 	
 	int rand;
 	static boolean randflag = true;
@@ -51,6 +52,7 @@ public class View extends JFrame{
 			t_image = ImageIO.read(new File("images/trout_temp.png"));
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 			cr_image = ImageIO.read(new File("images/cr_temp.png"));
+			o_image = ImageIO.read(new File("images/o_outline.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -169,7 +171,10 @@ public class View extends JFrame{
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 					
 					//draws rectangle for bird
-					g.fillRect(model.p.getxLoc(), model.p.getyLoc(), model.p.getimageWidth(), model.p.getimageHeight());
+					//g.fillRect(model.p.getxLoc(), model.p.getyLoc(), model.p.getimageWidth(), model.p.getimageHeight());
+					
+					//very temporary picture for osprey
+					g.drawImage(o_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
 					
 					for(ScoringObject so : model.scoringObjects) {
 			/*			if (so.getID()== "Fish2") {
