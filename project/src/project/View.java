@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//import project.View.DrawPanel;
+
 @SuppressWarnings("serial")
 public class View extends JFrame{
 	Model model;
@@ -34,7 +36,7 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, replay;
 	
-	int drawDelay = 30;
+	int DRAW_DELAY = 30;
 	Action drawAction;
 	
 	Image g2_backimage;
@@ -42,6 +44,7 @@ public class View extends JFrame{
 	Image cr_image;
 	Image t_image;
 	Image o_image;
+	Image sw_image;
 	
 	int rand;
 	static boolean randflag = true;
@@ -57,6 +60,7 @@ public class View extends JFrame{
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 			cr_image = ImageIO.read(new File("images/cr_temp.png"));
 			o_image = ImageIO.read(new File("images/o_outline.png"));
+			sw_image = ImageIO.read(new File("images/seaweed.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -138,7 +142,14 @@ public class View extends JFrame{
 					g.drawImage(o_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
 					
 					for(ScoringObject so : model.scoringObjects) {
+						if(so.ID.equals("Fish"))
+						{
 							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+						}
+						if(so.ID.equals("Seaweed"))
+						{
+							g.drawImage(sw_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+						}
 					}
 			}
 			

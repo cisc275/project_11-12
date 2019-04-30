@@ -17,9 +17,9 @@ public class Controller implements ActionListener, KeyListener {
 	boolean upflag = false;
 	boolean downflag = true;
 	
-	int cr_y = View.frameHeight/9 * 2;
-	int cr_x = View.frameWidth/5;
-	int o_y = 50;
+	int CR_Y = View.frameHeight/9 * 2;
+	int CR_X = View.frameWidth/5;
+	int O_Y = 50;
 	
 	Controller(){
 		view = new View();
@@ -53,10 +53,15 @@ public class Controller implements ActionListener, KeyListener {
 		}
 	}
 	
+	public String getContent() {
+		return view.currentpanel;
+	}
+	
+	
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Timer t = new Timer(view.drawDelay, view.drawAction); //call drawAction every (drawDelay) msecs
+				Timer t = new Timer(view.DRAW_DELAY, view.drawAction); //call drawAction every (drawDelay) msecs
 				t.start();
 				} 
 		});	
@@ -72,7 +77,7 @@ public class Controller implements ActionListener, KeyListener {
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
 	        		if (upflag) {
-	        			model.p.setyIncr(-cr_y);
+	        			model.p.setyIncr(-CR_Y);
 	        		}
 	        		upflag = false;
 	        		downflag = true;
@@ -81,29 +86,29 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (downflag) {
-	        			model.p.setyIncr(cr_y);
+	        			model.p.setyIncr(CR_Y);
 	        		}
 	        		downflag = false;
 	        		upflag = true;
 	        		System.out.println("down");
 	        		System.out.println(model.p.getyIncr());
-	        		System.out.println(cr_y);
+	        		System.out.println(CR_Y);
 	        		break;
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(model.p.getxLoc() - cr_x < 0)){
-	        			model.p.setxIncr(-cr_x);
+	        		if (!(model.p.getxLoc() - CR_X < 0)){
+	        			model.p.setxIncr(-CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.p.getxLoc() + model.p.getimageWidth() + cr_x > View.frameWidth)) {
-	        			model.p.setxIncr(cr_x);
+	        		if (!(model.p.getxLoc() + model.p.getimageWidth() + CR_X > View.frameWidth)) {
+	        			model.p.setxIncr(CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		model.p.setyIncr(o_y);
+	        		model.p.setyIncr(O_Y);
 	        		System.out.println("space");
 	        		break;
 	     
@@ -115,7 +120,7 @@ public class Controller implements ActionListener, KeyListener {
 		//System.out.println("key released");
 		int key = arg0.getKeyCode();
 		if(key == KeyEvent.VK_SPACE) {
-			model.p.setyIncr(-o_y);
+			model.p.setyIncr(-O_Y);
 		}
 	}
 	@Override
