@@ -32,7 +32,7 @@ public class Model {
 	int oy_i = 100;
 	int oxIncr_i = 0;
 	int oyIncr_i = 0;
-	int o_imh = 35;
+	int o_imh = 50;
 	int o_imw = 100;
 	
 	int flevel1 = 275;
@@ -60,13 +60,13 @@ public class Model {
 	
 	public void updateGameTwo() {
 		
-		if (count % 60 == 0) {
+		if (count % 70 == 0) { //when to put in new trash/food
 			for (int i=0; i < 3; i++) {
 				int rand = r.nextInt(8);
 				while (g2occupancy[rand] == true) {
 					rand = r.nextInt(8);
 				}
-				String ID = Integer.toString(rand);
+				String ID = Integer.toString(rand); //used when removing trash/food
 				scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
 				g2occupancy[rand] = true;
 			}
@@ -78,7 +78,7 @@ public class Model {
 		Iterator<ScoringObject> it = scoringObjects.iterator();
 		while (it.hasNext()) {
 			ScoringObject o = it.next();
-			if (o.lifetime>o.g2_lifetime) {
+			if (o.lifetime > o.g2_lifetime) {
 				it.remove();
 				g2occupancy[Integer.parseInt(o.ID)] = false;
 			}

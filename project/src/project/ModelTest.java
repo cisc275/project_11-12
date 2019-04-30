@@ -74,9 +74,7 @@ public class ModelTest {
 			m.updateGameTwo();
 		}
 		//testing updateGame() for each game
-		v.game1Panel();
 		m.updateGame();
-		v.game2Panel();
 		m.updateGame();	
 	}
 	
@@ -149,8 +147,6 @@ public class ModelTest {
 		BufferedImage bi = v.createBufferedImage();
 		assertNotNull(bi);
 		
-		v.game1Panel();
-		v.game2Panel();
 	}
 	
 	@Test

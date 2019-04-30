@@ -35,21 +35,26 @@ public class Controller implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == view.game1) {
 			System.out.println("game1 button pressed");
-			view.game1Panel();
+			view.cl.show(view.panelContainer, "1");
+			view.currentpanel = "g1";
 			model.runGameOne();
 		}
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
-			view.game2Panel();
+			view.cl.show(view.panelContainer, "2");
+			view.currentpanel = "g2";
 			model.runGameTwo();
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
-			view.menuPanel();
+			view.cl.show(view.panelContainer, "0");
 			
 		}
 	}
 	
+	public String getContent() {
+		return view.currentpanel;
+	}
 	
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
