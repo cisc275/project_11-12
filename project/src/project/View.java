@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 //import project.View.DrawPanel;
 
@@ -25,7 +26,7 @@ import javax.swing.JPanel;
 public class View extends JFrame{
 	Model model;
 	GameObjectStorage GobjS;
-	DrawPanel panelContainer, menupanel, game1panel, game2panel;
+	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
 	static String currentpanel;
 	
 	int frameCount;
@@ -35,10 +36,8 @@ public class View extends JFrame{
 	int imageHeight;
 	int imageWidth;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, ans1, ans2, menu1, menu2, replay;
+	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
-	//int DRAW_DELAY = 30;
-	//Action drawAction;
 	
 	Image g2_backimage;
 	Image g1_backimage;
@@ -77,6 +76,8 @@ public class View extends JFrame{
 		panelContainer.add(menupanel, "0");
 		panelContainer.add(game1panel, "1");
 		panelContainer.add(game2panel, "2");
+		panelContainer.add(end1panel, "3");
+		panelContainer.add(end2panel, "4");
 		
 		cl.show(panelContainer, "0");
 		
@@ -84,18 +85,6 @@ public class View extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-		/*
-		drawAction = new AbstractAction() {
-			public void actionPerformed(ActionEvent e) {
-				if(getContent() == "g2" || getContent() == "g1") {
-					repaint();
-					//System.out.println("action");
-					model.updateGame();
-				}
-		
-			}
-		};
-		*/
 	}
 	
 	public void createlayouts() {
@@ -121,12 +110,18 @@ public class View extends JFrame{
 		menu2 = new Button("main menu");
 		menu2.setBounds(frameWidth-150,10, 100, 30);
 		game2panel.add(menu2);
+		
+		end1panel = new DrawPanel();
+		end1panel.setLayout(null);
+		end1panel.setBackground(Color.gray);
+		
+		end2panel = new DrawPanel();
+		end2panel.setLayout(null);
+		end2panel.setBackground(Color.gray);
 	}
-	/*
-	public void addModelToView(Model m) {
-		this.model = m;
-	}
-	*/
+	
+	
+	
 	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
 		this.GobjS = GobjS;
 	}
@@ -143,14 +138,13 @@ public class View extends JFrame{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 
-			if (getContent() == "g1") {
+			if (currentpanel == "g1") {
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
-					//very temporary picture for osprey
 					g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 					
 					for(ScoringObject so : GobjS.getScoringObjects()) {
-						//System.out.println(so);
+						
 						if(so.ID.equals("Fish1")) {
 							g.drawImage(b_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
@@ -180,6 +174,17 @@ public class View extends JFrame{
 					
 				}	
 			}
+			
+			if (currentpanel == "e1") {
+				//just draw something temp on panel for now
+				g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+
+			}
+			if (currentpanel == "e2") {
+				//just draw something temp on panel for now
+				g.drawImage(cr_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+
+			}
 					
 		}
 	}
@@ -197,8 +202,8 @@ public class View extends JFrame{
 		game2.addActionListener(c);
 		//ans1.addActionListener(c);
 		//ans2.addActionListener(c);
-		//menu1.addActionListener(c);
-		//menu2.addActionListener(c);
+		menu1.addActionListener(c);
+		menu2.addActionListener(c);
 		//replay.addActionListener(c);
 	}
 	

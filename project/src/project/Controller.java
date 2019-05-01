@@ -10,14 +10,16 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Timer;
 
+
 public class Controller implements ActionListener, KeyListener {
 	
 	Model model;
 	View view;
 	Timer t;
 	GameObjectStorage GobjS = new GameObjectStorage();
-	final int drawDelay = 30;
 	Action drawAction;
+	final int drawDelay = 30;
+	private int clockcount = 0;
 	
 	boolean upflag = false;
 	boolean downflag = true;
@@ -30,13 +32,18 @@ public class Controller implements ActionListener, KeyListener {
 		
 		this.initializeView();
 		this.initializeModel();
-		//view.addModelToView(this.model);
 		view.addGameObjectStorageToView(this.GobjS);
 		model.addGameObjectStorageToModel(this.GobjS);
+		
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
 					model.updateGame();
+					clockcount++;
+					
+					if (clockcount > 3000) { //3000*drawDelay[30] = 90000 = 1.5min
+						endGame();	
+					}
 			}
 		};
 		
@@ -49,7 +56,16 @@ public class Controller implements ActionListener, KeyListener {
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
 	}
-	
+	public void endGame() {
+		if (view.getContent() == "g1") {
+			view.cl.show(view.panelContainer, "3");
+			view.currentpanel = "e1";
+		}
+		else {
+			view.cl.show(view.panelContainer, "4");
+			view.currentpanel = "e2";
+		}
+	}
 	public void initializeModel() {
 		model = new Model();
 	}

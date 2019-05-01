@@ -52,7 +52,7 @@ public class Model {
 	//initial values/positions for scoring object (seaweed)
 	int SWX_I = View.frameWidth;
 	int SWY_INCR_I = 0;
-	int SW1_SPEED = -4;
+	int SW1_SPEED = -4;  
 	int SW2_SPEED = -3;
 	int SW3_SPEED = -2;
 	int SW_PV = -1;
