@@ -16,7 +16,7 @@ public class Controller implements ActionListener, KeyListener {
 	View view;
 	Timer t;
 	GameObjectStorage GobjS = new GameObjectStorage();
-	final int drawDelay = 30;
+	final int drawDelay = 30; // change this to 25
 	Action drawAction;
 	
 	boolean upflag = false;
@@ -27,7 +27,6 @@ public class Controller implements ActionListener, KeyListener {
 	int O_Y = 50;
 	
 	Controller(){
-		
 		this.initializeView();
 		this.initializeModel();
 		//view.addModelToView(this.model);
@@ -36,6 +35,8 @@ public class Controller implements ActionListener, KeyListener {
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
+					//maybe have a model accessory function.
+					//put gameObjectStorage in model, have a get gobjS from model and pass it into the view
 					model.updateGame();
 			}
 		};
@@ -129,7 +130,6 @@ public class Controller implements ActionListener, KeyListener {
 	        		GobjS.getPlayer().setyIncr(O_Y);
 	        		System.out.println("space");
 	        		break;
-	     
 		}
 		
 	}
