@@ -2,24 +2,19 @@ package project;
 
 import java.awt.image.BufferedImage;
 
-public class ClapperRail implements Player{
-	
-	int xloc;
+public class ClapperRail extends Player{
+	/*
+	int xloc, y;
 	int yloc;
 	int xIncr;
 	int yIncr;
 	int imageWidth, imageHeight;
+	*/
+	
 	BufferedImage[][] imageArray;
-	
-	
-	
-	ClapperRail(int xloc, int yloc, int xIncr, int yIncr, int iW, int iH){
-		this.xloc = xloc;
-		this.yloc = yloc;
-		this.xIncr = xIncr;
-		this.yIncr = yIncr;
-		this.imageWidth = iW;
-		this.imageHeight = iH;
+
+	ClapperRail(int x, int y, int xInc, int yInc, int iW, int iH) {
+		super(x, y, xInc, yInc, iW, iH);
 	}
 	
 	
@@ -37,6 +32,7 @@ public class ClapperRail implements Player{
 		yIncr = 0;
 	}
 
+	/*
 	@Override
 	public int getxLoc() {
 		// TODO Auto-generated method stub
@@ -99,5 +95,5 @@ public class ClapperRail implements Player{
 		// TODO Auto-generated method stub
 		this.yIncr = yI;
 	}
-	
+	*/
 }

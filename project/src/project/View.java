@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class View extends JFrame{
 	Model model;
+	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel;
 	static String currentpanel;
 	
@@ -36,8 +37,8 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, replay;
 	
-	int DRAW_DELAY = 30;
-	Action drawAction;
+	//int DRAW_DELAY = 30;
+	//Action drawAction;
 	
 	Image g2_backimage;
 	Image g1_backimage;
@@ -81,7 +82,7 @@ public class View extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-		
+		/*
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				if(getContent() == "g2" || getContent() == "g1") {
@@ -92,6 +93,7 @@ public class View extends JFrame{
 		
 			}
 		};
+		*/
 	}
 	
 	public void createlayouts() {
@@ -123,6 +125,10 @@ public class View extends JFrame{
 		this.model = m;
 	}
 	
+	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
+		this.GobjS = GobjS;
+	}
+	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
 	}
@@ -139,14 +145,15 @@ public class View extends JFrame{
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
 					//very temporary picture for osprey
-					g.drawImage(o_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
+					g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 					
-					for(ScoringObject so : model.scoringObjects) {
-						if(so.ID.equals("Fish"))
+					for(ScoringObject so : GobjS.getScoringObjects()) {
+						//System.out.println(so);
+						if(so.ID.equals("Fish1") || so.ID.equals("Fish2") || so.ID.equals("Fish3"))
 						{
 							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
-						if(so.ID.equals("Seaweed"))
+						if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
 						{
 							g.drawImage(sw_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
@@ -155,7 +162,7 @@ public class View extends JFrame{
 			
 			if (currentpanel == "g2") {
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
+				g.drawImage(cr_image, model.p.getXloc(), model.p.getYloc(),model.p.getImageWidth(), model.p.getImageHeight(),this);
 				
 				for(ScoringObject so : model.scoringObjects){
 					if (so.pointValue == 1) {

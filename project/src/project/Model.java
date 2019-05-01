@@ -18,7 +18,7 @@ public class Model {
 	int G2X = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
 	Random r = new Random();
-	
+	GameObjectStorage GobjS;
 	//initial values/positions for cr
 	int CRX_I = 140;
 	int CRY_I = 250;
@@ -63,6 +63,10 @@ public class Model {
 	int SO_LEVEL1 = 275;
 	int SO_LEVEL2 = 375;
 	int SO_LEVEL3 = 475;
+	
+	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
+		this.GobjS = GobjS;
+	}
 	
 	/**
 	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' move() methods
@@ -109,53 +113,47 @@ public class Model {
 			}
 		}
 	}
-	public void updateGameOne() {
-		if(scoringObjects.isEmpty()) {
-			this.createGameOneFish(1);
-			this.createGameOneFish(2);
-			this.createGameOneFish(3);	
+	public void updateGameOne() {	
+		//System.out.println("Game 1 updated");
+		this.updateGameOneScoringObjects(GobjS.getScoringObjects());
+		GobjS.getPlayer().move();
+	}
+	
+	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
+		for(int i = 0; i < scoringObjects.size(); i++) {
+			scoringObjects.get(i).move();
+			if(scoringObjects.get(i).ID.equals("Fish1") || scoringObjects.get(i).ID.equals("Fish2") || scoringObjects.get(i).ID.equals("Fish3")) {
+				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneFish(1));
 			
-			createGameOneSeaweed(1);
-			createGameOneSeaweed(2);
-			createGameOneSeaweed(3);
-		}
-		else {
-			for(int i = 0; i < scoringObjects.size(); i++) {
-				scoringObjects.get(i).move();
-				if(scoringObjects.get(i).ID.equals("Fish")) {
-					if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
-						scoringObjects.remove(i);
-						this.createGameOneFish(1);
-				
-					} 
-					else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
-						scoringObjects.remove(i);
-						this.createGameOneFish(2);
-					}
-					else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 3) {
-						scoringObjects.remove(i);
-						this.createGameOneFish(3);
-					}
+				} 
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneFish(2));
 				}
-				if(scoringObjects.get(i).ID.equals("Seaweed")) {
-					if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -4) {
-						scoringObjects.remove(i);
-						this.createGameOneSeaweed(1);
-				
-					} 
-					else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -3) {
-						scoringObjects.remove(i);
-						this.createGameOneSeaweed(2);
-					}
-					else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -2) {
-						scoringObjects.remove(i);
-						this.createGameOneSeaweed(3);
-					}
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 3) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneFish(3));
+				}
+			}
+			if(scoringObjects.get(i).ID.equals("Seaweed1") || scoringObjects.get(i).ID.equals("Seaweed2") || scoringObjects.get(i).ID.equals("Seaweed3")) {
+				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -4) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneSeaweed(1));
+				} 
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -3) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneSeaweed(2));
+				}
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -2) {
+					scoringObjects.remove(i);
+					scoringObjects.add(this.createGameOneSeaweed(3));
 				}
 			}
 		}
-		p.move();
 	}
+	
 	public boolean checkIfScoringObjectIsOffScreen(ScoringObject obj) {
 		if(obj.xloc + obj.imageWidth <= 0) {
 			return true;
@@ -165,13 +163,19 @@ public class Model {
 		}
 	}
 	
-	public void runGameOne() {
-		//System.out.println("created osprey");
-		p = new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH);
+	public void initializeGameOne() {
+		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH));
+		
+		GobjS.getScoringObjects().add(this.createGameOneFish(1));
+		GobjS.getScoringObjects().add(this.createGameOneFish(2));
+		GobjS.getScoringObjects().add(this.createGameOneFish(3));	
+		GobjS.getScoringObjects().add(this.createGameOneSeaweed(1));
+		GobjS.getScoringObjects().add(this.createGameOneSeaweed(2));
+		GobjS.getScoringObjects().add(this.createGameOneSeaweed(3));
 		
 	}
 	
-	public void runGameTwo() {
+	public void initializeGameTwo() {
 		//System.out.println("create clapper rail");
 		p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
 		
@@ -187,27 +191,29 @@ public class Model {
 	}
 
 	
-	public void createGameOneFish(int fishLevel) {
+	public ScoringObject createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
-			scoringObjects.add(new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish", F1_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish1", F1_IMW, F_IMH));
 		} if(fishLevel == 2) {
-			scoringObjects.add(new ScoringObject(FX_I, SO_LEVEL2, F2_SPEED, FY_INCR_I, F2_PV, "Fish", F2_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL2, F2_SPEED, FY_INCR_I, F2_PV, "Fish2", F2_IMW, F_IMH));
 		} if(fishLevel == 3) {
-			scoringObjects.add(new ScoringObject(FX_I, SO_LEVEL3, F3_SPEED, FY_INCR_I, F3_PV, "Fish", F3_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL3, F3_SPEED, FY_INCR_I, F3_PV, "Fish3", F3_IMW, F_IMH));
 		}
+		return null;
 	}
 
-	public void createGameOneSeaweed(int level) {
-		if(level == 1) {
-			scoringObjects.add(new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, "Seaweed", SW_IMW, SW_IMH));
+	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
+		if(seaweedLevel == 1) {
+			return (new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, "Seaweed1", SW_IMW, SW_IMH));
 		}
-		if(level == 2) {
-			scoringObjects.add(new ScoringObject(SWX_I, SO_LEVEL2, SW2_SPEED, SWY_INCR_I, SW_PV, "Seaweed", SW_IMW, SW_IMH));
+		if(seaweedLevel == 2) {
+			return (new ScoringObject(SWX_I, SO_LEVEL2, SW2_SPEED, SWY_INCR_I, SW_PV, "Seaweed2", SW_IMW, SW_IMH));
 		} 
-		if(level == 3) {
-			scoringObjects.add(new ScoringObject(SWX_I, SO_LEVEL3, SW3_SPEED, SWY_INCR_I, SW_PV, "Seaweed", SW_IMW, SW_IMH));
+		if(seaweedLevel == 3) {
+			return (new ScoringObject(SWX_I, SO_LEVEL3, SW3_SPEED, SWY_INCR_I, SW_PV, "Seaweed3", SW_IMW, SW_IMH));
 		}
+		return null;
 	}
 	
 

@@ -2,24 +2,21 @@ package project;
 
 import java.awt.image.BufferedImage;
 
-public class ScoringObject {
-	int xloc,yloc,xIncr,yIncr;
-	int imageWidth, imageHeight;
+public class ScoringObject extends GameObject{
 	String ID;
 	int pointValue;
 	BufferedImage[][] imageArray;
 	final static int g2_lifetime = 65;
 	int lifetime = 0;
 	
+	ScoringObject(){
+		super();
+	}
+	
 	ScoringObject(int x, int y, int xInc, int yInc, int pV, String ID, int iW, int iH){
-		this.xloc = x;
-		this.yloc = y;
-		this.xIncr = xInc;
-		this.yIncr = yInc;
+		super(x, y, xInc, yInc, iW, iH);
 		this.pointValue = pV;
 		this.ID = ID;
-		this.imageWidth = iW;
-		this.imageHeight = iH;
 	}
 	
 	/**
@@ -31,13 +28,15 @@ public class ScoringObject {
 		this.xloc += this.xIncr;
 		this.yloc += this.yIncr;
 	}
-
+	
+	/*
 	public int getXloc() {
+
 		return xloc;
 	}
 
 	public void setXloc(int xloc) {
-		this.xloc = xloc;
+		super.xloc = xloc;
 	}
 
 	public int getYloc() {
@@ -79,13 +78,14 @@ public class ScoringObject {
 	public void setImageHeight(int imageHeight) {
 		this.imageHeight = imageHeight;
 	}
-
+*/
+	
 	public String getID() {
 		return ID;
 	}
 
 	public void setID(String iD) {
-		ID = iD;
+		this.ID = iD;
 	}
 
 	public int getPointValue() {
@@ -96,6 +96,8 @@ public class ScoringObject {
 		this.pointValue = pointValue;
 	}
 	
-	
+	public String toString() {
+		return this.ID + String.valueOf(xloc);
+	}
 }
 	

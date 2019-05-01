@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Timer;
 
 public class Controller implements ActionListener, KeyListener {
@@ -13,6 +15,9 @@ public class Controller implements ActionListener, KeyListener {
 	Model model;
 	View view;
 	Timer t;
+	GameObjectStorage GobjS = new GameObjectStorage();
+	final int drawDelay = 30;
+	Action drawAction;
 	
 	boolean upflag = false;
 	boolean downflag = true;
@@ -22,13 +27,31 @@ public class Controller implements ActionListener, KeyListener {
 	int O_Y = 50;
 	
 	Controller(){
+		
+		this.initializeView();
+		this.initializeModel();
+		view.addModelToView(this.model);
+		view.addGameObjectStorageToView(this.GobjS);
+		model.addGameObjectStorageToModel(this.GobjS);
+		drawAction = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+					view.repaint();
+					model.updateGame();
+			}
+		};
+		
+	}
+	
+	public void initializeView() {
 		view = new View();
 		view.addControllertoButton(this);
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
+	}
+	
+	public void initializeModel() {
 		model = new Model();
-		view.addModelToView(this.model);
 	}
 	
 	@Override
@@ -37,13 +60,13 @@ public class Controller implements ActionListener, KeyListener {
 			System.out.println("game1 button pressed");
 			view.cl.show(view.panelContainer, "1");
 			view.currentpanel = "g1";
-			model.runGameOne();
+			model.initializeGameOne();
 		}
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
 			view.cl.show(view.panelContainer, "2");
 			view.currentpanel = "g2";
-			model.runGameTwo();
+			model.initializeGameTwo();
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
@@ -61,7 +84,7 @@ public class Controller implements ActionListener, KeyListener {
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Timer t = new Timer(view.DRAW_DELAY, view.drawAction); //call drawAction every (drawDelay) msecs
+				Timer t = new Timer(drawDelay, drawAction); //call drawAction every (drawDelay) msecs
 				t.start();
 				} 
 		});	
@@ -97,18 +120,18 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(model.p.getxLoc() - CR_X < 0)){
+	        		if (!(model.p.getXloc() - CR_X < 0)){
 	        			model.p.setxIncr(-CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.p.getxLoc() + model.p.getimageWidth() + CR_X > View.frameWidth)) {
+	        		if (!(model.p.getXloc() + model.p.getImageWidth() + CR_X > View.frameWidth)) {
 	        			model.p.setxIncr(CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		model.p.setyIncr(O_Y);
+	        		GobjS.getPlayer().setyIncr(O_Y);
 	        		System.out.println("space");
 	        		break;
 	     
@@ -120,7 +143,7 @@ public class Controller implements ActionListener, KeyListener {
 		//System.out.println("key released");
 		int key = arg0.getKeyCode();
 		if(key == KeyEvent.VK_SPACE) {
-			model.p.setyIncr(-O_Y);
+			GobjS.getPlayer().setyIncr(-O_Y);
 		}
 	}
 	@Override
