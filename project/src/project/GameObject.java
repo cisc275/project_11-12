@@ -7,6 +7,15 @@ public abstract class GameObject {
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	
+	GameObject(){
+		this.xloc = 0;
+		this.yloc = 0;
+		this.xIncr = 0;
+		this.yIncr = 0;
+		this.imageWidth = 0;
+		this.imageHeight = 0;
+	}
+	
 	GameObject(int x, int y, int xInc, int yInc, int iW, int iH){
 		this.xloc = x;
 		this.yloc = y;

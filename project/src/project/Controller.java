@@ -15,7 +15,7 @@ public class Controller implements ActionListener, KeyListener {
 	Model model;
 	View view;
 	Timer t;
-	
+	GameObjectStorage GobjS = new GameObjectStorage();
 	final int drawDelay = 30;
 	Action drawAction;
 	
@@ -31,7 +31,8 @@ public class Controller implements ActionListener, KeyListener {
 		this.initializeView();
 		this.initializeModel();
 		view.addModelToView(this.model);
-	
+		view.addGameObjectStorageToView(this.GobjS);
+		model.addGameObjectStorageToModel(this.GobjS);
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
@@ -59,13 +60,13 @@ public class Controller implements ActionListener, KeyListener {
 			System.out.println("game1 button pressed");
 			view.cl.show(view.panelContainer, "1");
 			view.currentpanel = "g1";
-			model.runGameOne();
+			model.initializeGameOne();
 		}
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
 			view.cl.show(view.panelContainer, "2");
 			view.currentpanel = "g2";
-			model.runGameTwo();
+			model.initializeGameTwo();
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
@@ -130,7 +131,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		model.p.setyIncr(O_Y);
+	        		GobjS.getPlayer().setyIncr(O_Y);
 	        		System.out.println("space");
 	        		break;
 	     
@@ -142,7 +143,7 @@ public class Controller implements ActionListener, KeyListener {
 		//System.out.println("key released");
 		int key = arg0.getKeyCode();
 		if(key == KeyEvent.VK_SPACE) {
-			model.p.setyIncr(-O_Y);
+			GobjS.getPlayer().setyIncr(-O_Y);
 		}
 	}
 	@Override

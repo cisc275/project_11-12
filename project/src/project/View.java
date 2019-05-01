@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class View extends JFrame{
 	Model model;
+	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel;
 	static String currentpanel;
 	
@@ -124,6 +125,10 @@ public class View extends JFrame{
 		this.model = m;
 	}
 	
+	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
+		this.GobjS = GobjS;
+	}
+	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
 	}
@@ -140,14 +145,15 @@ public class View extends JFrame{
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
 					//very temporary picture for osprey
-					g.drawImage(o_image, model.p.getXloc(),model.p.getYloc(),model.p.getImageWidth(), model.p.getImageHeight(),this);
+					g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 					
-					for(ScoringObject so : model.scoringObjects) {
-						if(so.ID.equals("Fish"))
+					for(ScoringObject so : GobjS.getScoringObjects()) {
+						//System.out.println(so);
+						if(so.ID.equals("Fish1") || so.ID.equals("Fish2") || so.ID.equals("Fish3"))
 						{
 							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
-						if(so.ID.equals("Seaweed"))
+						if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
 						{
 							g.drawImage(sw_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}

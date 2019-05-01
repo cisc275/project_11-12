@@ -10,10 +10,9 @@ public class ClapperRail extends Player{
 	int yIncr;
 	int imageWidth, imageHeight;
 	*/
+	
 	BufferedImage[][] imageArray;
-	
-	
-	
+
 	ClapperRail(int x, int y, int xInc, int yInc, int iW, int iH) {
 		super(x, y, xInc, yInc, iW, iH);
 	}
