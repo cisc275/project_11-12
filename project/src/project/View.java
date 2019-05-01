@@ -46,6 +46,7 @@ public class View extends JFrame{
 	Image t_image;
 	Image o_image;
 	Image sw_image;
+	Image b_image;
 	
 	int rand;
 	static boolean randflag = true;
@@ -61,6 +62,7 @@ public class View extends JFrame{
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 			cr_image = ImageIO.read(new File("images/cr_temp.png"));
 			o_image = ImageIO.read(new File("images/o_temp.png"));
+			b_image = ImageIO.read(new File("images/striped_bass.png"));
 			sw_image = ImageIO.read(new File("images/seaweed.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -149,7 +151,10 @@ public class View extends JFrame{
 					
 					for(ScoringObject so : GobjS.getScoringObjects()) {
 						//System.out.println(so);
-						if(so.ID.equals("Fish1") || so.ID.equals("Fish2") || so.ID.equals("Fish3"))
+						if(so.ID.equals("Fish1")) {
+							g.drawImage(b_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+						}
+						else if (so.ID.equals("Fish2") || so.ID.equals("Fish3"))
 						{
 							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 						}
