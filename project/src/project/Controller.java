@@ -17,7 +17,7 @@ public class Controller implements ActionListener, KeyListener {
 	boolean upflag = false;
 	boolean downflag = true;
 	
-	int CR_Y = View.frameHeight/9 * 2;
+	int CR_Y = (View.frameHeight/9 * 2) + 17;
 	int CR_X = View.frameWidth/5;
 	int O_Y = 50;
 	

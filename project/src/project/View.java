@@ -59,7 +59,7 @@ public class View extends JFrame{
 			t_image = ImageIO.read(new File("images/trout_temp.png"));
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 			cr_image = ImageIO.read(new File("images/cr_temp.png"));
-			o_image = ImageIO.read(new File("images/o_outline.png"));
+			o_image = ImageIO.read(new File("images/o_temp.png"));
 			sw_image = ImageIO.read(new File("images/seaweed.png"));
 		} catch(IOException e) {
 			e.printStackTrace();

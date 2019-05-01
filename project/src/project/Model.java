@@ -32,8 +32,8 @@ public class Model {
 	int OY_I = 100;
 	int OX_INCR_I = 0;
 	int OY_INCR_I = 0;
-	int O_IMH = 35;
-	int O_IMW = 100;
+	int O_IMH = 75;
+	int O_IMW = 110;
 	
 	//initial values/positions for scoring object (fish)
 	int FX_I = View.frameWidth - 100;
