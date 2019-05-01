@@ -36,8 +36,8 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, replay;
 	
-	int DRAW_DELAY = 30;
-	Action drawAction;
+	//int DRAW_DELAY = 30;
+	//Action drawAction;
 	
 	Image g2_backimage;
 	Image g1_backimage;
@@ -81,7 +81,7 @@ public class View extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-		
+		/*
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				if(getContent() == "g2" || getContent() == "g1") {
@@ -92,6 +92,7 @@ public class View extends JFrame{
 		
 			}
 		};
+		*/
 	}
 	
 	public void createlayouts() {
