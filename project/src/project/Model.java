@@ -82,7 +82,7 @@ public class Model {
 	
 	public void updateGameTwo() {
 		
-		if (count % 60 == 0) {
+		if (count % 70 == 0) {
 			for (int i=0; i < 3; i++) {
 				int rand = r.nextInt(8);
 				while (g2occupancy[rand] == true) {
