@@ -140,7 +140,7 @@ public class View extends JFrame{
 					g.drawImage(g1_backimage,0,0,Color.gray,this);
 				
 					//very temporary picture for osprey
-					g.drawImage(o_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
+					g.drawImage(o_image, model.p.getXloc(),model.p.getYloc(),model.p.getImageWidth(), model.p.getImageHeight(),this);
 					
 					for(ScoringObject so : model.scoringObjects) {
 						if(so.ID.equals("Fish"))
@@ -156,7 +156,7 @@ public class View extends JFrame{
 			
 			if (currentpanel == "g2") {
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(cr_image, model.p.getxLoc(),model.p.getyLoc(),model.p.getimageWidth(), model.p.getimageHeight(),this);
+				g.drawImage(cr_image, model.p.getXloc(), model.p.getYloc(),model.p.getImageWidth(), model.p.getImageHeight(),this);
 				
 				for(ScoringObject so : model.scoringObjects){
 					if (so.pointValue == 1) {

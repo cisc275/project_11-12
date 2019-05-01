@@ -2,22 +2,14 @@ package project;
 
 import java.awt.image.BufferedImage;
 
-public class Osprey implements Player{
+public class Osprey extends Player{
 	
-	int xloc;
-	int yloc;
-	int xIncr;
-	int yIncr;
-	int imageWidth, imageHeight;
+	//int xloc, yloc, xIncr, yIncr;
+	//int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	
-	Osprey(int x, int y, int xi, int yi, int iW, int iH) {
-		this.xloc = x; 
-		this.yloc = y; 
-		this.xIncr = xi; 
-		this.yIncr = yi;
-		this.imageWidth = iW;
-		this.imageHeight = iH;
+	Osprey(int x, int y, int xInc, int yInc, int iW, int iH) {
+		super(x, y, xInc, yInc, iW, iH);
 	}
 	
 	
@@ -25,23 +17,20 @@ public class Osprey implements Player{
 	 * updates location(xloc and yloc) for osprey object
 	 * @param none
 	 * @return none
-	 * @author Anna Bortle
+	 * @author Ken Chan
 	 */
 	public void move() {
-		//System.out.println("osprey move method called.");
 		xloc += xIncr;
 		yloc += yIncr;
 		if(this.yloc + this.imageHeight >= View.frameHeight) {
 			yIncr = -50;
 		}
-		
 		if(this.yloc <= 100) {
 			yIncr = 0;
 		}
-		
 	}
 
-
+/*
 	@Override
 	public int getxLoc() {
 		return this.xloc;
@@ -110,4 +99,5 @@ public class Osprey implements Player{
 		// TODO Auto-generated method stub
 		this.yIncr = yI;
 	}
+	*/
 }

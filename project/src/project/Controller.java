@@ -119,13 +119,13 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(model.p.getxLoc() - CR_X < 0)){
+	        		if (!(model.p.getXloc() - CR_X < 0)){
 	        			model.p.setxIncr(-CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.p.getxLoc() + model.p.getimageWidth() + CR_X > View.frameWidth)) {
+	        		if (!(model.p.getXloc() + model.p.getImageWidth() + CR_X > View.frameWidth)) {
 	        			model.p.setxIncr(CR_X);
 	        		}
 	        		break;

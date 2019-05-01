@@ -141,7 +141,6 @@ public class Model {
 					if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -4) {
 						scoringObjects.remove(i);
 						this.createGameOneSeaweed(1);
-				
 					} 
 					else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -3) {
 						scoringObjects.remove(i);
