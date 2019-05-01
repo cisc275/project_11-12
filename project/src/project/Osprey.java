@@ -20,10 +20,15 @@ public class Osprey extends Player{
 	 * @author Ken Chan
 	 */
 	public void move() {
-		xloc += xIncr;
+		//xloc += xIncr;
 		yloc += yIncr;
+		if (yloc < 0) {
+			yloc = 0;
+			
+		}
 		if(this.yloc + this.imageHeight >= View.frameHeight) {
 			yIncr = -50;
+			yloc = View.frameHeight - this.imageHeight;
 		}
 		if(this.yloc <= 100) {
 			yIncr = 0;
