@@ -59,7 +59,7 @@ public class Model {
 	int SW_IMH = 50;
 	int SW_IMW = 50;
 	
-	//levels for both scoring objects
+	//levels for both scoring objects (game1)
 	int SO_LEVEL1 = 275;
 	int SO_LEVEL2 = 375;
 	int SO_LEVEL3 = 475;
@@ -93,15 +93,16 @@ public class Model {
 					rand = r.nextInt(8);
 				}
 				String ID = Integer.toString(rand);
-				scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
+				//scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
 				g2occupancy[rand] = true;
 			}
 		}
 		
 		count ++;
-		p.move();
+		GobjS.getPlayer().move();
 		
-		Iterator<ScoringObject> it = scoringObjects.iterator();
+		Iterator<ScoringObject> it = GobjS.getScoringObjects().iterator();
 		while (it.hasNext()) {
 			ScoringObject o = it.next();
 			if (o.lifetime>o.g2_lifetime) {
@@ -177,7 +178,8 @@ public class Model {
 	
 	public void initializeGameTwo() {
 		//System.out.println("create clapper rail");
-		p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
+		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH));
+		//p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
 		
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;

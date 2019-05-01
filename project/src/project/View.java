@@ -120,11 +120,11 @@ public class View extends JFrame{
 		menu2.setBounds(frameWidth-150,10, 100, 30);
 		game2panel.add(menu2);
 	}
-	
+	/*
 	public void addModelToView(Model m) {
 		this.model = m;
 	}
-	
+	*/
 	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
 		this.GobjS = GobjS;
 	}
@@ -162,9 +162,9 @@ public class View extends JFrame{
 			
 			if (currentpanel == "g2") {
 				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(cr_image, model.p.getXloc(), model.p.getYloc(),model.p.getImageWidth(), model.p.getImageHeight(),this);
+				g.drawImage(cr_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
 				
-				for(ScoringObject so : model.scoringObjects){
+				for(ScoringObject so : GobjS.getScoringObjects()){
 					if (so.pointValue == 1) {
 						g.setColor(Color.GREEN);
 						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);

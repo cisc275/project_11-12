@@ -38,31 +38,26 @@ public class ClapperRail extends Player{
 		// TODO Auto-generated method stub
 		return this.xloc;
 	}
-
 	@Override
 	public int getyLoc() {
 		// TODO Auto-generated method stub
 		return this.yloc;
 	}
-
 	@Override
 	public int getxIncr() {
 		// TODO Auto-generated method stub
 		return this.xIncr;
 	}
-
 	@Override
 	public int getyIncr() {
 		// TODO Auto-generated method stub
 		return this.yIncr;
 	}
-
 	@Override
 	public int getimageWidth() {
 		// TODO Auto-generated method stub
 		return this.imageWidth;
 	}
-
 	@Override
 	public int getimageHeight() {
 		// TODO Auto-generated method stub
@@ -74,22 +69,16 @@ public class ClapperRail extends Player{
 		// TODO Auto-generated method stub
 		this.xloc = x;
 	}
-
-
 	@Override
 	public void setyLoc(int y) {
 		// TODO Auto-generated method stub
 		this.xloc = y;
 	}
-
-
 	@Override
 	public void setxIncr(int xI) {
 		// TODO Auto-generated method stub
 		this.xIncr = xI;
 	}
-
-
 	@Override
 	public void setyIncr(int yI) {
 		// TODO Auto-generated method stub

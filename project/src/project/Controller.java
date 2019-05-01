@@ -30,7 +30,7 @@ public class Controller implements ActionListener, KeyListener {
 		
 		this.initializeView();
 		this.initializeModel();
-		view.addModelToView(this.model);
+		//view.addModelToView(this.model);
 		view.addGameObjectStorageToView(this.GobjS);
 		model.addGameObjectStorageToModel(this.GobjS);
 		drawAction = new AbstractAction() {
@@ -75,10 +75,7 @@ public class Controller implements ActionListener, KeyListener {
 			
 		}
 	}
-	
-	public String getContent() {
-		return view.currentpanel;
-	}
+
 	
 	
 	public void start(){
@@ -100,7 +97,7 @@ public class Controller implements ActionListener, KeyListener {
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
 	        		if (upflag) {
-	        			model.p.setyIncr(-CR_Y);
+	        			GobjS.getPlayer().setyIncr(-CR_Y);
 	        		}
 	        		upflag = false;
 	        		downflag = true;
@@ -109,25 +106,23 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (downflag) {
-	        			model.p.setyIncr(CR_Y);
+	        			GobjS.getPlayer().setyIncr(CR_Y);
 	        		}
 	        		downflag = false;
 	        		upflag = true;
 	        		System.out.println("down");
-	        		System.out.println(model.p.getyIncr());
-	        		System.out.println(CR_Y);
 	        		break;
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(model.p.getXloc() - CR_X < 0)){
-	        			model.p.setxIncr(-CR_X);
+	        		if (!(GobjS.getPlayer().getXloc() - CR_X < 0)){
+	        			GobjS.getPlayer().setxIncr(-CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.p.getXloc() + model.p.getImageWidth() + CR_X > View.frameWidth)) {
-	        			model.p.setxIncr(CR_X);
+	        		if (!(GobjS.getPlayer().getXloc() + GobjS.getPlayer().getImageWidth() + CR_X > View.frameWidth)) {
+	        			GobjS.getPlayer().setxIncr(CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:

@@ -31,50 +31,38 @@ public class ScoringObject extends GameObject{
 	
 	/*
 	public int getXloc() {
-
 		return xloc;
 	}
-
 	public void setXloc(int xloc) {
 		super.xloc = xloc;
 	}
-
 	public int getYloc() {
 		return yloc;
 	}
-
 	public void setYloc(int yloc) {
 		this.yloc = yloc;
 	}
-
 	public int getxIncr() {
 		return xIncr;
 	}
-
 	public void setxIncr(int xIncr) {
 		this.xIncr = xIncr;
 	}
-
 	public int getyIncr() {
 		return yIncr;
 	}
-
 	public void setyIncr(int yIncr) {
 		this.yIncr = yIncr;
 	}
-
 	public int getImageWidth() {
 		return imageWidth;
 	}
-
 	public void setImageWidth(int imageWidth) {
 		this.imageWidth = imageWidth;
 	}
-
 	public int getImageHeight() {
 		return imageHeight;
 	}
-
 	public void setImageHeight(int imageHeight) {
 		this.imageHeight = imageHeight;
 	}
@@ -100,4 +88,3 @@ public class ScoringObject extends GameObject{
 		return this.ID + String.valueOf(xloc);
 	}
 }
-	
