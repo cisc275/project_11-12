@@ -8,6 +8,7 @@ public abstract class GameObject {
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	Image img;
+	
 	GameObject(){
 		this.xloc = 0;
 		this.yloc = 0;
@@ -15,6 +16,7 @@ public abstract class GameObject {
 		this.yIncr = 0;
 		this.imageWidth = 0;
 		this.imageHeight = 0;
+		this.img = null;
 	}
 	
 	GameObject(int x, int y, int xInc, int yInc, int iW, int iH){
@@ -24,6 +26,7 @@ public abstract class GameObject {
 		this.yIncr = yInc;
 		this.imageWidth = iW;
 		this.imageHeight = iH;
+		this.img = null;
 	}
 	
 	public abstract void move();
@@ -69,6 +72,14 @@ public abstract class GameObject {
 	}
 	public void setImageArray(BufferedImage[][] imageArray) {
 		this.imageArray = imageArray;
+	}
+
+	public Image getImg() {
+		return img;
+	}
+
+	public void setImg(Image img) {
+		this.img = img;
 	}
 	
 }
