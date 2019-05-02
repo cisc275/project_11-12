@@ -93,7 +93,15 @@ public class Model {
 					rand = r.nextInt(8);
 				}
 				String ID = Integer.toString(rand);
-				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
+				int pointValue = foodOrTrash();
+				GameObjectEnum gobje;
+				if(pointValue == 1) {
+					gobje = GameObjectEnum.g2Food;
+				}
+				else {
+					gobje = GameObjectEnum.g2Trash;
+				}
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, ID, 30, 30, gobje));
 				//scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
 				g2occupancy[rand] = true;
 			}
@@ -127,7 +135,6 @@ public class Model {
 				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneFish(1));
-			
 				} 
 				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
 					scoringObjects.remove(i);
@@ -165,7 +172,7 @@ public class Model {
 	}
 	
 	public void initializeGameOne() {
-		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH));
+		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
 		
 		GobjS.getScoringObjects().add(this.createGameOneFish(1));
 		GobjS.getScoringObjects().add(this.createGameOneFish(2));
@@ -178,7 +185,7 @@ public class Model {
 	
 	public void initializeGameTwo() {
 		//System.out.println("create clapper rail");
-		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH));
+		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
 		//p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
 		
 		for (int i = 0; i < 8; i++) {
@@ -196,24 +203,24 @@ public class Model {
 	public ScoringObject createGameOneFish(int fishLevel) {
 		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
-			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish1", F1_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish1", F1_IMW, F_IMH, GameObjectEnum.g1Fish1));
 		} if(fishLevel == 2) {
-			return (new ScoringObject(FX_I, SO_LEVEL2, F2_SPEED, FY_INCR_I, F2_PV, "Fish2", F2_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL2, F2_SPEED, FY_INCR_I, F2_PV, "Fish2", F2_IMW, F_IMH, GameObjectEnum.g1Fish2));
 		} if(fishLevel == 3) {
-			return (new ScoringObject(FX_I, SO_LEVEL3, F3_SPEED, FY_INCR_I, F3_PV, "Fish3", F3_IMW, F_IMH));
+			return (new ScoringObject(FX_I, SO_LEVEL3, F3_SPEED, FY_INCR_I, F3_PV, "Fish3", F3_IMW, F_IMH, GameObjectEnum.g1Fish3));
 		}
 		return null;
 	}
 
 	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 		if(seaweedLevel == 1) {
-			return (new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, "Seaweed1", SW_IMW, SW_IMH));
+			return (new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, "Seaweed1", SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		if(seaweedLevel == 2) {
-			return (new ScoringObject(SWX_I, SO_LEVEL2, SW2_SPEED, SWY_INCR_I, SW_PV, "Seaweed2", SW_IMW, SW_IMH));
+			return (new ScoringObject(SWX_I, SO_LEVEL2, SW2_SPEED, SWY_INCR_I, SW_PV, "Seaweed2", SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
 		} 
 		if(seaweedLevel == 3) {
-			return (new ScoringObject(SWX_I, SO_LEVEL3, SW3_SPEED, SWY_INCR_I, SW_PV, "Seaweed3", SW_IMW, SW_IMH));
+			return (new ScoringObject(SWX_I, SO_LEVEL3, SW3_SPEED, SWY_INCR_I, SW_PV, "Seaweed3", SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		return null;
 	}

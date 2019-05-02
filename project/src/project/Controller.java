@@ -16,14 +16,8 @@ public class Controller implements ActionListener, KeyListener {
 	Model model;
 	View view;
 	Timer t;
-<<<<<<< HEAD
-	//GameObjectStorage GobjS = new GameObjectStorage();
-=======
-	GameObjectStorage GobjS = new GameObjectStorage();
 	final int drawDelay = 30; // change this to 25
->>>>>>> bf3cb84f36cd5f4a0cc158fd8a4a50f7652f4342
 	Action drawAction;
-	final int drawDelay = 30;
 	private int clockcount = 0;
 	
 	boolean upflag = false;
@@ -36,18 +30,10 @@ public class Controller implements ActionListener, KeyListener {
 	Controller(){
 		this.initializeView();
 		this.initializeModel();
-		//view.addGameObjectStorageToView(model.getGobjS());
-		//model.addGameObjectStorageToModel(this.GobjS);
-		
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
-<<<<<<< HEAD
-					view.addGameObjectStorageToView(model.getGobjS());
-=======
-					//maybe have a model accessory function.
-					//put gameObjectStorage in model, have a get gobjS from model and pass it into the view
->>>>>>> bf3cb84f36cd5f4a0cc158fd8a4a50f7652f4342
+					view.addGameObjectStorageToView(model.getGobjS()); // change this so it only runs once
 					model.updateGame();
 					clockcount++;
 					
@@ -65,6 +51,7 @@ public class Controller implements ActionListener, KeyListener {
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
+		
 	}
 	public void endGame() {
 		if (view.getContent() == "g1") {
@@ -100,6 +87,7 @@ public class Controller implements ActionListener, KeyListener {
 			view.currentpanel = "m";
 			
 		}
+		view.initializeBackground();
 	}
 
 	

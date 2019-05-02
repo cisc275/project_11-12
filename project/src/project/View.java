@@ -1,22 +1,16 @@
 package project;
 
-import java.util.*;
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import project.View.DrawPanel;
@@ -37,15 +31,14 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
-	
 	Image g2_backimage;
 	Image g1_backimage;
-	Image cr_image;
-	Image t_image;
-	Image o_image;
-	Image sw_image;
-	Image b_image;
-	
+	Image osprey_image;
+	Image clapperrail_image;
+	Image trout_image;
+	Image seaweed_image;
+	Image strippedbass_image;
+	Image background;
 	int rand;
 	static boolean randflag = true;
 	
@@ -56,12 +49,14 @@ public class View extends JFrame{
 		//load images
 		try {
 			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
-			t_image = ImageIO.read(new File("images/trout_temp.png"));
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-			cr_image = ImageIO.read(new File("images/cr_temp.png"));
-			o_image = ImageIO.read(new File("images/o_temp.png"));
-			b_image = ImageIO.read(new File("images/striped_bass.png"));
-			sw_image = ImageIO.read(new File("images/seaweed.png"));
+			osprey_image = ImageIO.read(new File("images/o_temp.png"));
+			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
+			
+			trout_image = ImageIO.read(new File("images/trout_temp.png"));
+			seaweed_image = ImageIO.read(new File("images/seaweed.png"));
+			strippedbass_image = ImageIO.read(new File("images/striped_bass.png"));
+			
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -132,59 +127,49 @@ public class View extends JFrame{
 	public static String getContent() {
 		return currentpanel;
 	}
+	public void initializeBackground() {
+		if(currentpanel == "g1") {
+			this.background = g1_backimage;
+		}
+		else if(currentpanel == "g2") {
+			this.background = g2_backimage;
+		}
+		else {
+			this.background = g1_backimage;
+		}
+	}
 	
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-
+			g.drawImage(background, 0, 0, Color.gray, this);
 			if (currentpanel == "g1") {
-					g.drawImage(g1_backimage,0,0,Color.gray,this);
-				
-					g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-					
-					for(ScoringObject so : GobjS.getScoringObjects()) {
-						
-						if(so.ID.equals("Fish1")) {
-							g.drawImage(b_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-						}
-						else if (so.ID.equals("Fish2") || so.ID.equals("Fish3"))
-						{
-							g.drawImage(t_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-						}
-						if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
-						{
-							g.drawImage(sw_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-						}
-					}
+				this.paintPlayer(g);
+				this.paintScoringObjects(g);
 			}
-			
 			if (currentpanel == "g2") {
-				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(cr_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
-				
-				for(ScoringObject so : GobjS.getScoringObjects()){
-					if (so.pointValue == 1) {
-						g.setColor(Color.GREEN);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					} else {
-						g.setColor(Color.RED);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					}
-					
-				}	
+				 this.paintPlayer(g);
+				 this.paintScoringObjects(g);
 			}
-			
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
-				g.drawImage(o_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-
+				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 			}
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
-				g.drawImage(cr_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 
 			}
-					
+		}
+		
+		public void paintPlayer(Graphics g) {
+			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+		}
+		
+		public void paintScoringObjects(Graphics g) {
+			for(ScoringObject so : GobjS.getScoringObjects()) {
+				g.drawImage(so.getImg(), so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+			}
 		}
 	}
 	

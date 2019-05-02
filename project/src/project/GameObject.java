@@ -1,12 +1,18 @@
 package project;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 	int xloc,yloc,xIncr,yIncr;
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	Image img;
+	GameObjectEnum GobjEnum;
 	GameObject(){
 		this.xloc = 0;
 		this.yloc = 0;
@@ -14,15 +20,27 @@ public abstract class GameObject {
 		this.yIncr = 0;
 		this.imageWidth = 0;
 		this.imageHeight = 0;
+		this.img = null;
 	}
 	
-	GameObject(int x, int y, int xInc, int yInc, int iW, int iH){
+	GameObject(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum){
 		this.xloc = x;
 		this.yloc = y;
 		this.xIncr = xInc;
 		this.yIncr = yInc;
 		this.imageWidth = iW;
 		this.imageHeight = iH;
+		this.GobjEnum = GobjEnum;
+		this.img = this.loadImage();
+	}
+	
+	public Image loadImage() {
+		try {
+			return ImageIO.read(new File (this.GobjEnum.getFullImagePath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public abstract void move();
@@ -68,6 +86,14 @@ public abstract class GameObject {
 	}
 	public void setImageArray(BufferedImage[][] imageArray) {
 		this.imageArray = imageArray;
+	}
+
+	public Image getImg() {
+		return img;
+	}
+
+	public void setImg(Image img) {
+		this.img = img;
 	}
 	
 }

@@ -8,8 +8,8 @@ public class Osprey extends Player{
 	//int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	
-	Osprey(int x, int y, int xInc, int yInc, int iW, int iH) {
-		super(x, y, xInc, yInc, iW, iH);
+	Osprey(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum) {
+		super(x, y, xInc, yInc, iW, iH, GobjEnum);
 	}
 	
 	
