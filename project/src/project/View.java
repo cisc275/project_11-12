@@ -164,7 +164,7 @@ public class View extends JFrame{
 			if (currentpanel == "g2") {
 				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
-				
+				 
 				for(ScoringObject so : GobjS.getScoringObjects()){
 					if (so.pointValue == 1) {
 						g.setColor(Color.GREEN);
