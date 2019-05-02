@@ -23,5 +23,5 @@ public class GameObjectStorage {
 		this.scoringObjects = scoringObjects;
 	}
 	
-}
+
 }

@@ -81,26 +81,52 @@ public class Model {
 			}
 		}
 	
-
-	
+	/**
+	 * Updates the state of Game 2: Clapper Rail:
+	 * creates and removes scoringObjects (food and trash), updates the location of the player.
+	 * @author Anna Bortle
+	 * @param none
+	 * @return none
+	 */
 	public void updateGameTwo() {
-		
 		if (count % 70 == 0) {
 			for (int i=0; i < 3; i++) {
-				int rand = r.nextInt(8);
-				while (g2occupancy[rand] == true) {
-					rand = r.nextInt(8);
-				}
-				String ID = Integer.toString(rand);
-				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
-				//scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
-				g2occupancy[rand] = true;
+				createFoodOrTrash();
 			}
 		}
-		
 		count ++;
 		GobjS.getPlayer().move();
-		
+		updateFoodAndTrash();
+	}
+	
+	/**
+	 * Creates a new scoringObject that is "placed" in a random vacant Point from g2locations, and updates the 
+	 * respective g2occupancy to true. The method uses the scoringObject's index (same for g2locations & g2occupancy)
+	 * as its ID so that this specific scoringObject's g2locations & g2occupancy can be referenced and updated later on.
+	 * 
+	 * @author Anna Bortle
+	 * @param none
+	 * @return none
+	 */
+	public void createFoodOrTrash() {
+		int rand = r.nextInt(8);
+		while (g2occupancy[rand] == true) {
+			rand = r.nextInt(8);
+		}
+		String ID = Integer.toString(rand);
+		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
+		g2occupancy[rand] = true;
+	}
+	
+	
+	/**
+	 * Iterates through scoringObjects arraylist and removes scoringObjects whose "lifetime" is over and should be removed from game.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void updateFoodAndTrash() {
 		Iterator<ScoringObject> it = GobjS.getScoringObjects().iterator();
 		while (it.hasNext()) {
 			ScoringObject o = it.next();
@@ -113,6 +139,7 @@ public class Model {
 			}
 		}
 	}
+	
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
 		this.updateGameOneScoringObjects(GobjS.getScoringObjects());
@@ -178,7 +205,6 @@ public class Model {
 	public void initializeGameTwo() {
 		//System.out.println("create clapper rail");
 		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH));
-		//p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
 		
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
@@ -217,8 +243,14 @@ public class Model {
 		return null;
 	}
 	
-
-	
+	/**
+	 * Returns either a -1 or 1.
+	 * Return value used to assign a point value to a scoringObject in Game 2 (Clapper Rail).
+	 * A value of -1 denotes trash, and 1 denotes food.
+	 * @author Anna Bortle
+	 * @param none
+	 * @return integer: random -1 or 1
+	 */
 	public int foodOrTrash() {
 		int i = r.nextInt();
 		if (i%2 == 0) {
