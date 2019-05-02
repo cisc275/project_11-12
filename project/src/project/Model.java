@@ -18,7 +18,7 @@ public class Model {
 	int G2X = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
 	Random r = new Random();
-	GameObjectStorage GobjS;
+	GameObjectStorage GobjS = new GameObjectStorage();
 	//initial values/positions for cr
 	int CRX_I = 140;
 	int CRY_I = 250;
@@ -228,5 +228,9 @@ public class Model {
 		else {
 			return 1;
 		}
+	}
+	
+	public GameObjectStorage getGobjS() {
+		return this.GobjS;
 	}
 }
