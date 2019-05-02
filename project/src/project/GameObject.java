@@ -6,7 +6,7 @@ public abstract class GameObject {
 	int xloc,yloc,xIncr,yIncr;
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
-	
+	Image img;
 	GameObject(){
 		this.xloc = 0;
 		this.yloc = 0;
