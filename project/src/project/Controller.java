@@ -87,7 +87,7 @@ public class Controller implements ActionListener, KeyListener {
 			view.cl.show(view.panelContainer, "0");
 			view.currentpanel = "m";
 		}
-		view.initializeGameImages();
+		view.initializeBackground();
 	}
 
 	
