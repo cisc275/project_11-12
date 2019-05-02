@@ -18,7 +18,7 @@ public class ModelTest {
 
 	@Test
 	public void clapperRailTest() {
-		ClapperRail cr = new ClapperRail(0,0,2,2,100,100);
+		ClapperRail cr = new ClapperRail(0,0,2,2,100,100,GameObjectEnum.g2ClapperRail);
 		assertNotNull(cr);
 		
 		//test "setters"
@@ -80,7 +80,7 @@ public class ModelTest {
 	
 	@Test
 	public void ospreyTest() {
-		Osprey o = new Osprey(0,0,2,2,100,100);
+		Osprey o = new Osprey(0,0,2,2,100,100, GameObjectEnum.g1Osprey);
 		assertNotNull(o);
 		
 		//test "setters"
@@ -133,7 +133,7 @@ public class ModelTest {
 		assertNotNull(s);
 		assertNotNull(s.ScoringTable);
 		
-		ScoringObject sc = new ScoringObject(0, 0, 10, 10, 1, "egg", 100, 100);
+		ScoringObject sc = new ScoringObject(0, 0, 10, 10, 1, "egg", 100, 100, GameObjectEnum.g2Food);
 		s.updateScore(sc);
 		
 		int actual = s.amountContained("egg");
@@ -151,7 +151,7 @@ public class ModelTest {
 	
 	@Test
 	public void scoringObjectTest() {
-		ScoringObject so = new ScoringObject(10,10,1,1,2,"Fish",100,100);
+		ScoringObject so = new ScoringObject(10,10,1,1,2,"Fish",100,100, GameObjectEnum.g1Fish1);
 		assertNotNull(so);
 		
 		//test move()

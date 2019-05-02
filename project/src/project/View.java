@@ -196,22 +196,9 @@ public class View extends JFrame{
 		
 		public void paintG1ScoringObjects(Graphics g) {
 			for(ScoringObject so : GobjS.getScoringObjects()) {
-				
-				if(so.ID.equals("Fish1")) {
-					g.drawImage(strippedbass_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
-				else if (so.ID.equals("Fish2") || so.ID.equals("Fish3"))
-				{
-					g.drawImage(trout_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
-				if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
-				{
-					g.drawImage(seaweed_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
+				g.drawImage(so.getImg(), so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 			}
 		}
-		
-		
 	}
 	
 	

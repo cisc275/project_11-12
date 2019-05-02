@@ -13,8 +13,8 @@ public class ScoringObject extends GameObject{
 		super();
 	}
 	
-	ScoringObject(int x, int y, int xInc, int yInc, int pV, String ID, int iW, int iH){
-		super(x, y, xInc, yInc, iW, iH);
+	ScoringObject(int x, int y, int xInc, int yInc, int pV, String ID, int iW, int iH, GameObjectEnum GobjEnum){
+		super(x, y, xInc, yInc, iW, iH, GobjEnum);
 		this.pointValue = pV;
 		this.ID = ID;
 	}
