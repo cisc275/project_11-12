@@ -26,6 +26,8 @@ public class Controller implements ActionListener, KeyListener {
 	
 	int CR_Y = (View.frameHeight/9 * 2) + 17;
 	int CR_X = View.frameWidth/5;
+	int CR_Y_SPACE = 30;
+	int CR_BOUND = 250 + CR_Y;
 	int O_Y = 50;
 	
 	Controller(){
@@ -108,6 +110,7 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if(GobjS.p.imageHeight == model.CR_IMH) {
 		
 			int k = e.getKeyCode();
 			switch( k ) { 
@@ -142,19 +145,45 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		GobjS.getPlayer().setyIncr(O_Y);
+	        		if(!(GobjS.getPlayer().getYloc() > CR_BOUND))
+	        		{
+	        			GobjS.getPlayer().setyIncr(CR_Y_SPACE);
+	        		}
 	        		System.out.println("space");
 	        		break;
 	     
-		}
+			}
 		
+		}
+		if(GobjS.p.imageHeight == model.O_IMH) {
+			
+			int k = e.getKeyCode();
+			switch( k ) { 
+	      
+	        	case KeyEvent.VK_SPACE:
+	        		GobjS.getPlayer().setyIncr(O_Y);
+	        		System.out.println("space");
+	        		break;
+			}
+		
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		//System.out.println("key released");
 		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE) {
-			GobjS.getPlayer().setyIncr(-O_Y);
+		if(GobjS.p.imageHeight == model.O_IMH)
+		{
+			if(key == KeyEvent.VK_SPACE) {
+				GobjS.getPlayer().setyIncr(-O_Y);
+			}
+		}
+		
+		if(GobjS.p.imageHeight == model.CR_IMH)
+		{
+			if(key == KeyEvent.VK_SPACE) {
+				GobjS.getPlayer().setyIncr(-CR_Y_SPACE);
+			}
 		}
 	}
 	@Override
