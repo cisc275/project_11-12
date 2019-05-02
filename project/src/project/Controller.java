@@ -23,8 +23,12 @@ public class Controller implements ActionListener, KeyListener {
 	boolean upflag = false;
 	boolean downflag = true;
 	
-	int CR_Y = 150;
-	int CR_X = 160;
+	int CR_Y = (View.frameHeight/9 * 2) + 17;
+	int CR_X = View.frameWidth/5;
+	int CR_Y_SPACE = 30;
+	int CR_BOUND = 250 + CR_Y;
+	int CR_BOUND_TOP = 250;
+	int CR_BOUND_BOTTOM = 250 + CR_Y;
 	int O_Y = 50;
 	
 	Controller(){
@@ -102,55 +106,69 @@ public class Controller implements ActionListener, KeyListener {
 		
 		
 	}
-	
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-			int k = e.getKeyCode();
-			switch( k ) { 
-	        	case KeyEvent.VK_UP:
-	        		if (upflag) {
-	        			model.getGobjS().getPlayer().setyIncr(-CR_Y);
-	        		}
-	        		upflag = false;
-	        		downflag = true;
-	        		System.out.println("up");
-	        		break;
-	        		
-	        	case KeyEvent.VK_DOWN:
-	        		if (downflag) {
-	        			model.getGobjS().getPlayer().setyIncr(CR_Y);
-	        		}
-	        		downflag = false;
-	        		upflag = true;
-	        		System.out.println("down");
-	        		break;
-	        		
-	        	case KeyEvent.VK_LEFT:
-	        		System.out.println("left");
-	        		if (!(model.getGobjS().getPlayer().getXloc() - CR_X < 0)){
-	        			model.getGobjS().getPlayer().setxIncr(-CR_X);
-	        		}
-	        		break;
-	        	case KeyEvent.VK_RIGHT :
-	        		System.out.println("right");
-	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth() + CR_X > View.frameWidth)) {
-	        			model.getGobjS().getPlayer().setxIncr(CR_X);
-	        		}
-	        		break;
-	        	case KeyEvent.VK_SPACE:
-	        		System.out.println("space");
-	        		if (view.getContent() == "g2") {
-	        			model.eatFoodOrTrash();
-	        		}
-	        		else {
-	        			model.getGobjS().getPlayer().setyIncr(O_Y);
-	        		}
-	        		break;
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(model.getGobjS().getPlayer().imageHeight == model.CR_IMH) {
+			
+				int k = e.getKeyCode();
+				switch( k ) { 
+		        	case KeyEvent.VK_UP:
+		        		if (upflag) {
+		        			model.getGobjS().getPlayer().setyIncr(-CR_Y);
+		        		}
+		        		upflag = false;
+		        		downflag = true;
+		        		System.out.println("up");
+		        		break;
+		        		
+		        	case KeyEvent.VK_DOWN:
+		        		if (downflag) {
+		        			model.getGobjS().getPlayer().setyIncr(CR_Y);
+		        		}
+		        		downflag = false;
+		        		upflag = true;
+		        		System.out.println("down");
+		        		break;
+		        		
+		        	case KeyEvent.VK_LEFT:
+		        		System.out.println("left");
+		        		if (!(model.getGobjS().getPlayer().getXloc() - CR_X < 0)){
+		        			model.getGobjS().getPlayer().setxIncr(-CR_X);
+		        		}
+		        		break;
+		        	case KeyEvent.VK_RIGHT :
+		        		System.out.println("right");
+		        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth() + CR_X > View.frameWidth)) {
+		        			model.getGobjS().getPlayer().setxIncr(CR_X);
+		        		}
+		        		break;
+		        	case KeyEvent.VK_SPACE:
+		        		if((model.getGobjS().getPlayer().getYloc() == CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == CR_BOUND_TOP) )
+		        		{
+		        			model.getGobjS().getPlayer().setyIncr(CR_Y_SPACE);
+		        		}
+		        		System.out.println("space");
+		        		break;
+		     
+			}
+			
 		}
+			if(model.getGobjS().p.imageHeight == model.O_IMH) {
+				
+				int k = e.getKeyCode();
+				switch( k ) { 
+		      
+		        	case KeyEvent.VK_SPACE:
+		        		model.getGobjS().getPlayer().setyIncr(O_Y);
+		        		System.out.println("space");
+		        		break;
+				}
+			
+		}
+		}
+	
 		
-	}
+			
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
