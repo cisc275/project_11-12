@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -136,6 +137,7 @@ public class Model {
 			}
 			else {
 				o.lifetime++;
+				collisionG2();
 			}
 		}
 	}
@@ -264,4 +266,21 @@ public class Model {
 	public GameObjectStorage getGobjS() {
 		return this.GobjS;
 	}
+	
+	public boolean collisionG2() {
+		Rectangle CR = GobjS.getPlayer().getBounds();
+		Rectangle o1 = GobjS.getScoringObjects().get(0).getBounds();
+		Rectangle o2 = GobjS.getScoringObjects().get(1).getBounds();
+		Rectangle o3 = GobjS.getScoringObjects().get(2).getBounds();
+		
+		if(CR.intersects(o1) || CR.intersects(o2) || CR.intersects(o3)) {
+			System.out.println("Collision detected");
+			return true;
+			
+		} else {
+			return false;
+		}
+	}
+	
+	
 }
