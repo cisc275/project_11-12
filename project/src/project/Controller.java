@@ -178,6 +178,9 @@ public class Controller implements ActionListener, KeyListener {
 		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
 			model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
+		if(key == KeyEvent.VK_SPACE && view.getContent() == "g2") {
+			model.getGobjS().getPlayer().setyIncr(-CR_Y_SPACE);
+		}
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
