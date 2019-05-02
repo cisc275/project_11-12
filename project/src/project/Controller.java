@@ -27,7 +27,8 @@ public class Controller implements ActionListener, KeyListener {
 	int CR_Y = (View.frameHeight/9 * 2) + 17;
 	int CR_X = View.frameWidth/5;
 	int CR_Y_SPACE = 30;
-	int CR_BOUND = 250 + CR_Y;
+	int CR_BOUND_TOP = 250;
+	int CR_BOUND_BOTTOM = 250 + CR_Y;
 	int O_Y = 50;
 	
 	Controller(){
@@ -145,7 +146,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		if(!(GobjS.getPlayer().getYloc() > CR_BOUND))
+	        		if((GobjS.getPlayer().getYloc() == CR_BOUND_BOTTOM) || (GobjS.getPlayer().getYloc() == CR_BOUND_TOP) )
 	        		{
 	        			GobjS.getPlayer().setyIncr(CR_Y_SPACE);
 	        		}
