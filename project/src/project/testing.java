@@ -1,8 +1,6 @@
-package project;
-
+/*package project;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class testing {
 	//Clapper Rail Class
 	@Test
@@ -90,7 +88,6 @@ public class testing {
 		assertEquals(12, fox.xloc);
 		assertEquals(12, fox.yloc);	
 	}
-
 	@Test
 	public void FoxEnter2() {
 		Fox fox = new Fox(10,17,12,-12);
@@ -116,7 +113,6 @@ public class testing {
 		assertEquals(-12, fox.xloc);
 		assertEquals(-12, fox.yloc);	
 	}
-
 	@Test
 	public void FoxExit2() {
 		Fox fox = new Fox(10,17,12,-12);
@@ -135,7 +131,7 @@ public class testing {
 		assertEquals(-34, fox.yloc);
 	}
 	
-
 	
 	
 }
+*/

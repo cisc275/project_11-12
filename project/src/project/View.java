@@ -1,26 +1,25 @@
 package project;
 
-import java.util.*;
 import java.awt.Button;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//import project.View.DrawPanel;
+
+@SuppressWarnings("serial")
 public class View extends JFrame{
-	
-	static DrawPanel menuPanel, game1panel, game2panel;
+	Model model;
+	GameObjectStorage GobjS;
+	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
 	static String currentpanel;
 	
 	int frameCount;
@@ -30,162 +29,184 @@ public class View extends JFrame{
 	int imageHeight;
 	int imageWidth;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, ans1, ans2, menu, replay, instruct;
-	
-	int drawDelay = 30;
-	Action drawAction;
+	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
 	Image g2_backimage;
 	Image g1_backimage;
+	Image osprey_image;
+	Image clapperrail_image;
+	Image trout_image;
+	Image seaweed_image;
+	Image strippedbass_image;
+	Image background;
+	int rand;
+	static boolean randflag = true;
 	
-	
+	CardLayout cl = new CardLayout();
 	
 	public View() {
-		//add a drawpanel
-		menuPanel = new DrawPanel();
-		menuPanel.setLayout(null);
-		menuPanel.setBackground(Color.darkGray);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(frameWidth, frameHeight);
+		this.setPreferredSize(new Dimension(frameWidth, frameHeight));
+		//load images
+		try {
+			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+			osprey_image = ImageIO.read(new File("images/o_temp.png"));
+			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
+			
+			trout_image = ImageIO.read(new File("images/trout_temp.png"));
+			seaweed_image = ImageIO.read(new File("images/seaweed.png"));
+			strippedbass_image = ImageIO.read(new File("images/striped_bass.png"));
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 		
-		//add buttons
+		//set up card layout & panels
+		panelContainer = new DrawPanel();
+		panelContainer.setLayout(cl);
+		
+		createlayouts();
+		
+		panelContainer.add(menupanel, "0");
+		panelContainer.add(game1panel, "1");
+		panelContainer.add(game2panel, "2");
+		panelContainer.add(end1panel, "3");
+		panelContainer.add(end2panel, "4");
+		
+		cl.show(panelContainer, "0");
+		
+		this.add(panelContainer);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
+		this.setVisible(true);
+	}
+	
+	public void createlayouts() {
+		menupanel = new DrawPanel();
+		menupanel.setLayout(null);
+		menupanel.setBackground(Color.darkGray);
+		
 		game1 = new Button("Game 1: Osprey");
 		game1.setBounds(200,50,400,100);
-		menuPanel.add(game1);
-		
 		game2 = new Button("Game 2: Clapper Rail");
 		game2.setBounds(200,200,400,100);
-		menuPanel.add(game2);
+		menupanel.add(game1);
+		menupanel.add(game2);
 		
-		instruct = new Button("Instructions");
-		instruct.setBounds(200,350,400,100);
-		menuPanel.add(instruct);
-		
-		add(menuPanel);
-		currentpanel = "m";
-		menuPanel.setFocusable(true); //allows for button presses
-		menuPanel.requestFocus();
-		setVisible(true);
-		
-		drawAction = new AbstractAction() {
-			public void actionPerformed(ActionEvent e) {
-				if(View.getContent() == "g2") {
-					repaint();
-					//System.out.println("action");
-					Model.updateGame();
-			}
-		}};
-		
-		
-	
-	}
-	public void game1Panel() {
-		
-		this.getContentPane().remove(menuPanel); //remove current panel
-		DrawPanel game1panel = new DrawPanel();
+		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
-		game1panel.setBackground(Color.blue);
-		game1panel.setFocusable(true); //allows for button presses
-		game1panel.requestFocus();
-		this.getContentPane().add(game1panel);
-		currentpanel = "g1";
-		setVisible(true);
+		menu1 = new Button("main menu");
+		menu1.setBounds(frameWidth-150,10, 100, 30);
+		game1panel.add(menu1);
 		
-		
-	}
-	public void game2Panel() {
-		
-		this.getContentPane().remove(menuPanel); //remove current panel
-		DrawPanel game2panel = new DrawPanel();
+		game2panel = new DrawPanel();
 		game2panel.setLayout(null);
-		game2panel.setBackground(Color.green);
-		this.getContentPane().add(game2panel);
-		currentpanel = "g2";
-		setVisible(true);
+		menu2 = new Button("main menu");
+		menu2.setBounds(frameWidth-150,10, 100, 30);
+		game2panel.add(menu2);
 		
+		end1panel = new DrawPanel();
+		end1panel.setLayout(null);
+		end1panel.setBackground(Color.gray);
+		
+		end2panel = new DrawPanel();
+		end2panel.setLayout(null);
+		end2panel.setBackground(Color.gray);
 	}
-	public void instructPanel() {
-		
-		this.getContentPane().remove(menuPanel); //remove current panel
-		DrawPanel infopanel = new DrawPanel();
-		infopanel.setLayout(null);
-		infopanel.setBackground(Color.gray);
-		this.getContentPane().add(infopanel);
-		currentpanel = "info";
-		JLabel label1 = new JLabel("Osprey Game: For this game you have to eat fish to build up your energy to migrate.");
-		JLabel label2 = new JLabel("Clapper Rail Game: For this game you have to feed on insects and avoid garbage and the fox");
-		JFrame window = new JFrame("Instructions");
-		window.setVisible(true);
-		window.setSize(800,600);
-		label1.setBounds(0, 0, 500, 50);
-		window.add(label1);
-		window.add(label2);
-		setVisible(true);
-		
+	
+	
+	
+	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
+		this.GobjS = GobjS;
 	}
 	
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
 	}
+	
 	public static String getContent() {
 		return currentpanel;
 	}
+	public void initializeGameImages() {
+		if(currentpanel == "g1") {
+			GobjS.getPlayer().setImg(osprey_image);
+			this.background = g1_backimage;
+		}
+		else if(currentpanel == "g2") {
+			GobjS.getPlayer().setImg(clapperrail_image);
+			this.background = g2_backimage;
+		}
+		else {
+			GobjS.getPlayer().setImg(osprey_image);
+			this.background = g1_backimage;
+		}
+	}
+	
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if (View.getContent() == "g2") {
-				try {
-					g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-				//add background
-				g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				//black square for clapper rail
-				g.setColor(Color.BLACK);
-				g.fillRect(Model.cr.xloc, Model.cr.yloc, 50, 50);
-				//g.fillRect(400, 400, 50, 50);
-				
-				
+			g.drawImage(background, 0, 0, Color.gray, this);
+			//this.paintPlayer(g);
+			if (currentpanel == "g1") {
+					//g.drawImage(g1_backimage,0,0,Color.gray,this);
+					//g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+					this.paintPlayer(g);
+					this.paintG1ScoringObjects(g);
 			}
 			
-			
-			
-			if (View.getContent() == "g1") {
-				try {
-					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-				g.drawImage(g1_backimage,0,0,Color.gray,this);
+			if (currentpanel == "g2") {
+				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
+				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
 				
-				//draws rectangle for bird
-				g.drawRect(10, 10, 20, 20);
-				g.setColor(Color.BLACK);
-				g.fillRect(10, 10, 20, 20);
-				
-				//draws ex first level fish				
-				for(int x=20; x<frameWidth; x+=200)
-				{
-					int[] xPoints = {x, x, x+20};
-					int[] yPoints = {300, 350, 325};
-					g.drawPolygon(xPoints, yPoints, 3);
-					g.setColor(Color.YELLOW);
-					g.fillPolygon(xPoints, yPoints, 3);
-				}
-				
-				for(int x2=40; x2<frameWidth; x2+=200)
-				{
-					g.drawOval(x2, 310, 50, 30);
-					g.setColor(Color.YELLOW);
-					g.fillOval(x2, 310, 50, 30);
-				}
-				
-				
+				for(ScoringObject so : GobjS.getScoringObjects()){
+					if (so.pointValue == 1) {
+						g.setColor(Color.GREEN);
+						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+					} else {
+						g.setColor(Color.RED);
+						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
+					}
+					
+				}	
 			}
-			//update the view of the game here
+			
+			if (currentpanel == "e1") {
+				//just draw something temp on panel for now
+				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+
+			}
+			if (currentpanel == "e2") {
+				//just draw something temp on panel for now
+				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+
+			}
+					
 		}
+		
+		public void paintPlayer(Graphics g) {
+			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+		}
+		
+		public void paintG1ScoringObjects(Graphics g) {
+			for(ScoringObject so : GobjS.getScoringObjects()) {
+				
+				if(so.ID.equals("Fish1")) {
+					g.drawImage(strippedbass_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+				}
+				else if (so.ID.equals("Fish2") || so.ID.equals("Fish3"))
+				{
+					g.drawImage(trout_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+				}
+				if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
+				{
+					g.drawImage(seaweed_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+				}
+			}
+		}
+		
+		
 	}
+	
 	
 	/**
 	 * adds the Controller class as the listener to buttons in View
@@ -193,13 +214,14 @@ public class View extends JFrame{
 	 * @return none
 	 * @author Brendan Azueta
 	 */
+	
 	public void addControllertoButton(Controller c) {
-		instruct.addActionListener(c);
 		game1.addActionListener(c);
 		game2.addActionListener(c);
 		//ans1.addActionListener(c);
 		//ans2.addActionListener(c);
-		//menu.addActionListener(c);
+		menu1.addActionListener(c);
+		menu2.addActionListener(c);
 		//replay.addActionListener(c);
 	}
 	

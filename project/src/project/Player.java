@@ -1,6 +1,9 @@
 package project;
-
-public interface Player {
+//turn into abstract class, not player, but all game objects
+public abstract class Player extends GameObject{
 	
-	public void move();	
+	Player(int x, int y, int xInc, int yInc, int iW, int iH) {
+		super(x, y, xInc, yInc, iW, iH);
+	}
+	
 }
