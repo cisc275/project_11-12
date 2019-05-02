@@ -16,8 +16,6 @@ public class Controller implements ActionListener, KeyListener {
 	Model model;
 	View view;
 	Timer t;
-	//GameObjectStorage GobjS = new GameObjectStorage();
-	GameObjectStorage GobjS = new GameObjectStorage();
 	final int drawDelay = 30; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
