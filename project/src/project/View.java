@@ -1,16 +1,22 @@
 package project;
 
+import java.util.*;
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import project.View.DrawPanel;
@@ -31,6 +37,7 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
+	//lmao wtf are these names??? please make them more clear!!
 	Image g2_backimage;
 	Image g1_backimage;
 	Image osprey_image;
