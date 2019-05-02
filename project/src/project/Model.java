@@ -147,12 +147,10 @@ public class Model {
 	public void eatFoodOrTrash() {
 		int loc = findClapperRail();
 		if (g2occupancy[loc] != false) {
-			System.out.println("one");
 			Iterator<ScoringObject> it = GobjS.getScoringObjects().iterator();
 			while (it.hasNext()) {
 				ScoringObject o = it.next();
 				if (Integer.parseInt(o.ID) == loc){
-					System.out.println("two");
 					score.updateScore(o);
 					it.remove();
 					g2occupancy[Integer.parseInt(o.ID)] = false;
