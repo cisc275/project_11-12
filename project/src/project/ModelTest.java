@@ -1,6 +1,3 @@
-/**
- * 
- */
 package project;
 
 import static org.junit.Assert.*;

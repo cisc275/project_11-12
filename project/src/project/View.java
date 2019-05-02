@@ -127,6 +127,7 @@ public class View extends JFrame{
 	public static String getContent() {
 		return currentpanel;
 	}
+	
 	public void initializeBackground() {
 		if(currentpanel == "g1") {
 			this.background = g1_backimage;
@@ -135,6 +136,21 @@ public class View extends JFrame{
 			this.background = g2_backimage;
 		}
 		else {
+			this.background = g1_backimage;
+		}
+	}
+	
+	public void initializeGameImages() {
+		if(currentpanel == "g1") {
+			GobjS.getPlayer().setImg(osprey_image);
+			this.background = g1_backimage;
+		}
+		else if(currentpanel == "g2") {
+			GobjS.getPlayer().setImg(clapperrail_image);
+			this.background = g2_backimage;
+		}
+		else {
+			GobjS.getPlayer().setImg(osprey_image);
 			this.background = g1_backimage;
 		}
 	}
@@ -158,6 +174,7 @@ public class View extends JFrame{
 			}
 		}
 		
+		
 		public void paintPlayer(Graphics g) {
 			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 		}
@@ -167,9 +184,11 @@ public class View extends JFrame{
 				g.drawImage(so.getImg(), so.getXloc(), so.getYloc(), so.getImageWidth(), so.getImageHeight(), this);
 			}
 		}
+		
+		
 	}
 	
-	
+
 	/**
 	 * adds the Controller class as the listener to buttons in View
 	 * @param the controller instance 

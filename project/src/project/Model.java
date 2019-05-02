@@ -1,10 +1,10 @@
 package project;
 
 import java.awt.Point;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Model {
 	
@@ -13,6 +13,7 @@ public class Model {
 	Scoring score;
 	int count;
 	Point[] g2locations = new Point[8];
+	Point[] clapperlocations = new Point[8];
 	int G2Y = 300;
 	int G2Y2 = 450;
 	int G2X = (View.frameWidth/5);
@@ -22,6 +23,8 @@ public class Model {
 	//initial values/positions for cr
 	int CRX_I = 140;
 	int CRY_I = 250;
+	int CR_Y = 150;
+	int CR_X = 160;
 	int CRX_INCR_I = 0;
 	int CRY_INCR_I = 0;
 	int CR_IMH = 50;
@@ -82,34 +85,60 @@ public class Model {
 			}
 		}
 	
-
-	
+	/**
+	 * Updates the state of Game 2: Clapper Rail:
+	 * creates and removes scoringObjects (food and trash), updates the location of the player.
+	 * @author Anna Bortle
+	 * @param none
+	 * @return none
+	 */
 	public void updateGameTwo() {
-		
 		if (count % 70 == 0) {
 			for (int i=0; i < 3; i++) {
-				int rand = r.nextInt(8);
-				while (g2occupancy[rand] == true) {
-					rand = r.nextInt(8);
-				}
-				String ID = Integer.toString(rand);
-				int pointValue = foodOrTrash();
-				GameObjectEnum gobje;
-				if(pointValue == 1) {
-					gobje = GameObjectEnum.g2Food;
-				}
-				else {
-					gobje = GameObjectEnum.g2Trash;
-				}
-				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, ID, 30, 30, gobje));
-				//scoringObjects.add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, foodOrTrash(), ID, 30, 30));
-				g2occupancy[rand] = true;
+				createFoodOrTrash();
 			}
 		}
-		
 		count ++;
 		GobjS.getPlayer().move();
-		
+		updateFoodAndTrash();
+	}
+	
+	/**
+	 * Creates a new scoringObject that is "placed" in a random vacant Point from g2locations, and updates the 
+	 * respective g2occupancy to true. The method uses the scoringObject's index (same for g2locations & g2occupancy)
+	 * as its ID so that this specific scoringObject's g2locations & g2occupancy can be referenced and updated later on.
+	 * 
+	 * @author Anna Bortle
+	 * @param none
+	 * @return none
+	 */
+	public void createFoodOrTrash() {
+		int rand = r.nextInt(8);
+		while (g2occupancy[rand] == true) {
+			rand = r.nextInt(8);
+		}
+		String ID = Integer.toString(rand);
+		int pointValue = foodOrTrash();
+		GameObjectEnum gobje;
+		if(pointValue == 1) {
+			gobje = GameObjectEnum.g2Food;
+		}
+		else {
+			gobje = GameObjectEnum.g2Trash;
+		}
+		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, ID, 30, 30, gobje));
+		g2occupancy[rand] = true;
+	}
+	
+	
+	/**
+	 * Iterates through scoringObjects arraylist and removes scoringObjects whose "lifetime" is over and should be removed from game.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void updateFoodAndTrash() {
 		Iterator<ScoringObject> it = GobjS.getScoringObjects().iterator();
 		while (it.hasNext()) {
 			ScoringObject o = it.next();
@@ -122,6 +151,37 @@ public class Model {
 			}
 		}
 	}
+	
+	public void eatFoodOrTrash() {
+		int loc = findClapperRail();
+		if (g2occupancy[loc] != false) {
+			Iterator<ScoringObject> it = GobjS.getScoringObjects().iterator();
+			while (it.hasNext()) {
+				ScoringObject o = it.next();
+				if (Integer.parseInt(o.ID) == loc){
+					score.updateScore(o);
+					it.remove();
+					g2occupancy[Integer.parseInt(o.ID)] = false;
+					System.out.println(score.totalScore);
+				}
+			}
+		}
+		else {
+			//do nothing (clapper rail is not on a spot with food or trash)
+		}
+	}
+	
+	public int findClapperRail() {
+		int loc = -1;
+		Point cr_loc = new Point(GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc());
+		for (int i = 0; i < clapperlocations.length; i++) {
+			if (cr_loc.equals(clapperlocations[i])) {
+				return i; 
+			}
+		}
+		return loc;
+	}
+	
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
 		this.updateGameOneScoringObjects(GobjS.getScoringObjects());
@@ -184,24 +244,24 @@ public class Model {
 	}
 	
 	public void initializeGameTwo() {
-		//System.out.println("create clapper rail");
-		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
-		//p = new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH);
-		
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
 			if (i < 4) {
+				clapperlocations[i] = new Point(CRX_I+CR_X*(i), CRY_I);	
 				g2locations[i] = new Point(G2X*(i+1), G2Y);
 			}
 			else {
+				clapperlocations[i] = new Point(CRX_I+CR_X*(i-4), CRY_I+CR_Y);
 				g2locations[i] = new Point(G2X*(i-3), G2Y2);
 			}
-		}		
+		}	
+		
+		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
+		score = new Scoring();
 	}
 
 	
 	public ScoringObject createGameOneFish(int fishLevel) {
-		//System.out.println("Created Fish");
 		if(fishLevel == 1) {
 			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish1", F1_IMW, F_IMH, GameObjectEnum.g1Fish1));
 		} if(fishLevel == 2) {
@@ -225,8 +285,14 @@ public class Model {
 		return null;
 	}
 	
-
-	
+	/**
+	 * Returns either a -1 or 1.
+	 * Return value used to assign a point value to a scoringObject in Game 2 (Clapper Rail).
+	 * A value of -1 denotes trash, and 1 denotes food.
+	 * @author Anna Bortle
+	 * @param none
+	 * @return integer: random -1 or 1
+	 */
 	public int foodOrTrash() {
 		int i = r.nextInt();
 		if (i%2 == 0) {

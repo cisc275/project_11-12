@@ -23,8 +23,8 @@ public class Controller implements ActionListener, KeyListener {
 	boolean upflag = false;
 	boolean downflag = true;
 	
-	int CR_Y = (View.frameHeight/9 * 2) + 17;
-	int CR_X = View.frameWidth/5;
+	int CR_Y = 150;
+	int CR_X = 160;
 	int O_Y = 50;
 	
 	Controller(){
@@ -33,7 +33,7 @@ public class Controller implements ActionListener, KeyListener {
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
-					view.addGameObjectStorageToView(model.getGobjS()); // change this so it only runs once
+					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame();
 					clockcount++;
 					if (clockcount > 3000) { //3000*drawDelay[30] = 90000 = 1.5min
@@ -50,8 +50,8 @@ public class Controller implements ActionListener, KeyListener {
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
-		
 	}
+	
 	public void endGame() {
 		if (view.getContent() == "g1") {
 			view.cl.show(view.panelContainer, "3");
@@ -62,6 +62,7 @@ public class Controller implements ActionListener, KeyListener {
 			view.currentpanel = "e2";
 		}
 	}
+	
 	public void initializeModel() {
 		model = new Model();
 	}
@@ -82,11 +83,11 @@ public class Controller implements ActionListener, KeyListener {
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
+			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
 			view.cl.show(view.panelContainer, "0");
 			view.currentpanel = "m";
-			
 		}
-		view.initializeBackground();
+		view.initializeGameImages();
 	}
 
 	
@@ -139,24 +140,26 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		model.getGobjS().getPlayer().setyIncr(O_Y);
 	        		System.out.println("space");
+	        		if (view.getContent() == "g2") {
+	        			model.eatFoodOrTrash();
+	        		}
+	        		else {
+	        			model.getGobjS().getPlayer().setyIncr(O_Y);
+	        		}
 	        		break;
 		}
 		
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		//System.out.println("key released");
 		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE) {
+		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
 			model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		//System.out.println("key typed");
-		
 	}
 	
 	

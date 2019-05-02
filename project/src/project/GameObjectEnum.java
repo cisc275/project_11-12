@@ -9,19 +9,19 @@ public enum GameObjectEnum {
 	g1Seaweed("seaweed"),
 	g2Food("striped_bass"),
 	g2Trash("seaweed");
-	
+
 	String imgFileName;
 	GameObjectEnum(String imgname){
 		this.imgFileName = imgname;
 	}
-	
-	
+
+
 	public String getImageFileName() {
 		return this.imgFileName;
 	}
-	
+
 	public String getFullImagePath() {
 		return "images/" + this.imgFileName + ".png";
 	}
-	
+
 }
