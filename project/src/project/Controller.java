@@ -23,8 +23,8 @@ public class Controller implements ActionListener, KeyListener {
 	boolean upflag = false;
 	boolean downflag = true;
 	
-	int CR_Y = (View.frameHeight/9 * 2) + 17;
-	int CR_X = View.frameWidth/5;
+	int CR_Y = 150;
+	int CR_X = 160;
 	int CR_Y_SPACE = 30;
 	int CR_BOUND = 250 + CR_Y;
 	int CR_BOUND_TOP = 250;
@@ -143,6 +143,9 @@ public class Controller implements ActionListener, KeyListener {
 		        		}
 		        		break;
 		        	case KeyEvent.VK_SPACE:
+					if (view.getContent() == "g2") {
+	        			model.eatFoodOrTrash();
+	        			}
 		        		if((model.getGobjS().getPlayer().getYloc() == CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == CR_BOUND_TOP) )
 		        		{
 		        			model.getGobjS().getPlayer().setyIncr(CR_Y_SPACE);
