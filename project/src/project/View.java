@@ -142,15 +142,12 @@ public class View extends JFrame{
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(background, 0, 0, Color.gray, this);
-			if (currentpanel == "g1") {
+			if (currentpanel == "g1" || currentpanel == "g2") {
+				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 			}
-			if (currentpanel == "g2") {
-				 this.paintPlayer(g);
-				 this.paintScoringObjects(g);
-			}
+			
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
@@ -158,7 +155,6 @@ public class View extends JFrame{
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-
 			}
 		}
 		
@@ -168,7 +164,7 @@ public class View extends JFrame{
 		
 		public void paintScoringObjects(Graphics g) {
 			for(ScoringObject so : GobjS.getScoringObjects()) {
-				g.drawImage(so.getImg(), so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
+				g.drawImage(so.getImg(), so.getXloc(), so.getYloc(), so.getImageWidth(), so.getImageHeight(), this);
 			}
 		}
 	}

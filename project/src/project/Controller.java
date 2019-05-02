@@ -36,7 +36,6 @@ public class Controller implements ActionListener, KeyListener {
 					view.addGameObjectStorageToView(model.getGobjS()); // change this so it only runs once
 					model.updateGame();
 					clockcount++;
-					
 					if (clockcount > 3000) { //3000*drawDelay[30] = 90000 = 1.5min
 						endGame();	
 					}

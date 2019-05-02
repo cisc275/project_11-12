@@ -13,6 +13,7 @@ public abstract class GameObject {
 	BufferedImage[][] imageArray;
 	Image img;
 	GameObjectEnum GobjEnum;
+	
 	GameObject(){
 		this.xloc = 0;
 		this.yloc = 0;
