@@ -1,22 +1,16 @@
 package project;
 
-import java.util.*;
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import project.View.DrawPanel;
@@ -37,7 +31,6 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
-	//lmao wtf are these names??? please make them more clear!!
 	Image g2_backimage;
 	Image g1_backimage;
 	Image osprey_image;
@@ -134,17 +127,14 @@ public class View extends JFrame{
 	public static String getContent() {
 		return currentpanel;
 	}
-	public void initializeGameImages() {
+	public void initializeBackground() {
 		if(currentpanel == "g1") {
-			GobjS.getPlayer().setImg(osprey_image);
 			this.background = g1_backimage;
 		}
 		else if(currentpanel == "g2") {
-			GobjS.getPlayer().setImg(clapperrail_image);
 			this.background = g2_backimage;
 		}
 		else {
-			GobjS.getPlayer().setImg(osprey_image);
 			this.background = g1_backimage;
 		}
 	}
@@ -153,48 +143,30 @@ public class View extends JFrame{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.drawImage(background, 0, 0, Color.gray, this);
-			//this.paintPlayer(g);
 			if (currentpanel == "g1") {
-					//g.drawImage(g1_backimage,0,0,Color.gray,this);
-					//g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-					this.paintPlayer(g);
-					this.paintG1ScoringObjects(g);
+				this.paintPlayer(g);
+				this.paintScoringObjects(g);
 			}
-			
 			if (currentpanel == "g2") {
-				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
-				 
-				for(ScoringObject so : GobjS.getScoringObjects()){
-					if (so.pointValue == 1) {
-						g.setColor(Color.GREEN);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					} else {
-						g.setColor(Color.RED);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					}
-					
-				}	
+				 this.paintPlayer(g);
+				 this.paintScoringObjects(g);
 			}
-			
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-
 			}
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 
 			}
-					
 		}
 		
 		public void paintPlayer(Graphics g) {
 			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 		}
 		
-		public void paintG1ScoringObjects(Graphics g) {
+		public void paintScoringObjects(Graphics g) {
 			for(ScoringObject so : GobjS.getScoringObjects()) {
 				g.drawImage(so.getImg(), so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
 			}

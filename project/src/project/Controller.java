@@ -30,15 +30,10 @@ public class Controller implements ActionListener, KeyListener {
 	Controller(){
 		this.initializeView();
 		this.initializeModel();
-		//view.addGameObjectStorageToView(model.getGobjS());
-		//model.addGameObjectStorageToModel(this.GobjS);
-		
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
-					view.addGameObjectStorageToView(model.getGobjS());
-					//maybe have a model accessory function.
-					//put gameObjectStorage in model, have a get gobjS from model and pass it into the view
+					view.addGameObjectStorageToView(model.getGobjS()); // change this so it only runs once
 					model.updateGame();
 					clockcount++;
 					
@@ -56,6 +51,7 @@ public class Controller implements ActionListener, KeyListener {
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
+		
 	}
 	public void endGame() {
 		if (view.getContent() == "g1") {
@@ -91,7 +87,7 @@ public class Controller implements ActionListener, KeyListener {
 			view.currentpanel = "m";
 			
 		}
-		view.initializeGameImages();
+		view.initializeBackground();
 	}
 
 	
