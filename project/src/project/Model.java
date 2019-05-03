@@ -190,7 +190,7 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return (int) location of clapper rail
-	 * @author Ken Chan
+	 * @author Anna Bortle
 	 */
 	public int findClapperRail() {
 		int loc = -1;
