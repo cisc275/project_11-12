@@ -127,6 +127,19 @@ public class View extends JFrame{
 	public static String getContent() {
 		return currentpanel;
 	}
+	
+	public void initializeBackground() {
+		if(currentpanel == "g1") {
+			this.background = g1_backimage;
+		}
+		else if(currentpanel == "g2") {
+			this.background = g2_backimage;
+		}
+		else {
+			this.background = g1_backimage;
+		}
+	}
+	
 	public void initializeGameImages() {
 		if(currentpanel == "g1") {
 			GobjS.getPlayer().setImg(osprey_image);
@@ -145,69 +158,37 @@ public class View extends JFrame{
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(background, 0, 0, Color.gray, this);
-			//this.paintPlayer(g);
-			if (currentpanel == "g1") {
-					//g.drawImage(g1_backimage,0,0,Color.gray,this);
-					//g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-					this.paintPlayer(g);
-					this.paintG1ScoringObjects(g);
-			}
-			
-			if (currentpanel == "g2") {
-				//g.drawImage(g2_backimage, 0,0,Color.gray,this);
-				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(),this);
-				
-				for(ScoringObject so : GobjS.getScoringObjects()){
-					if (so.pointValue == 1) {
-						g.setColor(Color.GREEN);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					} else {
-						g.setColor(Color.RED);
-						g.fillRect(so.xloc, so.yloc, so.imageWidth, so.imageHeight);
-					}
-					
-				}	
+			if (currentpanel == "g1" || currentpanel == "g2") {
+				g.drawImage(background, 0, 0, Color.gray, this);
+				this.paintPlayer(g);
+				this.paintScoringObjects(g);
 			}
 			
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-
 			}
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-
 			}
-					
 		}
+		
 		
 		public void paintPlayer(Graphics g) {
 			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 		}
 		
-		public void paintG1ScoringObjects(Graphics g) {
+		public void paintScoringObjects(Graphics g) {
 			for(ScoringObject so : GobjS.getScoringObjects()) {
-				
-				if(so.ID.equals("Fish1")) {
-					g.drawImage(strippedbass_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
-				else if (so.ID.equals("Fish2") || so.ID.equals("Fish3"))
-				{
-					g.drawImage(trout_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
-				if(so.ID.equals("Seaweed1") || so.ID.equals("Seaweed2") || so.ID.equals("Seaweed3"))
-				{
-					g.drawImage(seaweed_image, so.xloc, so.yloc, so.imageWidth, so.imageHeight, this);
-				}
+				g.drawImage(so.getImg(), so.getXloc(), so.getYloc(), so.getImageWidth(), so.getImageHeight(), this);
 			}
 		}
 		
 		
 	}
 	
-	
+
 	/**
 	 * adds the Controller class as the listener to buttons in View
 	 * @param the controller instance 

@@ -13,8 +13,8 @@ public class ClapperRail extends Player{
 	
 	BufferedImage[][] imageArray;
 
-	ClapperRail(int x, int y, int xInc, int yInc, int iW, int iH) {
-		super(x, y, xInc, yInc, iW, iH);
+	ClapperRail(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum) {
+		super(x, y, xInc, yInc, iW, iH, GobjEnum);
 	}
 	
 	

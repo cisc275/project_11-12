@@ -14,12 +14,14 @@ public class Scoring {
 	 */
 	public boolean updateScore(ScoringObject scoringobject) {
 		if(ScoringTable.add(scoringobject)) {
+			totalScore += scoringobject.pointValue;
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
+	
 	/**
 	 * Gets the amount of ScoringObjects with the given ID in ScoringTable
 	 * 
