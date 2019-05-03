@@ -163,7 +163,7 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
+	 * @author Anna Bortle
 	 */
 	public void eatFoodOrTrash() {
 		int loc = findClapperRail();
@@ -190,7 +190,7 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return (int) location of clapper rail
-	 * @author Hannah Bridge
+	 * @author Ken Chan
 	 */
 	public int findClapperRail() {
 		int loc = -1;
@@ -265,7 +265,7 @@ public class Model {
 	 * 
 	 * @param (ScoringObject) obj
 	 * @return (boolean) true/false
-	 * @author Hannah Bridge
+	 * @author Ken Chan
 	 */
 	public boolean checkIfScoringObjectIsOffScreen(ScoringObject obj) {
 		if(obj.xloc + obj.imageWidth <= 0) {
@@ -301,7 +301,7 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
+	 * @author Ken Chan
 	 */
 	public void initializeGameTwo() {
 		for (int i = 0; i < 8; i++) {
