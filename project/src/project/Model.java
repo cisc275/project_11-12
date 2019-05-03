@@ -72,9 +72,12 @@ public class Model {
 	}
 	
 	/**
-	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' move() methods
+	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' 
+	 * move() methods
+	 * 
 	 * @param none
 	 * @return none
+	 * @author Anna Bortle
 	 */
 	public void updateGame() {
 		if (View.getContent() == "g1") {
@@ -88,9 +91,10 @@ public class Model {
 	/**
 	 * Updates the state of Game 2: Clapper Rail:
 	 * creates and removes scoringObjects (food and trash), updates the location of the player.
-	 * @author Anna Bortle
+	 * 
 	 * @param none
 	 * @return none
+	 * @author Anna Bortle
 	 */
 	public void updateGameTwo() {
 		if (count % 70 == 0) {
@@ -108,9 +112,9 @@ public class Model {
 	 * respective g2occupancy to true. The method uses the scoringObject's index (same for g2locations & g2occupancy)
 	 * as its ID so that this specific scoringObject's g2locations & g2occupancy can be referenced and updated later on.
 	 * 
-	 * @author Anna Bortle
 	 * @param none
 	 * @return none
+	 * @author Anna Bortle
 	 */
 	public void createFoodOrTrash() {
 		int rand = r.nextInt(8);
@@ -152,6 +156,15 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * If g2occupancy has a location, it iterates through scoringObjects arraylist and removes scoringObjects 
+	 * whose location is the same as the clapper rail's location and updates the score appropriately based on 
+	 * if food or trash was at that location
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Hannah Bridge
+	 */
 	public void eatFoodOrTrash() {
 		int loc = findClapperRail();
 		if (g2occupancy[loc] != false) {
@@ -171,6 +184,14 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Creates a new point representing the clapper rail's x and y location. Goes through the clapperlocations
+	 * array to see if the clapper rail is at one of those 8 positions and returns the location.
+	 * 
+	 * @param none
+	 * @return (int) location of clapper rail
+	 * @author Hannah Bridge
+	 */
 	public int findClapperRail() {
 		int loc = -1;
 		Point cr_loc = new Point(GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc());
@@ -182,12 +203,29 @@ public class Model {
 		return loc;
 	}
 	
+	/**
+	 * Updates the state of Game 1: Osprey:
+	 * updates the scoringObjects (fish and seaweed), updates the location of the player.
+	 *
+	 * @param none
+	 * @return none
+	 * @author Hannah Bridge
+	 */
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
 		this.updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
 	}
 	
+	/**
+	 * Updates the scoring objects for game 1: osprey:
+	 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
+	 * new ones each time
+	 * 
+	 * @param (ArrayList) scoringObjects
+	 * @return none
+	 * @author Hannah Bridge
+	 */
 	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
 			scoringObjects.get(i).move();
@@ -222,6 +260,13 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Checks if the scoringObject is off the screen: returns true if it is, false otherwise
+	 * 
+	 * @param (ScoringObject) obj
+	 * @return (boolean) true/false
+	 * @author Hannah Bridge
+	 */
 	public boolean checkIfScoringObjectIsOffScreen(ScoringObject obj) {
 		if(obj.xloc + obj.imageWidth <= 0) {
 			return true;
@@ -231,6 +276,13 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Initializes game 1 by setting new osprey player and adding scoring objects (fish, seaweed) for each level
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Hannah Bridge
+	 */
 	public void initializeGameOne() {
 		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
 		
@@ -243,6 +295,14 @@ public class Model {
 		
 	}
 	
+	/**
+	 * Initializes game 2 by creating the 8 locations for the clapper rail (4 on the top row, 4 on the bottom row)
+	 * and setting new clapper rail player
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Hannah Bridge
+	 */
 	public void initializeGameTwo() {
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
@@ -260,7 +320,13 @@ public class Model {
 		score = new Scoring();
 	}
 
-	
+	/**
+	 * Creates new fish scoring objects for levels 1, 2, 3
+	 * 
+	 * @param (int) fishLevel
+	 * @return null
+	 * @author Hannah Bridge
+	 */
 	public ScoringObject createGameOneFish(int fishLevel) {
 		if(fishLevel == 1) {
 			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, "Fish1", F1_IMW, F_IMH, GameObjectEnum.g1Fish1));
@@ -271,7 +337,14 @@ public class Model {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Creates new seaweed scoring objects for levels 1, 2, 3
+	 * 
+	 * @param (int) seaweedLevel
+	 * @return null
+	 * @author Hannah Bridge
+	 */
 	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 		if(seaweedLevel == 1) {
 			return (new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, "Seaweed1", SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
@@ -289,9 +362,10 @@ public class Model {
 	 * Returns either a -1 or 1.
 	 * Return value used to assign a point value to a scoringObject in Game 2 (Clapper Rail).
 	 * A value of -1 denotes trash, and 1 denotes food.
-	 * @author Anna Bortle
+	 * 
 	 * @param none
 	 * @return integer: random -1 or 1
+	 * @author Anna Bortle
 	 */
 	public int foodOrTrash() {
 		int i = r.nextInt();
