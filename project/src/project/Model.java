@@ -72,7 +72,7 @@ public class Model {
 	}
 	
 	/**
-	 * updates all of the player and scoring objects based on world and keypresses by calling the objects' 
+	 * updates all of the player and scoring objects based on world and keypresses by calling the objects'
 	 * move() methods
 	 * 
 	 * @param none
@@ -91,6 +91,7 @@ public class Model {
 	/**
 	 * Updates the state of Game 2: Clapper Rail:
 	 * creates and removes scoringObjects (food and trash), updates the location of the player.
+	 * 
 	 * 
 	 * @param none
 	 * @return none
@@ -112,6 +113,7 @@ public class Model {
 	 * respective g2occupancy to true. The method uses the scoringObject's index (same for g2locations & g2occupancy)
 	 * as its ID so that this specific scoringObject's g2locations & g2occupancy can be referenced and updated later on.
 	 * 
+	 * 
 	 * @param none
 	 * @return none
 	 * @author Anna Bortle
@@ -130,7 +132,7 @@ public class Model {
 		else {
 			gobje = GameObjectEnum.g2Trash;
 		}
-		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, ID, 30, 30, gobje));
+		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, ID, 30, 50, gobje));
 		g2occupancy[rand] = true;
 	}
 	

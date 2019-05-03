@@ -7,8 +7,8 @@ public enum GameObjectEnum {
 	g1Fish2("striped_bass"),
 	g1Fish3("striped_bass"),
 	g1Seaweed("seaweed"),
-	g2Food("striped_bass"),
-	g2Trash("seaweed");
+	g2Food("food"),
+	g2Trash("trash");
 
 	String imgFileName;
 	GameObjectEnum(String imgname){
