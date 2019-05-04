@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import project.View.DrawPanel;
@@ -178,10 +179,12 @@ public class View extends JFrame{
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 		}
 		
@@ -198,7 +201,7 @@ public class View extends JFrame{
 		public void paintEggs(Graphics g) {
 			Random r = new Random();
 			for (int i=0; i < GobjS.score.totalScore;i++) {
-				g.drawImage(egg_image, 50,50+20*i, 40, 50, this);
+				g.drawImage(egg_image, 30+20*i,10, 40, 50, this);
 			}
 		}
 		
