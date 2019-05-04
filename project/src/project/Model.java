@@ -304,6 +304,8 @@ public class Model {
 	 */
 	public void initializeGameOne() {
 		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
+		score = new Scoring();
+		GobjS.setScore(score);
 		
 		GobjS.getScoringObjects().add(this.createGameOneFish(1));
 		GobjS.getScoringObjects().add(this.createGameOneFish(2));
