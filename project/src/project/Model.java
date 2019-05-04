@@ -95,7 +95,6 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Anna Bortle
 	 */
 	public void updateGameTwo() {
 		if (count % 70 == 0) {
@@ -120,16 +119,29 @@ public class Model {
 	 */
 	public void createFoodOrTrash() {
 		int rand = r.nextInt(8);
+		int randFood = r.nextInt(2)+1;
+		int randTrash = r.nextInt(2)+1;
 		while (g2occupancy[rand] == true) {
 			rand = r.nextInt(8);
 		}
 		int pointValue = foodOrTrash();
 		GameObjectEnum gobje;
 		if(pointValue == 1) {
-			gobje = GameObjectEnum.g2Food;
+			if(randFood == 1){
+				gobje = GameObjectEnum.g2Food;
+			}
+			else {
+				gobje = GameObjectEnum.g2Food2;
+			}	
 		}
 		else {
-			gobje = GameObjectEnum.g2Trash;
+			if(randTrash == 1) {
+				gobje = GameObjectEnum.g2Trash;
+			}
+			else {
+				gobje = GameObjectEnum.g2Trash2;
+			}
+			
 		}
 		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, 30, 50, gobje));
 		g2occupancy[rand] = true;
@@ -209,7 +221,6 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return (int) location of clapper rail
-	 * @author Anna Bortle
 	 */
 	public int findClapperRail() {
 		int loc = -1;
@@ -228,7 +239,6 @@ public class Model {
 	 *
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
 	 */
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
@@ -243,7 +253,6 @@ public class Model {
 	 * 
 	 * @param (ArrayList) scoringObjects
 	 * @return none
-	 * @author Hannah Bridge
 	 */
 	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
@@ -284,7 +293,6 @@ public class Model {
 	 * 
 	 * @param (ScoringObject) obj
 	 * @return (boolean) true/false
-	 * @author Ken Chan
 	 */
 	public boolean checkIfScoringObjectIsOffScreen(ScoringObject obj) {
 		if(obj.xloc + obj.imageWidth <= 0) {
@@ -300,7 +308,6 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
 	 */
 	public void initializeGameOne() {
 		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
@@ -322,7 +329,6 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Ken Chan
 	 */
 	public void initializeGameTwo() {
 		for (int i = 0; i < 8; i++) {
@@ -347,7 +353,6 @@ public class Model {
 	 * 
 	 * @param (int) fishLevel
 	 * @return null
-	 * @author Hannah Bridge
 	 */
 	public ScoringObject createGameOneFish(int fishLevel) {
 		if(fishLevel == 1) {
@@ -365,7 +370,6 @@ public class Model {
 	 * 
 	 * @param (int) seaweedLevel
 	 * @return null
-	 * @author Hannah Bridge
 	 */
 	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 		if(seaweedLevel == 1) {
