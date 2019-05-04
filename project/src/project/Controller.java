@@ -29,7 +29,7 @@ public class Controller implements ActionListener, KeyListener {
 	int CR_BOUND = 250 + CR_Y;
 	int CR_BOUND_TOP = 250;
 	int CR_BOUND_BOTTOM = 250 + CR_Y;
-	int O_Y = 50;
+	int O_Y = 15;
 	
 	Controller(){
 		this.initializeView();
@@ -91,7 +91,7 @@ public class Controller implements ActionListener, KeyListener {
 			view.cl.show(view.panelContainer, "0");
 			view.currentpanel = "m";
 		}
-		view.initializeGameImages();
+		view.initializeBackground();
 	}
 
 	

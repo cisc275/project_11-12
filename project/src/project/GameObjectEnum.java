@@ -5,7 +5,7 @@ public enum GameObjectEnum {
 	g2ClapperRail("cr_temp"),
 	g1Fish1("striped_bass"),
 	g1Fish2("striped_bass"),
-	g1Fish3("striped_bass"),
+	g1Fish3("trout_temp"),
 	g1Seaweed("seaweed"),
 	g2Food("food"),
 	g2Trash("trash");

@@ -130,7 +130,7 @@ public class ModelTest {
 		assertNotNull(s);
 		assertNotNull(s.ScoringTable);
 		
-		ScoringObject sc = new ScoringObject(0, 0, 10, 10, 1, "egg", 100, 100, GameObjectEnum.g2Food);
+		ScoringObject sc = new ScoringObject(0, 0, 10, 10, 1, 100, 100, GameObjectEnum.g2Food);
 		s.updateScore(sc);
 		
 		int actual = s.amountContained("egg");
@@ -148,7 +148,7 @@ public class ModelTest {
 	
 	@Test
 	public void scoringObjectTest() {
-		ScoringObject so = new ScoringObject(10,10,1,1,2,"Fish",100,100, GameObjectEnum.g1Fish1);
+		ScoringObject so = new ScoringObject(10,10,1,1,2,100,100, GameObjectEnum.g1Fish1);
 		assertNotNull(so);
 		
 		//test move()
@@ -160,7 +160,6 @@ public class ModelTest {
 		so.setxIncr(2);
 		so.setyIncr(2);
 		so.setPointValue(3);
-		so.setID("Trash");
 		so.setImageWidth(10);
 		so.setImageHeight(10);
 		
@@ -170,7 +169,6 @@ public class ModelTest {
 		int realxIncr = so.getxIncr();
 		int realyIncr = so.getyIncr();
 		int realpointValue = so.getPointValue();
-		String realID = so.getID();
 		int realimageW = so.getImageWidth();
 		int realimageH = so.getImageHeight();
 
@@ -181,7 +179,6 @@ public class ModelTest {
 		assertEquals(realxIncr, so.getxIncr());
 		assertEquals(realyIncr, so.getyIncr());
 		assertEquals(realpointValue, so.getPointValue());
-		assertEquals(realID, so.getID());
 		assertEquals(realimageW, so.getImageWidth());
 		assertEquals(realimageH, so.getImageHeight());
 	}
