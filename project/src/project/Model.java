@@ -337,6 +337,7 @@ public class Model {
 		
 		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
 		score = new Scoring();
+		GobjS.setScore(score);
 	}
 
 	/**
