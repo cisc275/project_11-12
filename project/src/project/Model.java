@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 public class Model {
 	
 	Player p;
+	Fox fox;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
 	int count;
@@ -102,9 +103,10 @@ public class Model {
 			for (int i=0; i < 3; i++) {
 				createFoodOrTrash();
 			}
-		}
+		}		
 		count ++;
 		GobjS.getPlayer().move();
+		GobjS.getFox().move();
 		updateFoodAndTrash();
 	}
 	
@@ -360,8 +362,8 @@ public class Model {
 				g2locations[i] = new Point(G2X*(i-3), G2Y2);
 			}
 		}	
-		
 		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
+		GobjS.setFox(new Fox(-100, 200, 1, 0, 150,150,GameObjectEnum.g2Fox));
 		score = new Scoring();
 		GobjS.setScore(score);
 	}
