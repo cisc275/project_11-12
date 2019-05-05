@@ -200,7 +200,7 @@ public class ModelTest {
 	
 	@Test
 	public void foxTest() {
-		Fox f = new Fox(5,5,1,1);
+		Fox f = new Fox(5,5,1,1,30,30,GameObjectEnum.g2Fox);
 		assertNotNull(f);
 		
 		assertEquals(10, f.questions.size());
@@ -208,8 +208,8 @@ public class ModelTest {
 		//test "setters"
 		f.setXloc(20);
 		f.setYloc(20);
-		f.setXincr(2);
-		f.setYincr(-2);
+		f.setxIncr(2);
+		f.setyIncr(-2);
 		
 		//test moveEnter()
 		f.moveEnter();
@@ -220,13 +220,13 @@ public class ModelTest {
 		//test "getters"
 		int realx = f.getXloc();
 		int realy = f.getYloc();
-		int realxIncr = f.getXincr();
-		int realyIncr = f.getYincr();
+		int realxIncr = f.getxIncr();
+		int realyIncr = f.getyIncr();
 
 		assertEquals(realx, f.xloc);
 		assertEquals(realy, f.yloc);
-		assertEquals(realxIncr, f.xincr);
-		assertEquals(realyIncr, f.yincr);
+		assertEquals(realxIncr, f.xIncr);
+		assertEquals(realyIncr, f.yIncr);
 
 	}
 
