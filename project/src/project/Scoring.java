@@ -30,10 +30,10 @@ public class Scoring {
 	 * @param ID the ID the method is trying to find the total amount of in ScoringTable
 	 * @return the amount of ScoringObjects with the given ID in ScoringTable
 	 */
-	public int amountContained(String ID) {
+	public int amountContained(GameObjectEnum gameEnum) {
 		int totalAmountContained = 0;
 		for(ScoringObject o: this.ScoringTable) {
-			if (o.ID.equals(ID)) {
+			if (o.GobjEnum == gameEnum) {
 				totalAmountContained++;
 			}
 		}
