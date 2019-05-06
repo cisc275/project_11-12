@@ -20,6 +20,8 @@ public class Model {
 	int G2Y2 = 450;
 	int G2X = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
+	boolean g1BoundaryCollision = false;
+	boolean g1ScoringObjectCollision = false;
 	Random r = new Random();
 	GameObjectStorage GobjS = new GameObjectStorage();
 	//initial values/positions for cr
@@ -250,7 +252,18 @@ public class Model {
 		//System.out.println("Game 1 updated");
 		updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
+<<<<<<< HEAD
+		this.checkIfPlayerCollidesWithBoundary();
+		if(GobjS.getPlayer().getYloc() <= 80) {
+			GobjS.getPlayer().setyIncr(0);
+			this.g1BoundaryCollision = false;
+			this.g1ScoringObjectCollision = false;
+		}
+		//if (this.checkIfPlayerCollidesWithBoundary()) {
+		//}
+=======
 		fishOrSeaWeed(GobjS.getScoringObjects());
+>>>>>>> 4fef4a31dcebba628d3c3bae3ce59c74d1ce79f2
 	}
 	
 	/**
@@ -263,27 +276,28 @@ public class Model {
 	 * 
 	 * @param (ArrayList) scoringObjects
 	 * @return none
-	 * @author Hannah Bridge
+	 * @author Hannah Bridge and Ken Chan
 	 */
 	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
 			scoringObjects.get(i).move();
 			Rectangle o1 = GobjS.getScoringObjects().get(i).getBounds();
-			collisionG1(o1);
-			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish1 || scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish2 || scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish3) {
-				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
-					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneFish(1));
-				} 
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
-					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneFish(2));
-					Rectangle o2 = GobjS.getScoringObjects().get(i).getBounds();
+			//collisionG1(o1);
+			if(this.collisionG1(GobjS.getScoringObjects().get(i).getBounds())) {
+				this.score.updateScore(scoringObjects.get(i));
+				if(scoringObjects.get(i).GobjEnum != GameObjectEnum.g1Seaweed) {
+					scoringObjects.add(this.createGameOneRandomFish());
 				}
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 3) {
+				else {
+					scoringObjects.add(this.createGameOneRandomSeaweed());
+				}
+				scoringObjects.remove(i);
+				System.out.println(this.score.totalScore);
+			}
+			if(scoringObjects.get(i).GobjEnum != GameObjectEnum.g1Seaweed) {
+				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i))){
 					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneFish(3));
-					Rectangle o3 = GobjS.getScoringObjects().get(i).getBounds();
+					scoringObjects.add(this.createGameOneRandomFish());
 				}
 			}
 			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Seaweed) {
@@ -301,6 +315,10 @@ public class Model {
 				}
 			}
 		}
+	}
+	
+	public void updateGameOneSeaweed() {
+		
 	}
 	
 	/**
@@ -324,7 +342,7 @@ public class Model {
 	 * 
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
+	 * @author Ken Chan
 	 */
 	public void initializeGameOne() {
 		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
@@ -337,7 +355,8 @@ public class Model {
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(1));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(2));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(3));
-		
+		GobjS.getScoringObjects().add(this.createGameOneRandomFish());
+		GobjS.getScoringObjects().add(this.createGameOneRandomFish());
 	}
 	
 	/**
@@ -371,7 +390,7 @@ public class Model {
 	 * 
 	 * @param (int) fishLevel
 	 * @return null
-	 * @author Hannah Bridge
+	 * @author Ken Chan
 	 */
 	public ScoringObject createGameOneFish(int fishLevel) {
 		if(fishLevel == 1) {
@@ -384,6 +403,24 @@ public class Model {
 		return null;
 	}
 	
+	public ScoringObject createGameOneRandomFish() {
+		//magic numbers here
+		int fishRand = (int)(Math.random() * 9);
+		if(fishRand == 0 || fishRand == 1 || fishRand == 2) {
+			return this.createGameOneFish(1);
+		}
+		else if(fishRand == 3 || fishRand == 4) {
+			return this.createGameOneFish(3);
+		}
+		else {
+			return this.createGameOneFish(2);
+		}
+	}
+	public ScoringObject createGameOneRandomSeaweed() {
+		int seaweedRand = (int)((Math.random() * 3) + 1);
+		return this.createGameOneSeaweed(seaweedRand);
+		
+	}
 	/**
 	 * Creates new seaweed scoring objects for levels 1, 2, 3
 	 * 
@@ -438,16 +475,28 @@ public class Model {
 
 	public boolean collisionG1(Rectangle o1) {
 		Rectangle OP = GobjS.getPlayer().getBounds();
-
-
-		if(OP.intersects(o1)) {
+		if(!this.g1BoundaryCollision && !this.g1ScoringObjectCollision && OP.intersects(o1)) {
 			System.out.println("Collision detected");
+			this.g1ScoringObjectCollision = true;
+			GobjS.getPlayer().setyIncr(-35);
 			return true;
-
 		} else {
 			return false;
 		}
 	}
+<<<<<<< HEAD
+	
+	public boolean checkIfPlayerCollidesWithBoundary() {
+		if(GobjS.getPlayer().getYloc() + GobjS.getPlayer().getImageHeight() >= View.frameHeight) {
+			this.g1BoundaryCollision = true;
+			GobjS.getPlayer().setyIncr(-35);
+			return true;
+		}
+		else
+			return false;
+	}
+}
+=======
 <<<<<<< HEAD
 	public void fishOrSeaWeed(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
@@ -474,3 +523,4 @@ public class Model {
 
 }
 >>>>>>> efa9a0b249aaed3aca6d83e01b60b34728a4c5c2
+>>>>>>> 4fef4a31dcebba628d3c3bae3ce59c74d1ce79f2

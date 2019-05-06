@@ -29,7 +29,7 @@ public class Controller implements ActionListener, KeyListener {
 	int CR_BOUND = 250 + CR_Y;
 	int CR_BOUND_TOP = 250;
 	int CR_BOUND_BOTTOM = 250 + CR_Y;
-	int O_Y = 15;
+	int O_Y = 35;
 	
 	Controller(){
 		this.initializeView();
@@ -144,9 +144,10 @@ public class Controller implements ActionListener, KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		System.out.println("space");
+	        		//System.out.println("space");
 	        		if (view.getContent() == "g2") {
 	        			model.eatFoodOrTrash();
+	        			System.out.println("g1 space pressed");
 	        		}
 	        		if((model.getGobjS().getPlayer().getYloc() == CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == CR_BOUND_TOP) )
 	        		{
@@ -175,7 +176,7 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
 		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
-			model.getGobjS().getPlayer().setyIncr(-O_Y);
+			//model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
 		if(key == KeyEvent.VK_SPACE && view.getContent() == "g2") {
 			model.getGobjS().getPlayer().setyIncr(-CR_Y_SPACE);
@@ -183,6 +184,10 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+		int key = arg0.getKeyCode();
+		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
+			System.out.println("space typed");
+		}
 	}
 	
 	

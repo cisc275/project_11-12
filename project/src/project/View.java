@@ -171,6 +171,7 @@ public class View extends JFrame{
 				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
+				//System.out.println(GobjS.getPlayer().getyIncr());
 			}
 			if (currentpanel == "g2") {
 				g.drawImage(background, 0, 0, Color.gray, this);

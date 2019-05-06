@@ -30,16 +30,8 @@ public class ScoringObject extends GameObject{
 	public void move() {
 		this.xloc += this.xIncr;
 		this.yloc += this.yIncr;
+		super.updateBounds();
 	}
-	/*
-	public String getID() {
-		return ID;
-	}
-
-	public void setID(String iD) {
-		this.ID = iD;
-	}
-    */
 	
 	public int getPointValue() {
 		return pointValue;

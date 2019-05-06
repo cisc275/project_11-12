@@ -13,6 +13,7 @@ public abstract class GameObject {
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
 	Image img;
+	Rectangle bounds;
 	GameObjectEnum GobjEnum;
 	
 	GameObject(){
@@ -23,6 +24,8 @@ public abstract class GameObject {
 		this.imageWidth = 0;
 		this.imageHeight = 0;
 		this.img = null;
+		this.GobjEnum = null;
+		bounds = null;
 	}
 	
 	GameObject(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum){
@@ -34,8 +37,16 @@ public abstract class GameObject {
 		this.imageHeight = iH;
 		this.GobjEnum = GobjEnum;
 		this.img = this.loadImage();
+		this.bounds = this.loadBounds();
 	}
 	
+	public Rectangle loadBounds() {
+		return (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+	}
+	
+	public void updateBounds() {
+		this.bounds = (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+	}
 	public Image loadImage() {
 		try {
 			return ImageIO.read(new File (this.GobjEnum.getFullImagePath()));
@@ -99,6 +110,6 @@ public abstract class GameObject {
 	}
 	
 	public Rectangle getBounds() {
-		return (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+		return this.bounds;
 	}
 }

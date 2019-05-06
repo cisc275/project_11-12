@@ -30,6 +30,7 @@ public class ClapperRail extends Player{
 		xIncr = 0;
 		yloc += yIncr;
 		yIncr = 0;
+		super.updateBounds();
 	}
 
 	/*
