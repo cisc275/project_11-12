@@ -101,5 +101,4 @@ public abstract class GameObject {
 	public Rectangle getBounds() {
 		return (new Rectangle(xloc,yloc,imageWidth,imageHeight));
 	}
-	
 }

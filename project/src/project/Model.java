@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 public class Model {
 	
 	Player p;
+	Fox fox;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
 	int count;
@@ -102,9 +103,12 @@ public class Model {
 			for (int i=0; i < 3; i++) {
 				createFoodOrTrash();
 			}
-		}
+		}		
 		count ++;
 		GobjS.getPlayer().move();
+		if (count > 1000) {
+			GobjS.getFox().move();
+		}
 		updateFoodAndTrash();
 	}
 	
@@ -240,7 +244,7 @@ public class Model {
 	 *
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge
+	 * @author Hannah Bridge and Brendan Azueta
 	 */
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
@@ -251,13 +255,14 @@ public class Model {
 	/**
 	 * Updates the scoring objects for game 1: osprey:
 	 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
+	 * new ones each time
 	 * new ones each time.
 	 * Creates a rectangle for each object and using the collisionG1 method it checks if the player's rectangle intersects with
 	 * any of the scoring objects. 
 	 * 
 	 * @param (ArrayList) scoringObjects
 	 * @return none
-	 * @author Hannah Bridge and Brendan Azueta
+	 * @author Hannah Bridge
 	 */
 	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
@@ -268,20 +273,16 @@ public class Model {
 				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 1) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneFish(1));
-					
-					
 				} 
 				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 2) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneFish(2));
 					Rectangle o2 = GobjS.getScoringObjects().get(i).getBounds();
-			
 				}
 				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).pointValue == 3) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneFish(3));
 					Rectangle o3 = GobjS.getScoringObjects().get(i).getBounds();
-		
 				}
 			}
 			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Seaweed) {
@@ -298,9 +299,7 @@ public class Model {
 					scoringObjects.add(this.createGameOneSeaweed(3));
 				}
 			}
-
 		}
-		
 	}
 	
 	/**
@@ -360,8 +359,8 @@ public class Model {
 				g2locations[i] = new Point(G2X*(i-3), G2Y2);
 			}
 		}	
-		
 		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
+		GobjS.setFox(new Fox(-200, 200, 1, 0, 150,150,GameObjectEnum.g2Fox));
 		score = new Scoring();
 		GobjS.setScore(score);
 	}
@@ -426,7 +425,7 @@ public class Model {
 	public GameObjectStorage getGobjS() {
 		return this.GobjS;
 	}
-	
+
 	/**
 	 * Creates a rectangle object for the Osprey. Checks if the player intersects with any of the rectangles.
 	 * If the Osprey intersects with any of the scoring objects it returns true, otherwise false.
@@ -435,19 +434,18 @@ public class Model {
 	 * @return (boolean) true/false
 	 * @author Brendan Azueta
 	 */
-	
+
 	public boolean collisionG1(Rectangle o1) {
 		Rectangle OP = GobjS.getPlayer().getBounds();
 
-		
+
 		if(OP.intersects(o1)) {
 			System.out.println("Collision detected");
 			return true;
-			
+
 		} else {
 			return false;
 		}
 	}
-	
-	
+
 }
