@@ -252,18 +252,12 @@ public class Model {
 		//System.out.println("Game 1 updated");
 		updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
-<<<<<<< HEAD
 		this.checkIfPlayerCollidesWithBoundary();
 		if(GobjS.getPlayer().getYloc() <= 80) {
 			GobjS.getPlayer().setyIncr(0);
 			this.g1BoundaryCollision = false;
 			this.g1ScoringObjectCollision = false;
 		}
-		//if (this.checkIfPlayerCollidesWithBoundary()) {
-		//}
-=======
-		fishOrSeaWeed(GobjS.getScoringObjects());
->>>>>>> 4fef4a31dcebba628d3c3bae3ce59c74d1ce79f2
 	}
 	
 	/**
@@ -484,7 +478,6 @@ public class Model {
 			return false;
 		}
 	}
-<<<<<<< HEAD
 	
 	public boolean checkIfPlayerCollidesWithBoundary() {
 		if(GobjS.getPlayer().getYloc() + GobjS.getPlayer().getImageHeight() >= View.frameHeight) {
@@ -495,9 +488,8 @@ public class Model {
 		else
 			return false;
 	}
-}
-=======
-<<<<<<< HEAD
+
+
 	public void fishOrSeaWeed(ArrayList<ScoringObject> scoringObjects) {
 		for(int i = 0; i < scoringObjects.size(); i++) {
 			Rectangle o1 = GobjS.getScoringObjects().get(i).getBounds();
@@ -519,8 +511,5 @@ public class Model {
 		}
 		
 	}
-=======
 
-}
->>>>>>> efa9a0b249aaed3aca6d83e01b60b34728a4c5c2
->>>>>>> 4fef4a31dcebba628d3c3bae3ce59c74d1ce79f2
+
