@@ -9,8 +9,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import project.View.DrawPanel;
@@ -39,6 +42,9 @@ public class View extends JFrame{
 	Image seaweed_image;
 	Image strippedbass_image;
 	Image background;
+	Image egg_image;
+	Image fox_image;
+	
 	int rand;
 	static boolean randflag = true;
 	
@@ -52,10 +58,13 @@ public class View extends JFrame{
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
 			osprey_image = ImageIO.read(new File("images/o_temp.png"));
 			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
+			egg_image = ImageIO.read(new File("images/egg.png"));
+			fox_image = ImageIO.read(new File("images/fox.png"));
 			
 			trout_image = ImageIO.read(new File("images/trout_temp.png"));
 			seaweed_image = ImageIO.read(new File("images/seaweed.png"));
 			strippedbass_image = ImageIO.read(new File("images/striped_bass.png"));
+			
 			
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -158,19 +167,27 @@ public class View extends JFrame{
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if (currentpanel == "g1" || currentpanel == "g2") {
+			if (currentpanel == "g1") {
 				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 			}
-			
+			if (currentpanel == "g2") {
+				g.drawImage(background, 0, 0, Color.gray, this);
+				this.paintPlayer(g);
+				this.paintScoringObjects(g);
+				this.paintEggs(g);
+				this.paintFox(g);
+			}
 			if (currentpanel == "e1") {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 			if (currentpanel == "e2") {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 		}
 		
@@ -183,6 +200,15 @@ public class View extends JFrame{
 			for(ScoringObject so : GobjS.getScoringObjects()) {
 				g.drawImage(so.getImg(), so.getXloc(), so.getYloc(), so.getImageWidth(), so.getImageHeight(), this);
 			}
+		}
+		public void paintEggs(Graphics g) {
+			Random r = new Random();
+			for (int i=0; i < GobjS.score.totalScore;i++) {
+				g.drawImage(egg_image, 30+20*i,10, 40, 50, this);
+			}
+		}
+		public void paintFox(Graphics g) {
+			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
 		}
 		
 		

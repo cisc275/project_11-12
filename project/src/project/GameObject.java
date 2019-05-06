@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -97,4 +98,7 @@ public abstract class GameObject {
 		this.img = img;
 	}
 	
+	public Rectangle getBounds() {
+		return (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+	}
 }
