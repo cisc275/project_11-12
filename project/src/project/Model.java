@@ -244,8 +244,9 @@ public class Model {
 	 */
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
-		this.updateGameOneScoringObjects(GobjS.getScoringObjects());
+		updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
+		fishOrSeaWeed(GobjS.getScoringObjects());
 	}
 	
 	/**
@@ -448,6 +449,24 @@ public class Model {
 			return false;
 		}
 	}
-	
-	
-}
+	public void fishOrSeaWeed(ArrayList<ScoringObject> scoringObjects) {
+		for(int i = 0; i < scoringObjects.size(); i++) {
+			Rectangle o1 = GobjS.getScoringObjects().get(i).getBounds();
+			if(collisionG1(o1) == true) {
+			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish1 || scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish2 || scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Fish3) {
+				System.out.println("its a fish");
+					
+					
+				} 
+			
+			else if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Seaweed) {
+				System.out.println("its a seaweed");
+			
+			}
+	}
+		}
+		
+
+		}
+		
+	}
