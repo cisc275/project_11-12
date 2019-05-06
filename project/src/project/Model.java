@@ -62,7 +62,7 @@ public class Model {
 	int SW1_SPEED = -4;  
 	int SW2_SPEED = -3;
 	int SW3_SPEED = -2;
-	int SW_PV = -1;
+	int SW_PV = -2;
 	int SW_IMH = 50;
 	int SW_IMW = 50;
 	

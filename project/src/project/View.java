@@ -43,6 +43,7 @@ public class View extends JFrame{
 	Image strippedbass_image;
 	Image background;
 	Image egg_image;
+	Image energy_image;
 	Image fox_image;
 	
 	int rand;
@@ -59,6 +60,7 @@ public class View extends JFrame{
 			osprey_image = ImageIO.read(new File("images/o_temp.png"));
 			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
 			egg_image = ImageIO.read(new File("images/egg.png"));
+			energy_image = ImageIO.read(new File("images/energy.png"));
 			fox_image = ImageIO.read(new File("images/fox.png"));
 			
 			trout_image = ImageIO.read(new File("images/trout_temp.png"));
@@ -171,6 +173,7 @@ public class View extends JFrame{
 				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
+				this.paintEnergy(g);
 				//System.out.println(GobjS.getPlayer().getyIncr());
 			}
 			if (currentpanel == "g2") {
@@ -210,6 +213,12 @@ public class View extends JFrame{
 		}
 		public void paintFox(Graphics g) {
 			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
+		}
+		
+		public void paintEnergy(Graphics g) {
+			for (int i=0; i < GobjS.score.totalScore;i++) {
+				g.drawImage(energy_image, 5+20*i,10, 30, 40, this);
+			}
 		}
 		
 		
