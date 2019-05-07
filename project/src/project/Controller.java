@@ -88,6 +88,7 @@ public class Controller implements ActionListener, KeyListener {
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
 			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+			clockcount = 0; //reset game timer
 			view.cl.show(view.panelContainer, "0");
 			view.currentpanel = "m";
 		}
