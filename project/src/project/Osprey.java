@@ -9,7 +9,6 @@ public class Osprey extends Player{
 		super(x, y, xInc, yInc, iW, iH, GobjEnum);
 	}
 	
-	
 	/**
 	 * updates location(xloc and yloc) for osprey object
 	 * @param none
@@ -17,22 +16,10 @@ public class Osprey extends Player{
 	 * @author Ken Chan
 	 */
 	public void move() {
-		//xloc += xIncr;
 		yloc += yIncr;
-		
 		if (yloc < 0) {
 			yloc = 0;
-			
 		}
-		//if(this.yloc + this.imageHeight >= View.frameHeight) {
-			//yIncr = -35;
-			//yloc = View.frameHeight - this.imageHeight;
-		//}
-		/*
-		if(this.yloc <= 80) {
-			yIncr = 0;
-		}
-		*/
 		super.updateBounds();
 	}
 }

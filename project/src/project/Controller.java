@@ -88,8 +88,8 @@ public class Controller implements ActionListener, KeyListener {
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
 			System.out.println("menu button pressed");
 			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
-			clockcount = 0; //reset game timer
 			view.cl.show(view.panelContainer, "0");
+			clockcount = 0;
 			view.currentpanel = "m";
 		}
 		view.initializeBackground();
@@ -111,7 +111,7 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(model.getGobjS().getPlayer().imageHeight == model.CR_IMH) {
+		if(model.getGobjS().getPlayer().imageHeight == Constants.CR_IMH) {
 			int k = e.getKeyCode();
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
@@ -148,7 +148,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		//System.out.println("space");
 	        		if (view.getContent() == "g2") {
 	        			model.eatFoodOrTrash();
-	        			System.out.println("g1 space pressed");
+	        			System.out.println("g2 space pressed");
 	        		}
 	        		if((model.getGobjS().getPlayer().getYloc() == CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == CR_BOUND_TOP) )
 	        		{
@@ -160,7 +160,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		break;
 			}
 		}
-			if(model.getGobjS().p.imageHeight == model.O_IMH) {
+			if(model.getGobjS().p.imageHeight == Constants.O_IMH) {
 				
 				int k = e.getKeyCode();
 				switch( k ) { 

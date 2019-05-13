@@ -1,7 +1,7 @@
 package project;
 
-//revision 1
 import java.util.*;
+
 public class GameObjectStorage {
 	Player p;
 	Fox f;

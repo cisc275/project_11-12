@@ -14,10 +14,10 @@ public enum GameObjectEnum {
 	g2Fox("fox");
 
 	String imgFileName;
+	
 	GameObjectEnum(String imgname){
 		this.imgFileName = imgname;
 	}
-
 
 	public String getImageFileName() {
 		return this.imgFileName;

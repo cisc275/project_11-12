@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public abstract class GameObject {
@@ -100,15 +99,12 @@ public abstract class GameObject {
 	public void setImageArray(BufferedImage[][] imageArray) {
 		this.imageArray = imageArray;
 	}
-
 	public Image getImg() {
 		return img;
 	}
-
 	public void setImg(Image img) {
 		this.img = img;
 	}
-	
 	public Rectangle getBounds() {
 		return this.bounds;
 	}

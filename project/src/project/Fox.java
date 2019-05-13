@@ -51,49 +51,6 @@ public class Fox extends GameObject{
 		yloc +=-yIncr;
 		
 	}
-/*
-	public void setXloc(int i) {
-		this.xloc = i;
-		
-	}
-
-	public void setYloc(int i) {
-		this.yloc = i;
-		
-	}
-
-	public void setXincr(int i) {
-		this.xincr = i;
-		
-	}
-
-	public void setYincr(int i) {
-		this.yincr = i;
-		
-	}
-
-	public int getXloc() {
-		// TODO Auto-generated method stub
-		return this.xloc;
-	}
-	public int getYloc() {
-		// TODO Auto-generated method stub
-		return this.yloc;
-	}
-	public int getXincr() {
-		// TODO Auto-generated method stub
-		return this.xincr;
-	}
-	public int getYincr() {
-		// TODO Auto-generated method stub
-		return this.yincr;
-	}
-
-	public Image getImg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
 
 	@Override
 	public void move() {

@@ -16,60 +16,12 @@ public class Model {
 	int count;
 	Point[] g2locations = new Point[8];
 	Point[] clapperlocations = new Point[8];
-	int G2Y = 300;
-	int G2Y2 = 450;
-	int G2X = (View.frameWidth/5);
 	boolean[] g2occupancy = new boolean[8];
 	boolean g1BoundaryCollision = false;
 	boolean g1ScoringObjectCollision = false;
 	Random r = new Random();
 	GameObjectStorage GobjS = new GameObjectStorage();
-	//initial values/positions for cr
-	int CRX_I = 140;
-	int CRY_I = 250;
-	int CR_Y = 150;
-	int CR_X = 160;
-	int CRX_INCR_I = 0;
-	int CRY_INCR_I = 0;
-	int CR_IMH = 50;
-	int CR_IMW = 50;
 	
-	//initial values/positions for o
-	int OX_I = (View.frameWidth / 2) - 100;
-	int OY_I = 100;
-	int OX_INCR_I = 0;
-	int OY_INCR_I = 0;
-	int O_IMH = 75;
-	int O_IMW = 110;
-	
-	//initial values/positions for scoring object (fish)
-	int FX_I = View.frameWidth - 100;
-	int FY_INCR_I = 0;
-	int F1_SPEED = -5;
-	int F2_SPEED = -4;
-	int F3_SPEED = -3;
-	int F1_PV = 1;
-	int F2_PV = 2;
-	int F3_PV = 3;
-	int F_IMH = 50;
-	int F1_IMW = 50;
-	int F2_IMW = 75;
-	int F3_IMW = 100;
-	
-	//initial values/positions for scoring object (seaweed)
-	int SWX_I = View.frameWidth;
-	int SWY_INCR_I = 0;
-	int SW1_SPEED = -4;  
-	int SW2_SPEED = -3;
-	int SW3_SPEED = -2;
-	int SW_PV = -2;
-	int SW_IMH = 50;
-	int SW_IMW = 50;
-	
-	//levels for both scoring objects (game1)
-	int SO_LEVEL1 = 275;
-	int SO_LEVEL2 = 375;
-	int SO_LEVEL3 = 475;
 	
 	//******GENERAL******//
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
@@ -106,7 +58,7 @@ public class Model {
 	 * @author Ken Chan
 	 */
 	public void initializeGameOne() {
-		GobjS.setPlayer(new Osprey(OX_I, OY_I, OX_INCR_I, OY_INCR_I, O_IMW, O_IMH, GameObjectEnum.g1Osprey));
+		GobjS.setPlayer(new Osprey(Constants.OX_I, Constants.OY_I, Constants.OX_INCR_I, Constants.OY_INCR_I, Constants.O_IMW, Constants.O_IMH, GameObjectEnum.g1Osprey));
 		score = new Scoring();
 		GobjS.setScore(score);
 		
@@ -133,7 +85,7 @@ public class Model {
 		updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
 		this.checkIfPlayerCollidesWithBoundary();
-		if(GobjS.getPlayer().getYloc() <= 80) {
+		if(GobjS.getPlayer().getYloc() <= Constants.O_YBound) {
 			GobjS.getPlayer().setyIncr(0);
 			this.g1BoundaryCollision = false;
 			this.g1ScoringObjectCollision = false;
@@ -174,15 +126,15 @@ public class Model {
 				}
 			}
 			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Seaweed) {
-				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -4) {
+				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW1_SPEED) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneSeaweed(1));
 				} 
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -3) {
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW2_SPEED) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneSeaweed(2));
 				}
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == -2) {
+				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW3_SPEED) {
 					scoringObjects.remove(i);
 					scoringObjects.add(this.createGameOneSeaweed(3));
 				}
@@ -218,11 +170,11 @@ public class Model {
 	 */
 	public ScoringObject createGameOneFish(int fishLevel) {
 		if(fishLevel == 1) {
-			return (new ScoringObject(FX_I, SO_LEVEL1, F1_SPEED, FY_INCR_I, F1_PV, F1_IMW, F_IMH, GameObjectEnum.g1Fish1));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL1, Constants.F1_SPEED, Constants.FY_INCR_I, Constants.F1_PV, Constants.F1_IMW, Constants.F_IMH, GameObjectEnum.g1Fish1));
 		} if(fishLevel == 2) {
-			return (new ScoringObject(FX_I, SO_LEVEL2, F2_SPEED, FY_INCR_I, F2_PV, F2_IMW, F_IMH, GameObjectEnum.g1Fish2));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL2, Constants.F2_SPEED, Constants.FY_INCR_I, Constants.F2_PV, Constants.F2_IMW, Constants.F_IMH, GameObjectEnum.g1Fish2));
 		} if(fishLevel == 3) {
-			return (new ScoringObject(FX_I, SO_LEVEL3, F3_SPEED, FY_INCR_I, F3_PV, F3_IMW, F_IMH, GameObjectEnum.g1Fish3));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL3, Constants.F3_SPEED, Constants.FY_INCR_I, Constants.F3_PV, Constants.F3_IMW, Constants.F_IMH, GameObjectEnum.g1Fish3));
 		}
 		return null;
 	}
@@ -255,13 +207,13 @@ public class Model {
 	 */
 	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 		if(seaweedLevel == 1) {
-			return (new ScoringObject(SWX_I, SO_LEVEL1, SW1_SPEED, SWY_INCR_I, SW_PV, SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL1, Constants.SW1_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		if(seaweedLevel == 2) {
-			return (new ScoringObject(SWX_I, SO_LEVEL2, SW2_SPEED, SWY_INCR_I, SW_PV,  SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL2, Constants.SW2_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		} 
 		if(seaweedLevel == 3) {
-			return (new ScoringObject(SWX_I, SO_LEVEL3, SW3_SPEED, SWY_INCR_I, SW_PV,  SW_IMW, SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL3, Constants.SW3_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		return null;
 	}
@@ -280,7 +232,7 @@ public class Model {
 		if(!this.g1BoundaryCollision && !this.g1ScoringObjectCollision && OP.intersects(o1)) {
 			System.out.println("Collision detected");
 			this.g1ScoringObjectCollision = true;
-			GobjS.getPlayer().setyIncr(-35);
+			GobjS.getPlayer().setyIncr(Constants.O_upwardsYIncr);
 			return true;
 		} else {
 			return false;
@@ -290,7 +242,7 @@ public class Model {
 	public boolean checkIfPlayerCollidesWithBoundary() {
 		if(GobjS.getPlayer().getYloc() + GobjS.getPlayer().getImageHeight() >= View.frameHeight) {
 			this.g1BoundaryCollision = true;
-			GobjS.getPlayer().setyIncr(-35);
+			GobjS.getPlayer().setyIncr(Constants.O_upwardsYIncr);
 			return true;
 		}
 		else
@@ -324,14 +276,14 @@ public class Model {
 	 * @author Anna Bortle
 	 */
 	public void updateGameTwo() {
-		if (count % 70 == 0) {
-			for (int i=0; i < 3; i++) {
+		if (count % Constants.refreshTime == 0) {
+			for (int i=0; i < Constants.numNew; i++) {
 				createFoodOrTrash();
 			}
 		}		
 		count ++;
 		GobjS.getPlayer().move();
-		if (count > 1000) {
+		if (count > Constants.foxTime) {
 			GobjS.getFox().move();
 		}
 		updateFoodAndTrash();
@@ -370,7 +322,7 @@ public class Model {
 				gobje = GameObjectEnum.g2Trash2;
 			}
 		}
-		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, 0, 0, pointValue, 30, 50, gobje));
+		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
 		g2occupancy[rand] = true;
 	}
 	
@@ -473,16 +425,16 @@ public class Model {
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
 			if (i < 4) {
-				clapperlocations[i] = new Point(CRX_I+CR_X*(i), CRY_I);	
-				g2locations[i] = new Point(G2X*(i+1), G2Y);
+				clapperlocations[i] = new Point(Constants.CRX_I+Constants.CR_X*(i), Constants.CRY_I);	
+				g2locations[i] = new Point(Constants.G2X*(i+1), Constants.G2Y);
 			}
 			else {
-				clapperlocations[i] = new Point(CRX_I+CR_X*(i-4), CRY_I+CR_Y);
-				g2locations[i] = new Point(G2X*(i-3), G2Y2);
+				clapperlocations[i] = new Point(Constants.CRX_I + Constants.CR_X*(i-4), Constants.CRY_I+Constants.CR_Y);
+				g2locations[i] = new Point(Constants.G2X*(i-3), Constants.G2Y2);
 			}
 		}	
-		GobjS.setPlayer(new ClapperRail(CRX_I, CRY_I, CRX_INCR_I, CRY_INCR_I, CR_IMW, CR_IMH, GameObjectEnum.g2ClapperRail));
-		GobjS.setFox(new Fox(-200, 200, 1, 0, 150,150,GameObjectEnum.g2Fox));
+		GobjS.setPlayer(new ClapperRail(Constants.CRX_I, Constants.CRY_I, Constants.CRX_INCR_I, Constants.CRY_INCR_I, Constants.CR_IMW, Constants.CR_IMH, GameObjectEnum.g2ClapperRail));
+		GobjS.setFox(new Fox(Constants.FX_X, Constants.FX_Y, Constants.FX_XI, Constants.FX_YI, Constants.FX_IMW, Constants.FX_IMH, GameObjectEnum.g2Fox));
 		score = new Scoring();
 		GobjS.setScore(score);
 	}
@@ -505,5 +457,7 @@ public class Model {
 			return 1;
 		}
 	}
-
+	
 }
+
+

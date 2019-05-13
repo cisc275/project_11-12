@@ -8,7 +8,6 @@ public class ScoringObject extends GameObject{
 	BufferedImage[][] imageArray;
 	//Game 1 Variables
 	
-	
 	//Game 2 Variables
 	final static int g2_lifetime = 65;
 	int lifetime = 0;
